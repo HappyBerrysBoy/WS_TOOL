@@ -9,7 +9,8 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://steemit.com/*"],
+      "matches": ["https://steemit.com/*"], 
+      // "exclude_matches": ["https://steemit.com/@*"],
       "run_at": "document_idle",
       "js": ["thirdParty/jquery3.3.1.min.js", "content_script.js"],
       "css": ["content_style.css"]
