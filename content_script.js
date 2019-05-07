@@ -1,15 +1,25 @@
-console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
-$(".App__content").before(`
-<div>
-  <hr>
-  <center>
-  <a href="#">전체</a> |
-  <a href="#">일상</a> |
-  <a href="#">도서</a> |
-  <a href="#">게임</a> |
-  <a href="#">코딩</a> |
-  <a href="#">예술</a> |
-  </center>
-  <hr>
-</div>
-`);
+const content = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue Sample</title>
+  </head>
+  <body>
+    <div id="apptest" style="position:relative;top:150px;height:200px;">
+      {{ message }}
+    </div>
+
+    <script>
+      new Vue({
+        el: '#apptest',
+        data: {
+          message: 'Hello Vue.js!'
+        }
+      })
+    </script>
+  </body>
+</html>
+
+`;
+
+document.getElementsByClassName('App__content')[0].insertAdjacentHTML('beforebegin', content);
