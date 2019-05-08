@@ -1,17 +1,16 @@
 Vue.component('tabs', {
     template: `
-        <div>
-            <md-tabs md-sync-route>
+        <div :style="backgroundStyle">
+            <md-tabs md-sync-route :style="titleStyle">
             <md-tab id="tab-category" md-label="Category">
                 <category></category>
             </md-tab>
 
-            <md-tab id="tab-friends" md-label="Friends">
-                Pages tab
-                <p>Unde provident nemo reiciendis officia, possimus repellendus. Facere dignissimos dicta quis rem. Aliquam aspernatur dolor atque nisi id deserunt laudantium quam repellat.</p>
+            <md-tab id="tab-friends" md-label="Shortcut(User)">
+                <shortcutuser/>
             </md-tab>
 
-            <md-tab id="tab-tags" md-label="Tags">
+            <md-tab id="tab-tags" md-label="Shortcut(Tag)">
                 Posts tab
                 <p>Qui, voluptas repellat impedit ducimus earum at ad architecto consectetur perferendis aspernatur iste amet ex tempora animi, illum tenetur quae assumenda iusto.</p>
             </md-tab>
@@ -22,5 +21,17 @@ Vue.component('tabs', {
             </md-tab>
             </md-tabs>
         </div>
-    `
+    `,
+    computed: {
+        backgroundStyle: function() {
+            return {
+                border: '3px solid #aaa'
+            }
+        },
+        titleStyle: function() {
+            return {
+                backgroundColor: '#78f'
+            }
+        }
+    }
 })

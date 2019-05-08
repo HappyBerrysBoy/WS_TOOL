@@ -1,3 +1,7 @@
 div.gpt-ad[data-google-query-id] {
-  display: none;
+    display: none;
+}
+
+.md-clear {
+    margin-right: 0px !important;
 }

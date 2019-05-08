@@ -19,6 +19,7 @@
             "vue_source/components/graphql.js",
             "vue_source/components/tag.js",
             "vue_source/components/category.js",
+            "vue_source/components/shortcutUser.js",
             "vue_source/components/tabs.js",
             "vue_source/components/title.js",
             "vue_source/vue_main.js"

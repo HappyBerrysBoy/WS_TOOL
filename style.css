@@ -1,26 +1,29 @@
+img.registeredSrc {
+    width: 100%;
+    max-height: 200px;
+}
 
-  img.registeredSrc{
-      width:100%;
-      max-height:200px;
-  }
+.ui.button.shortcut {
+    padding: 0.4em 0.5em 0.4em;
+    margin: 3px;
+}
 
-  .ui.button.shortcut{
-      padding:0.4em 0.5em 0.4em;
-      margin:3px;
-  }
+#userShortcut .ui.func {
+    padding: 12px 10px;
+}
 
-  #userShortcut .ui.func{
-      padding:12px 10px;
-  }
+.ui.table tr td {
+    word-break: break-all;
+}
 
-  .ui.table tr td{
-      word-break: break-all;
-  }
+.ui.table .trView {
+    margin-top: 30px;
+}
 
-  .ui.table .trView{
-      margin-top:30px;
-  }
+.ui.card {
+    width: 400px;
+}
 
-  .ui.card{
-      width:400px;
-  }
+.md-chip {
+    margin-right: 0px !important;
+}
