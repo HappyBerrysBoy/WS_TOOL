@@ -24,18 +24,22 @@
               <md-icon>bookmarks</md-icon>
               <md-tooltip md-direction="right">Bookmark</md-tooltip>
             </md-button>
-            
-            <md-button class="md-icon-button">
-              <md-icon>dashboard</md-icon>
+
+            <md-button class="md-icon-button" @click="goCategory">
+              <md-icon>category</md-icon>
               <md-tooltip md-direction="right">Category</md-tooltip>
             </md-button>
-
           </md-speed-dial-content>
         </md-speed-dial>
       </div>
+
       <md-content class="md-elevation-7" style="position:fixed;left:100px;top:85px;z-index:100;">
         <shortcutuser v-show="showUserShortcut" />
       </md-content>
+
+      <transition name="slide-fade">
+        <category v-if="showCategory" @close="showCategory = false" />
+      </transition>
     </div>
     <div id="routeTest">
       <input type="text" v-model="currentRoute" />

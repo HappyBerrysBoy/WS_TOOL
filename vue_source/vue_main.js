@@ -36,9 +36,16 @@ var app = new Vue({
     data: {
         message: '안녕하세요 Vue!',
         show: false,
+        menuIcon: 'menu',
         showUserShortcut: false,
         showTagShortcut: false,
-        menuIcon: 'menu'
+        showCategory: false
+    },
+    mounted: function () {
+        window.addEventListener("hashchange", () => {
+            console.log(location.hash)
+            this.showCategory = location.hash === "#category"
+        }, false);
     },
     methods: {
         showMenu() {
@@ -48,6 +55,12 @@ var app = new Vue({
             } else {
                 this.menuIcon = 'menu';
             }
+        },
+        goCategory() {
+            location.hash = 'category'
+            // history.pushState({}, "Category", "category");
+            console.log(this);
+            this.showCategory = true;
         },
         userShortcut() {
             this.showUserShortcut = !this.showUserShortcut;
