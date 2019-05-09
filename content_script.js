@@ -24,11 +24,19 @@
               <md-icon>bookmarks</md-icon>
               <md-tooltip md-direction="right">Bookmark</md-tooltip>
             </md-button>
+
+            <md-button class="md-icon-button" @click="goCategory">
+              <md-icon>category</md-icon>
+              <md-tooltip md-direction="right">Category</md-tooltip>
+            </md-button>
           </md-speed-dial-content>
         </md-speed-dial>
       </div>
-    </div>
 
+      <transition name="slide-fade">
+        <category v-if="showCategory" @close="showCategory = false" />
+      </transition>
+    </div>
     <style>
       .md-chip{margin-right:0px !important;}
     </style>

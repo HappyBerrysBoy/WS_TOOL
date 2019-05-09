@@ -5,7 +5,14 @@ var app = new Vue({
     data: {
         message: '안녕하세요 Vue!',
         show: false,
-        menuIcon: 'menu'
+        menuIcon: 'menu',
+        showCategory: false
+    },
+    mounted: function () {
+        window.addEventListener("hashchange", () => {
+            console.log(location.hash)
+            this.showCategory = location.hash === "#category"
+        }, false);
     },
     methods: {
         showMenu() {
@@ -18,6 +25,12 @@ var app = new Vue({
         },
         test() {
             alert('test');
+        },
+        goCategory() {
+            location.hash = 'category'
+            // history.pushState({}, "Category", "category");
+            console.log(this);
+            this.showCategory = true;
         }
     }
 });
