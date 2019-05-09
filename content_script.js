@@ -2,22 +2,22 @@
     // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
     const cetegoryDom = $(`
     <div id="app">
-      <div class="example" style="position:fixed;left:0px;top:60px;z-index:100;">
+      <div style="position:fixed;left:0px;top:60px;z-index:100;">
         <md-speed-dial class="md-top-left" md-direction="bottom">
           <md-speed-dial-target>
             <md-icon class="md-morph-initial">add</md-icon>
-            <md-icon class="md-morph-final">edit</md-icon>
+            <md-icon class="md-morph-final">settings</md-icon>
           </md-speed-dial-target>
 
           <md-speed-dial-content>
-            <md-button class="md-icon-button" @click="test">
+            <md-button class="md-icon-button" @click="userShortcut">
               <md-icon>account_circle</md-icon>
               <md-tooltip md-direction="right">User Shortcut</md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button">
-              <md-icon>dashboard</md-icon>
-              <md-tooltip md-direction="right">Tag Shortcut</md-tooltip>
+            <md-button class="md-icon-button" @click="tagShortcut">
+              <md-icon>category</md-icon>
+              <md-tooltip md-direction="right">Category</md-tooltip>
             </md-button>
 
             <md-button class="md-icon-button">
@@ -33,13 +33,17 @@
         </md-speed-dial>
       </div>
 
+      <md-content class="md-elevation-7" style="position:fixed;left:100px;top:85px;z-index:100;">
+        <shortcutuser v-show="showUserShortcut" />
+      </md-content>
+
       <transition name="slide-fade">
         <category v-if="showCategory" @close="showCategory = false" />
       </transition>
     </div>
-    <style>
-      .md-chip{margin-right:0px !important;}
-    </style>
+    <div id="routeTest">
+      <input type="text" v-model="currentRoute" />
+    </div>
   `);
 
     $(".App__content").before(cetegoryDom);
