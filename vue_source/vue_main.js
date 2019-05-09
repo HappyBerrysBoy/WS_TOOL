@@ -5,6 +5,8 @@ var app = new Vue({
     data: {
         message: '안녕하세요 Vue!',
         show: false,
+        showUserShortcut: false,
+        showTagShortcut: false,
         menuIcon: 'menu'
     },
     methods: {
@@ -16,8 +18,13 @@ var app = new Vue({
                 this.menuIcon = 'menu';
             }
         },
-        test() {
-            alert('test');
+        userShortcut() {
+            this.showUserShortcut = !this.showUserShortcut;
+            this.showTagShortcut = false;
+        },
+        tagShortcut() {
+            this.showUserShortcut = false;
+            this.showTagShortcut = !this.showTagShortcut;
         }
     }
 });

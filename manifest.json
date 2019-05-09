@@ -8,7 +8,10 @@
         "https://*/*"
     ],
     "content_scripts": [{
-        "matches": ["https://steemit.com/*"],
+        "matches": [
+            "https://steemit.com/*",
+            "https://busy.org/*"
+        ],
         // "exclude_matches": ["https://steemit.com/@*"],
         "run_at": "document_idle",
         "js": [
@@ -17,9 +20,11 @@
             "thirdParty/vue-material.min.js",
             "content_script.js",
             "vue_source/components/graphql.js",
+            "vue_source/components/dialContent.js",
             "vue_source/components/tag.js",
             "vue_source/components/category.js",
             "vue_source/components/shortcutUser.js",
+            "vue_source/components/shortcuttag.js",
             "vue_source/components/tabs.js",
             "vue_source/components/title.js",
             "vue_source/vue_main.js"
