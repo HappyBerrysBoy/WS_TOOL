@@ -1,6 +1,6 @@
 Vue.component('tag', {
-    props: ['title', 'tags'],
-    template: `<a href="#" :style="styling" @click="getPost">{{title}}</a>`,
+    props: ['title', 'tags', 'page'],
+    template: `<div :style="styling" @click="routePath">{{title}}</div>`,
     methods: {
         getPost() {
             const tags = this.tags.split(',');
@@ -15,6 +15,11 @@ Vue.component('tag', {
                 fontSize: '1.2rem',
                 marginRight: '5px'
             }
+        }
+    },
+    methods:{
+        routePath(page){
+          routeApp.currentRoute = '/' + this.page;
         }
     }
 })

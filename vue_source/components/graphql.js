@@ -70,6 +70,6 @@ fetch(GRAPHQL_URL, {
         </div>
         </li>`
     });
-    $("#posts_list > ul").html(postsDom);
+    $(".articles").html(postsDom);
     }); 
 }

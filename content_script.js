@@ -38,11 +38,8 @@
       </md-content>
 
       <transition name="slide-fade">
-        <category v-if="showCategory" @close="showCategory = false" />
+        <category v-show="showCategory" @close="showCategory = false" />
       </transition>
-    </div>
-    <div id="routeTest">
-      <input type="text" v-model="currentRoute" />
     </div>
   `);
 

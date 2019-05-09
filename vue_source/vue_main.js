@@ -3,40 +3,21 @@ Vue.use(VueMaterial.default)
 let currentPath = '/about';
 
 const NotFound = { template: '<p>Page not found</p>' }
-const Home = { template: '<p>home page</p>' }
-const About = { template: '<p>about page</p>' }
+const Home = { template: '<title message="Home" />' }
+const About = title;
+const Test = { template: '<p>Test Page</p>' }
 
 const routes = {
     '/home': Home,
     '/about': About,
-    '/notfound':NotFound
+    '/notfound':NotFound,
+    '/test':Test
   }
-
-var routeApp = new Vue({
-  el: '#routeTest',
-  data: {
-    currentRoute: currentPath
-  },
-  computed: {
-    ViewComponent () {
-      return routes[this.currentRoute] || NotFound
-    }
-  },
-  methods:{
-    goPage(page){
-        debugger;
-        this.currentRoute = page;
-    }
-  },
-  render (h) { return h(this.ViewComponent) }
-});
 
 var app = new Vue({
     el: '#app',
     data: {
-        message: '안녕하세요 Vue!',
         show: false,
-        menuIcon: 'menu',
         showUserShortcut: false,
         showTagShortcut: false,
         showCategory: false
@@ -48,14 +29,6 @@ var app = new Vue({
         }, false);
     },
     methods: {
-        showMenu() {
-            this.show = !this.show;
-            if (this.show) {
-                this.menuIcon = 'cancel';
-            } else {
-                this.menuIcon = 'menu';
-            }
-        },
         goCategory() {
             location.hash = 'category'
             // history.pushState({}, "Category", "category");
@@ -74,31 +47,23 @@ var app = new Vue({
     }
 });
 
+import Title from './components/title.js'
 
-
-
-
-
-
-
-{/* <template>
-  <div class="container">
-    <ul>
-      <li>
-        <v-link href="/">Home</v-link>
-        <v-link href="/about">About</v-link>
-      </li>
-    </ul>
-
-    <slot></slot>
-  </div>
-</template>
-
-<script>
-  import VLink from '../components/VLink.vue'
-  export default {
-    components: {
-      VLink
-    }
-  }
-</script> */}
+var routeApp = new Vue({
+    el: '#routeTest',
+    data: {
+      currentRoute: currentPath
+    },
+    computed: {
+      ViewComponent () {
+        //   return routes[this.currentRoute] || NotFound
+        return Title
+      }
+    },
+    methods:{
+      goPage(page){
+          this.currentRoute = page;
+      }
+    },
+    render (h) { return h(this.ViewComponent) }
+  });
