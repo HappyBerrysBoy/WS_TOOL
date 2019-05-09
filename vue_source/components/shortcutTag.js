@@ -1,4 +1,4 @@
-const wstools_users = 'wstools_users';
+const wstools_tags = 'wstools_tags';
 
 Vue.component('shortcuttag', {
     data() {
@@ -9,7 +9,7 @@ Vue.component('shortcuttag', {
         }
     },
     created() {
-        const items = localStorage.getItem(wstools_users);
+        const items = localStorage.getItem(wstools_tags);
 
         if (items) {
             this.users = JSON.parse(items);
@@ -27,10 +27,10 @@ Vue.component('shortcuttag', {
         },
         insertUser() {
             this.users.push(this.value);
-            localStorage.setItem(wstools_users, JSON.stringify(this.users));
+            localStorage.setItem(wstools_tags, JSON.stringify(this.users));
         },
         delUser(txt) {
-            localStorage.setItem(wstools_users, JSON.stringify(this.users));
+            localStorage.setItem(wstools_tags, JSON.stringify(this.users));
         }
     }
 })

@@ -37,6 +37,9 @@
         <shortcutuser v-show="showUserShortcut" />
       </md-content>
     </div>
+    <div id="routeTest">
+      <input type="text" v-model="currentRoute" />
+    </div>
   `);
 
     $(".App__content").before(cetegoryDom);

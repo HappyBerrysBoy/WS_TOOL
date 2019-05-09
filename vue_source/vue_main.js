@@ -1,5 +1,36 @@
 Vue.use(VueMaterial.default)
 
+let currentPath = '/about';
+
+const NotFound = { template: '<p>Page not found</p>' }
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+
+const routes = {
+    '/home': Home,
+    '/about': About,
+    '/notfound':NotFound
+  }
+
+var routeApp = new Vue({
+  el: '#routeTest',
+  data: {
+    currentRoute: currentPath
+  },
+  computed: {
+    ViewComponent () {
+      return routes[this.currentRoute] || NotFound
+    }
+  },
+  methods:{
+    goPage(page){
+        debugger;
+        this.currentRoute = page;
+    }
+  },
+  render (h) { return h(this.ViewComponent) }
+});
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -23,8 +54,38 @@ var app = new Vue({
             this.showTagShortcut = false;
         },
         tagShortcut() {
-            this.showUserShortcut = false;
-            this.showTagShortcut = !this.showTagShortcut;
+            routeApp.currentRoute = '/home';
+            // this.showUserShortcut = false;
+            // this.showTagShortcut = !this.showTagShortcut;
         }
     }
 });
+
+
+
+
+
+
+
+
+{/* <template>
+  <div class="container">
+    <ul>
+      <li>
+        <v-link href="/">Home</v-link>
+        <v-link href="/about">About</v-link>
+      </li>
+    </ul>
+
+    <slot></slot>
+  </div>
+</template>
+
+<script>
+  import VLink from '../components/VLink.vue'
+  export default {
+    components: {
+      VLink
+    }
+  }
+</script> */}
