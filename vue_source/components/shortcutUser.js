@@ -14,7 +14,6 @@ Vue.component('shortcutuser', {
             this.users = JSON.parse(items);
         }
     },
-    props: ['placeholder', 'icon'],
     template: `
         <div>
         <md-dialog-prompt
@@ -26,7 +25,8 @@ Vue.component('shortcutuser', {
             @md-confirm="insertUser"
             md-confirm-text="Add" />
 
-        <md-button class="md-primary md-raised" @click="active = true">Add</md-button>
+        <md-button class="md-primary md-raised" @click="addUserEvent">Add</md-button>
+        <md-button class="md-primary md-raised md-accent" @click="closeEvent">Close</md-button>
 
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>
@@ -38,15 +38,31 @@ Vue.component('shortcutuser', {
         </div>
     `,
     methods: {
+        addUserEvent() {
+            this.value = '';
+            this.active = true;
+        },
         insertUser() {
-            this.users.push(this.value);
-            this.users = Array.from(new Set(this.users));
-            localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
+            const self = this;
+            steem.api.getAccounts([this.value], function(err, response) {
+                if (err || response.length === 0) {
+                    alert('Check Account ID');
+                    console.log(err);
+                } else {
+                    console.log(response);
+                    self.users.push(self.value);
+                    self.users = Array.from(new Set(self.users));
+                    localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(self.users));
+                }
+            });
         },
         removeAccountEvent(account) {
             const idx = this.users.indexOf(account);
             this.users.splice(idx, 1);
             localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
+        },
+        closeEvent() {
+            this.$emit('closeShortcutUserEvent');
         }
     }
 })

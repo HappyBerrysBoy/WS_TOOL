@@ -58,13 +58,10 @@ Vue.component('listItem', {
 
                     console.log('Meta.Profile.Image:' + metadata.profile.profile_image);
 
-                    if (!metadata || metadata.profile.profile_image.indexOf('photos.google.com') > -1 ||
-                        metadata.profile.profile_image.indexOf('.postimg.') > -1 ||
-                        metadata.profile.profile_image.indexOf('.imgsafe.') > -1 ||
-                        metadata.profile.profile_image.indexOf('.postimg.') > -1) {
+                    if (!metadata) {
                         self.profileImage = 'https://semantic-ui.com/images/wireframe/image.png';
                     } else {
-                        self.profileImage = metadata.profile.profile_image;
+                        self.profileImage = 'https://steemitimages.com/400x0/' + metadata.profile.profile_image;
                     }
                 }
             });

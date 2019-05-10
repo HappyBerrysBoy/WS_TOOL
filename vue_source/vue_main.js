@@ -1,9 +1,8 @@
 Vue.use(VueMaterial.default)
 
-var app = new Vue({
+(new Vue({
     el: '#app',
     data: {
-        message: '안녕하세요 Vue!',
         show: false,
         menuIcon: 'menu',
         showUserShortcut: false,
@@ -27,7 +26,6 @@ var app = new Vue({
         },
         goCategory() {
             location.hash = 'category'
-                // history.pushState({}, "Category", "category");
             console.log(this);
             this.showCategory = true;
         },
@@ -36,9 +34,10 @@ var app = new Vue({
             this.showTagShortcut = false;
         },
         tagShortcut() {
-            routeApp.currentRoute = '/home';
-            // this.showUserShortcut = false;
-            // this.showTagShortcut = !this.showTagShortcut;
+
+        },
+        closeShortcutUser() {
+            this.showUserShortcut = false;
         }
     }
-});
+}))()

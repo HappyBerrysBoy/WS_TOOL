@@ -32,9 +32,10 @@
           </md-speed-dial-content>
         </md-speed-dial>
       </div>
+      
       <transition name="slide-fade">
         <md-content id="shortcutUser" class="md-elevation-7">
-          <shortcutuser v-show="showUserShortcut" />
+          <shortcutuser v-show="showUserShortcut" @closeShortcutUserEvent="userShortcut" />
         </md-content>
       </transition>
     </div>
@@ -42,5 +43,4 @@
 
     $(".App__content").before(cetegoryDom);
     // $(".App__content").before($(`<iframe src="https://busy.org/" style="width:100%;height:300px;"></iframe>`));
-
 })();

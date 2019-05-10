@@ -20,3 +20,7 @@ div.gpt-ad[data-google-query-id] {
 .md-dialog.md-dialog-fullscreen.md-theme-default {
     z-index: 104;
 }
+
+.md-dialog.md-theme-default {
+    z-index: 104;
+}
