@@ -16,6 +16,10 @@ Vue.use(VueMaterial.default)
         }, false);
     },
     methods: {
+        allClose() {
+            this.showUserShortcut = false;
+            this.showTagShortcut = false;
+        },
         showMenu() {
             this.show = !this.show;
             if (this.show) {

@@ -26,7 +26,6 @@ Vue.component('shortcutuser', {
             md-confirm-text="Add" />
 
         <md-button class="md-primary md-raised" @click="addUserEvent">Add</md-button>
-        <md-button class="md-primary md-raised md-accent" @click="closeEvent">Close</md-button>
 
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>

@@ -4,7 +4,7 @@
     <div id="app">
       <div style="position:fixed;left:0px;top:60px;z-index:100;">
         <md-speed-dial class="md-top-left" md-direction="bottom">
-          <md-speed-dial-target>
+          <md-speed-dial-target @click="allClose">
             <md-icon class="md-morph-initial">add</md-icon>
             <md-icon class="md-morph-final">settings</md-icon>
           </md-speed-dial-target>
