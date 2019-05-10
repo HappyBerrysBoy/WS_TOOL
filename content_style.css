@@ -5,3 +5,18 @@ div.gpt-ad[data-google-query-id] {
 .md-clear {
     margin-right: 0px !important;
 }
+
+.md-overlay.md-fixed.md-dialog-overlay {
+    z-index: 103;
+}
+
+#shortcutUser {
+    position: fixed;
+    left: 100px;
+    top: 85px;
+    z-index: 101;
+}
+
+.md-dialog.md-dialog-fullscreen.md-theme-default {
+    z-index: 104;
+}

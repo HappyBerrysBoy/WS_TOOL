@@ -9,8 +9,9 @@
     ],
     "content_scripts": [{
         "matches": [
-            "https://steemit.com/*",
-            "https://busy.org/*"
+            "https://steemit.com/*"
+            // "https://busy.org/*",
+            // "https://steempeak.com/*"
         ],
         // "exclude_matches": ["https://steemit.com/@*"],
         "run_at": "document_idle",
@@ -18,11 +19,15 @@
             "thirdParty/jquery3.3.1.min.js",
             "thirdParty/vue.min.js",
             "thirdParty/vue-material.min.js",
+            "thirdParty/steemjs.min.js",
+            "contentConst.js",
             "content_script.js",
             "vue_source/components/graphql.js",
             "vue_source/components/dialContent.js",
             "vue_source/components/tag.js",
             "vue_source/components/category.js",
+            "vue_source/components/accountInfo.js",
+            "vue_source/components/mdListItem.js",
             "vue_source/components/shortcutUser.js",
             "vue_source/components/shortcuttag.js",
             "vue_source/components/tabs.js",

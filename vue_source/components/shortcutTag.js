@@ -1,5 +1,3 @@
-const wstools_tags = 'wstools_tags';
-
 Vue.component('shortcuttag', {
     data() {
         return {
@@ -9,7 +7,7 @@ Vue.component('shortcuttag', {
         }
     },
     created() {
-        const items = localStorage.getItem(wstools_tags);
+        const items = localStorage.getItem(WSTOOLS_TAG_KEY);
 
         if (items) {
             this.users = JSON.parse(items);
@@ -18,7 +16,22 @@ Vue.component('shortcuttag', {
     props: ['placeholder', 'icon'],
     template: `
         <div>
-        
+        <md-dialog-prompt
+            :md-active.sync="active"
+            v-model="value"
+            md-title="Input account."
+            md-input-maxlength="16"
+            md-input-placeholder="Type account name..."
+            @md-confirm="insertUser"
+            md-confirm-text="Add" />
+
+        <md-button class="md-primary md-raised" @click="active = true">Add</md-button>
+
+        <md-list class="md-dense">
+            <md-divider class="md-inset"></md-divider>
+
+            <mdListItem account="wonsama"/>
+        </md-list>
         </div>
     `,
     methods: {
@@ -27,10 +40,10 @@ Vue.component('shortcuttag', {
         },
         insertUser() {
             this.users.push(this.value);
-            localStorage.setItem(wstools_tags, JSON.stringify(this.users));
+            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.users));
         },
         delUser(txt) {
-            localStorage.setItem(wstools_tags, JSON.stringify(this.users));
+            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.users));
         }
     }
 })

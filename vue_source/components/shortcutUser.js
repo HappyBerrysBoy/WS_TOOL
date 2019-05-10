@@ -1,15 +1,14 @@
-const wstools_users = 'wstools_users';
-
 Vue.component('shortcutuser', {
     data() {
         return {
             users: [],
+            regiAccount: '',
             active: false,
             value: null
         }
     },
     created() {
-        const items = localStorage.getItem(wstools_users);
+        const items = localStorage.getItem(WSTOOLS_USER_KEY);
 
         if (items) {
             this.users = JSON.parse(items);
@@ -32,73 +31,22 @@ Vue.component('shortcutuser', {
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>
 
-            <md-list-item>
-                <md-avatar>
-                <img src="https://steemitimages.com/u/wonsama/avatar" alt="People">
-                </md-avatar>
-
-                <span class="md-list-item-text">wonsama</span>
-
-                <md-button class="md-icon-button md-list-action" @click="goUser('wonsama')">
-                    <md-icon class="md-primary">person_pin</md-icon>
-                </md-button>
-                <md-button class="md-icon-button md-list-action" @click="goUser('wonsama')">
-                    <md-icon class="md-accent">delete_forever</md-icon>
-                </md-button>
-            </md-list-item>
-
-            <md-list-item>
-                <md-avatar>
-                <img src="https://steemitimages.com/u/anpigon/avatar" alt="People">
-                </md-avatar>
-
-                <span class="md-list-item-text">anpigon</span>
-
-                <md-button class="md-icon-button md-list-action">
-                    <md-icon class="md-primary">person_pin</md-icon>
-                </md-button>
-                <md-button class="md-icon-button md-list-action" @click="goUser('wonsama')">
-                    <md-icon class="md-accent">delete_forever</md-icon>
-                </md-button>
-            </md-list-item>
-
-            <md-list-item>
-                <md-avatar>
-                <img src="https://steemitimages.com/u/newbijohn/avatar" alt="People">
-                </md-avatar>
-
-                <span class="md-list-item-text">newbijohn</span>
-
-                <md-button class="md-icon-button md-list-action">
-                    <md-icon class="md-primary">person_pin</md-icon>
-                </md-button>
-                <md-button class="md-icon-button md-list-action" @click="goUser('wonsama')">
-                    <md-icon class="md-accent">delete_forever</md-icon>
-                </md-button>
-            </md-list-item>
+            <div v-for="user in users">
+                <list-item :account="user" @removeAccount="removeAccountEvent"/>
+            </div>
         </md-list>
         </div>
     `,
-    // template: `
-    // <div>
-    //     <md-chips 
-    //         v-model="users" 
-    //         @md-insert="insertUser" 
-    //         @md-delete="delUser" 
-    //         @md-click="goUser" 
-    //         md-placeholder="Add user...">
-    //     </md-chips>
-    // </div>`,
     methods: {
-        goUser(txt) {
-            location.href = `/@${txt}`;
-        },
         insertUser() {
             this.users.push(this.value);
-            localStorage.setItem(wstools_users, JSON.stringify(this.users));
+            this.users = Array.from(new Set(this.users));
+            localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
         },
-        delUser(txt) {
-            localStorage.setItem(wstools_users, JSON.stringify(this.users));
+        removeAccountEvent(account) {
+            const idx = this.users.indexOf(account);
+            this.users.splice(idx, 1);
+            localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
         }
     }
 })

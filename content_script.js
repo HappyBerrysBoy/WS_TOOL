@@ -32,19 +32,15 @@
           </md-speed-dial-content>
         </md-speed-dial>
       </div>
-
-      <md-content class="md-elevation-7" style="position:fixed;left:100px;top:85px;z-index:100;">
-        <shortcutuser v-show="showUserShortcut" />
-      </md-content>
-
       <transition name="slide-fade">
-        <category v-if="showCategory" @close="showCategory = false" />
+        <md-content id="shortcutUser" class="md-elevation-7">
+          <shortcutuser v-show="showUserShortcut" />
+        </md-content>
       </transition>
-    </div>
-    <div id="routeTest">
-      <input type="text" v-model="currentRoute" />
     </div>
   `);
 
     $(".App__content").before(cetegoryDom);
+    // $(".App__content").before($(`<iframe src="https://busy.org/" style="width:100%;height:300px;"></iframe>`));
+
 })();
