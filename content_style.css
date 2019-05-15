@@ -10,11 +10,16 @@ div.gpt-ad[data-google-query-id] {
     z-index: 103;
 }
 
-#shortcutUser {
+.popupPanel {
     position: fixed;
     left: 100px;
     top: 85px;
     z-index: 101;
+}
+
+.tagFilter {
+    min-width:200px;
+    max-width:30%;
 }
 
 .md-dialog.md-dialog-fullscreen.md-theme-default {

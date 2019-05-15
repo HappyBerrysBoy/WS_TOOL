@@ -28,6 +28,7 @@
             "vue_source/components/category.js",
             "vue_source/components/mdListItem.js",
             "vue_source/components/shortcutUser.js",
+            "vue_source/components/tagFilter.js",
             "vue_source/components/shortcuttag.js",
             "vue_source/components/tabs.js",
             "vue_source/components/title.js",

@@ -20,9 +20,9 @@
               <md-tooltip md-direction="right">Category</md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button">
-              <md-icon>bookmarks</md-icon>
-              <md-tooltip md-direction="right">Bookmark</md-tooltip>
+            <md-button class="md-icon-button" @click="tagFilter">
+              <md-icon>visibility_off</md-icon>
+              <md-tooltip md-direction="right">Tag Filter</md-tooltip>
             </md-button>
 
             <md-button class="md-icon-button" @click="goCategory">
@@ -34,8 +34,14 @@
       </div>
       
       <transition name="slide-fade">
-        <md-content id="shortcutUser" class="md-elevation-7">
+        <md-content class="md-elevation-7 popupPanel">
           <shortcutuser v-show="showUserShortcut" @closeShortcutUserEvent="userShortcut" />
+        </md-content>
+      </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel tagFilter">
+          <tag-filter v-show="showTagFilter" />
         </md-content>
       </transition>
     </div>

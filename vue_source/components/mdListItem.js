@@ -26,15 +26,16 @@ Vue.component('listItem', {
                 </md-dialog-actions>
             </md-dialog>
 
-            <md-button class="md-icon-button md-list-action" @click="accountInfo()">
-                <md-icon class="md-primary">info</md-icon>
+            <md-button class="md-icon-button md-dense md-primary" @click="accountInfo()">
+                <md-icon>info</md-icon>
             </md-button>
-            <md-button class="md-icon-button md-list-action" @click="goAccount()">
-                <md-icon class="md-primary">forward</md-icon>
+            <md-button class="md-icon-button md-dense md-primary" @click="goAccount()">
+                <md-icon>forward</md-icon>
             </md-button>
-            <md-button class="md-icon-button md-list-action" @click="removeAccount(account)">
-                <md-icon class="md-accent">delete_forever</md-icon>
+            <md-button class="md-icon-button md-dense md-accent" @click="removeAccount(account)">
+                <md-icon>delete_forever</md-icon>
             </md-button>
+
         </md-list-item>
     `,
     methods: {

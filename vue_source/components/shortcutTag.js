@@ -13,7 +13,6 @@ Vue.component('shortcuttag', {
             this.users = JSON.parse(items);
         }
     },
-    props: ['placeholder', 'icon'],
     template: `
         <div>
         <md-dialog-prompt

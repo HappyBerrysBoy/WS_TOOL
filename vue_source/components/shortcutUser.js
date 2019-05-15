@@ -2,7 +2,6 @@ Vue.component('shortcutuser', {
     data() {
         return {
             users: [],
-            regiAccount: '',
             active: false,
             value: null
         }
@@ -25,7 +24,7 @@ Vue.component('shortcutuser', {
             @md-confirm="insertUser"
             md-confirm-text="Add" />
 
-        <md-button class="md-primary md-raised" @click="addUserEvent">Add</md-button>
+        <md-button class="md-primary md-mini md-raised" @click="addUserEvent">Add Account</md-button>
 
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>
@@ -43,6 +42,7 @@ Vue.component('shortcutuser', {
         },
         insertUser() {
             const self = this;
+            this.value = this.value.replace(/@/g, '');
             steem.api.getAccounts([this.value], function(err, response) {
                 if (err || response.length === 0) {
                     alert('Check Account ID');
