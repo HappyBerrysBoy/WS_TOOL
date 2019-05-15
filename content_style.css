@@ -22,6 +22,11 @@ div.gpt-ad[data-google-query-id] {
     max-width:30%;
 }
 
+.popupWide{
+    min-width:400px;
+    min-height:400px;
+}
+
 .md-dialog.md-dialog-fullscreen.md-theme-default {
     z-index: 104;
 }

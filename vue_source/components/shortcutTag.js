@@ -1,7 +1,7 @@
-Vue.component('shortcuttag', {
+Vue.component('tagShortcut', {
     data() {
         return {
-            users: [],
+            tags: [],
             active: false,
             value: null
         }
@@ -10,39 +10,30 @@ Vue.component('shortcuttag', {
         const items = localStorage.getItem(WSTOOLS_TAG_KEY);
 
         if (items) {
-            this.users = JSON.parse(items);
+            this.tags = JSON.parse(items);
         }
     },
     template: `
-        <div>
-        <md-dialog-prompt
-            :md-active.sync="active"
-            v-model="value"
-            md-title="Input account."
-            md-input-maxlength="16"
-            md-input-placeholder="Type account name..."
-            @md-confirm="insertUser"
-            md-confirm-text="Add" />
-
-        <md-button class="md-primary md-raised" @click="active = true">Add</md-button>
-
-        <md-list class="md-dense">
-            <md-divider class="md-inset"></md-divider>
-
-            <mdListItem account="wonsama"/>
-        </md-list>
+        <div style="margin:5px 10px;">
+            <h5>Input Tag for Shortcut</h5>
+            <md-chips 
+                v-model="tags" 
+                md-placeholder="Add tag..." 
+                @md-click="goTag"
+                @md-insert="insertTag" 
+                @md-delete="deleteTag">
+            </md-chips>
         </div>
     `,
     methods: {
-        goUser(txt) {
-            location.href = `/@${txt}`;
+        insertTag(){
+            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.tags));
         },
-        insertUser() {
-            this.users.push(this.value);
-            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.users));
+        deleteTag(){
+            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.tags));
         },
-        delUser(txt) {
-            localStorage.setItem(WSTOOLS_TAG_KEY, JSON.stringify(this.users));
+        goTag(txt, idx) {
+            location.href = `/trending/${txt}`;
         }
     }
 })

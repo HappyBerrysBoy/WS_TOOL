@@ -1,4 +1,4 @@
-Vue.component('shortcutuser', {
+Vue.component('userShortcut', {
     data() {
         return {
             users: [],

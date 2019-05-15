@@ -12,7 +12,7 @@
           <md-speed-dial-content>
             <md-button class="md-icon-button" @click="goCategory">
               <md-icon>chrome_reader_mode</md-icon>
-              <md-tooltip md-direction="right">Tag Group View(Under construction by @anpigon)</md-tooltip>
+              <md-tooltip md-direction="right">Tag Group View(Under development by @anpigon)</md-tooltip>
             </md-button>
           
             <md-button class="md-icon-button" @click="userShortcut">
@@ -21,8 +21,8 @@
             </md-button>
 
             <md-button class="md-icon-button" @click="tagShortcut">
-              <md-icon>category</md-icon>
-              <md-tooltip md-direction="right">Category</md-tooltip>
+              <md-icon>bookmarks</md-icon>
+              <md-tooltip md-direction="right">Tag Shortcut</md-tooltip>
             </md-button>
 
             <md-button class="md-icon-button" @click="tagFilter">
@@ -30,23 +30,37 @@
               <md-tooltip md-direction="right">Tag Filter</md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button" @click="goCategory">
-              <md-icon>category</md-icon>
-              <md-tooltip md-direction="right">Category</md-tooltip>
+            <md-button class="md-icon-button" @click="getMarkdown">
+              <md-icon>pageview</md-icon>
+              <md-tooltip md-direction="right">Get Markdown</md-tooltip>
             </md-button>
-          </md-speed-dial-content>
+            
+
+            </md-speed-dial-content>
         </md-speed-dial>
       </div>
       
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
-          <shortcutuser v-show="showUserShortcut" @closeShortcutUserEvent="userShortcut" />
+          <user-shortcut v-show="showUserShortcut" @closeShortcutUserEvent="userShortcut" />
+        </md-content>
+      </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel tagFilter">
+          <tag-shortcut v-show="showTagShortcut" />
         </md-content>
       </transition>
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel tagFilter">
           <tag-filter v-show="showTagFilter" />
+        </md-content>
+      </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel">
+          <get-markdown v-show="showGetMarkdown" />
         </md-content>
       </transition>
     </div>

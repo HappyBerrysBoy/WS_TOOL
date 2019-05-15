@@ -9,6 +9,7 @@ Vue.use(VueMaterial.default)
         showTagShortcut: false,
         showTagFilter: false,
         showCategory: false,
+        showGetMarkdown:false,
         tagFilterList: []
     },
     created() {
@@ -19,10 +20,18 @@ Vue.use(VueMaterial.default)
             console.log(location.hash)
             this.showCategory = location.hash === "#category"
         }, false);
+        
+        window.document.body.addEventListener('resize', () => {
+            alert('test');
+        });
+
+        $('.App__content').resize(function() {
+            alert('zdzxc;lksjdf');
+        });
 
         // Tag Filter Scheduler(3 sec)
         setInterval(() => {
-            console.log('Play tag filter..');
+            console.log('Run tag filter..');
 
             const tagFilterList = JSON.parse(localStorage.getItem(WSTOOLS_POST_FILTER_KEY));
 
@@ -45,6 +54,7 @@ Vue.use(VueMaterial.default)
             this.showUserShortcut = false;
             this.showTagShortcut = false;
             this.showTagFilter = false;
+            this.showGetMarkdown = false;
         },
         showMenu() {
             this.show = !this.show;
@@ -61,14 +71,25 @@ Vue.use(VueMaterial.default)
             this.showUserShortcut = !this.showUserShortcut;
             this.showTagFilter = false;
             this.showTagShortcut = false;
+            this.showGetMarkdown = false;
         },
         tagFilter() {
             this.showUserShortcut = false;
             this.showTagFilter = !this.showTagFilter;
             this.showTagShortcut = false;
+            this.showGetMarkdown = false;
         },
         tagShortcut() {
-
+            this.showUserShortcut = false;
+            this.showTagFilter = false;
+            this.showTagShortcut = !this.showTagShortcut;
+            this.showGetMarkdown = false;
+        },
+        getMarkdown(){
+            this.showUserShortcut = false;
+            this.showTagFilter = false;
+            this.showTagShortcut = false;
+            this.showGetMarkdown = !this.showGetMarkdown;
         },
         closeShortcutUser() {
             this.showUserShortcut = false;
