@@ -1,0 +1,13 @@
+body,
+html {
+  height: fit-content !important;
+}
+
+.ui.container {
+  padding: 35px 25px;
+}
+
+#app {
+  width: 250px;
+  min-height: 250px;
+}
