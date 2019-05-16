@@ -2,13 +2,29 @@ Vue.component('getMarkdown', {
     data() {
         return {
             url: '',
-            markdown:'',
-            msg:''
+            markdown: '',
+            msg: '',
+            showDialog: false,
+            convertedHtml: ''
         }
     },
     template: `
         <div style="width:600px;height:500px;padding:10px;">
         <h5>Get Markdown Text</h5>
+        <md-dialog :md-active.sync="showDialog">
+            <center>
+                <md-dialog-title>Converted to HTML</md-dialog-title>
+            </center>
+
+            <md-field>
+                <md-textarea v-model="convertedHtml"></md-textarea>
+            </md-field>
+
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog>
+        
         <md-field>
             <md-icon>info</md-icon>
             <label>Type url</label>
@@ -17,7 +33,6 @@ Vue.component('getMarkdown', {
         </md-field>
         
         <md-field>
-            <label>Markdown</label>
             <md-textarea v-model="markdown" style="max-height:100%;height:345px;"></md-textarea>
         </md-field>
         </div>
@@ -28,13 +43,13 @@ Vue.component('getMarkdown', {
             const account = substr.split('/')[0];
             const permlink = substr.split('/')[1];
 
-            if(!account || !permlink){
+            if (!account || !permlink) {
                 this.msg = 'URL parsing error';
             }
 
             steem.api.getContentAsync(account, permlink)
-            .then(postObject => this.markdown = postObject.body)
-            .catch(error => console.log(error));
+                .then(postObject => this.markdown = postObject.body)
+                .catch(error => console.log(error));
         }
     }
 })

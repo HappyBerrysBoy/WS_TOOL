@@ -10,7 +10,7 @@ const styles = {
     `
 }
 Vue.component('category', {
-  template: `
+    template: `
     <div style='${styles.container}'>
       <div class='App__content'>
         <center>

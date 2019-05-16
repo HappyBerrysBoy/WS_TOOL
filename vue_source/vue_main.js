@@ -9,7 +9,8 @@ Vue.use(VueMaterial.default)
         showTagShortcut: false,
         showTagFilter: false,
         showCategory: false,
-        showGetMarkdown:false,
+        showGetMarkdown: false,
+        showFamilySite: false,
         tagFilterList: []
     },
     created() {
@@ -20,7 +21,7 @@ Vue.use(VueMaterial.default)
             console.log(location.hash)
             this.showCategory = location.hash === "#category"
         }, false);
-        
+
         window.document.body.addEventListener('resize', () => {
             alert('test');
         });
@@ -55,6 +56,7 @@ Vue.use(VueMaterial.default)
             this.showTagShortcut = false;
             this.showTagFilter = false;
             this.showGetMarkdown = false;
+            this.showFamilySite = false;
         },
         showMenu() {
             this.show = !this.show;
@@ -68,28 +70,24 @@ Vue.use(VueMaterial.default)
             window.open(`https://anpigon.github.io/steemit-community/#/`);
         },
         userShortcut() {
-            this.showUserShortcut = !this.showUserShortcut;
-            this.showTagFilter = false;
-            this.showTagShortcut = false;
-            this.showGetMarkdown = false;
+            this.allClose();
+            this.showUserShortcut = true;
         },
         tagFilter() {
-            this.showUserShortcut = false;
-            this.showTagFilter = !this.showTagFilter;
-            this.showTagShortcut = false;
-            this.showGetMarkdown = false;
+            this.allClose();
+            this.showTagFilter = true;
         },
         tagShortcut() {
-            this.showUserShortcut = false;
-            this.showTagFilter = false;
-            this.showTagShortcut = !this.showTagShortcut;
-            this.showGetMarkdown = false;
+            this.allClose();
+            this.showTagShortcut = true;
         },
-        getMarkdown(){
-            this.showUserShortcut = false;
-            this.showTagFilter = false;
-            this.showTagShortcut = false;
-            this.showGetMarkdown = !this.showGetMarkdown;
+        getMarkdown() {
+            this.allClose();
+            this.showGetMarkdown = true;
+        },
+        goFamilySite() {
+            this.allClose();
+            this.showFamilySite = true;
         },
         closeShortcutUser() {
             this.showUserShortcut = false;

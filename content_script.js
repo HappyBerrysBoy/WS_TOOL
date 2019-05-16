@@ -35,6 +35,10 @@
               <md-tooltip md-direction="right">Get Markdown</md-tooltip>
             </md-button>
             
+            <md-button class="md-icon-button" @click="goFamilySite">
+              <md-icon>airport_shuttle</md-icon>
+              <md-tooltip md-direction="right">Family Site</md-tooltip>
+            </md-button>
 
             </md-speed-dial-content>
         </md-speed-dial>
@@ -61,6 +65,12 @@
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
           <get-markdown v-show="showGetMarkdown" />
+        </md-content>
+      </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel">
+          <go-family-site v-show="showFamilySite" />
         </md-content>
       </transition>
     </div>
