@@ -36,6 +36,10 @@ Vue.component('goFamilySite', {
                         description: '@wonsama',
                         url: 'https://wonsama.github.io/steemengine/index.html?symbol=JJM'
                     }, {
+                        name: 'Steemit Calculator',
+                        description: '@anpigon',
+                        url: 'https://anpigon.github.io/steemit-calculator/',
+                    }, {
                         name: 'Steemd',
                         description: '',
                         url: 'https://steemd.com/'
