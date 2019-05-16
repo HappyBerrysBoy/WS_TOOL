@@ -1,99 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>Steem Markdown Design Tool</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div style="width:500px!important;min-height:700px; " class="ui container">
-        <div id="copied" style="display:none;position:fixed;top:10px;right:15px;z-index:999;font-size:1.5rem;font-weight:bold;color:blueviolet;">Copied!!</div>
-
-        <center><h1>Steemit Tools</h1></center>
-        <br>
-
-        <div class="ui toggle checkbox" style="display:none;">
-            <input type="checkbox" name="public" id="showShortcutPage">
-            <label>Show Shortcuts in Page</label>
-        </div>
-
-        <div class="ui styled accordion">
-            <div class="title accordionTitle userShortcut" val="userShortcut">
-                <i class="dropdown icon"></i>
-                User Shortcuts
-            </div>
-            <div id="userShortcut" class="content">
-                <div class="ui input">
-                    <input type="text" id="userID" placeholder="Input @ID" />
-                </div>
-                <div class="ui primary button func" id="addUserShortcut">Add</div>
-                <div class="ui orange button func" id="removeUserShortcut">Del</div>
-                <div class="ui teal button func" id="sortABC">Sort</div>
-                <div class="ui toggle checkbox">
-                    <input type="checkbox" name="public" id="userDetailBtn">
-                    <label>Detail View</label>
-                </div>
-                <table class="ui olive table" id="shortcutList"></table>
-            </div>
-            <div class="title accordionTitle tagShortcut" val="tagShortcut">
-                <i class="dropdown icon"></i>
-                Tag Shortcuts
-            </div>
-            <div id="tagShortcut" class="content">
-                <div class="ui input">
-                    <input type="text" id="tagID" placeholder="Input Tag" />
-                </div>
-                <div class="ui primary button" id="addTagShortcut">Add</div>
-                <div class="ui orange button" id="removeTagShortcut">Del</div>
-                
-                <table class="ui olive table" id="tagShortcutList"></table>
-            </div>
-            <div class="title accordionTitle srcManager" val="srcManager">
-                <i class="dropdown icon"></i>
-                Image/HTML Manager
-            </div>
-            <div class="content" id="srcManager">
-                <div class="ui form">
-                    <div class="four fields">
-                        <div class="field" style="width:60%!important">
-                            <input type="text" id="srcName" placeholder="Input Name">
-                        </div>
-                        <div class="field" style="width:10%!important">
-                            <label>Image</label>
-                            <input style="width:30px" type="checkbox" id="isImage" checked>
-                        </div>
-                        <div class="field" style="width:15%!important">
-                            <div class="ui primary button" id="addManualSrc">Add</div>
-                        </div>
-                        <div class="field" style="width:15%!important">
-                            <div class="ui teal button" id="initialSetting">Init</div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <input type="text" id="manualSrc" placeholder="Input Image URL/HTML/Markdown">
-                    </div>
-                </div>
-                <div class="ui divider"></div>
-                <table class="ui olive table">
-                    <tbody id="underlist">
-                    </tbody>
-                </table>
-                <div class="ui input">
-                    <input type="text" id="clipboard" style="display:none;" />
-                </div>
-            </div>
-        </div>
+    <div id="app">
+        글꼴: <select id="fontSelector">
+            <option value="" selected>기본값</option>
+        </select>
     </div>
+    <script src="thirdParty/jquery3.3.1.min.js"></script>
+    <script src="popup.js"></script>
 </body>
-<link rel="stylesheet" href="thirdParty/semantic.min.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="thirdParty/animate.min.css"> 
-<script src="thirdParty/jquery3.3.1.min.js"></script>
-<script src="thirdParty/semantic.min.js"></script>
-<script src="thirdParty/showdown.min.js"></script>
-<script src="thirdParty/steemjs.min.js"></script>
-<script src="classes.js"></script>
-<script src="const.js"></script>
-<script src="common.js"></script>
-<script src="srcManager.js"></script>
-<script src="tagShortcutManager.js"></script>
-<script src="shortcutManager.js"></script>
 </html>

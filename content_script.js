@@ -47,4 +47,34 @@
   `);
 
     $(".App__content").before(cetegoryDom);
-})();
+
+  })();
+
+// 폰트 체인저
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(sender.tab ?
+    "from a content script:" + sender.tab.url :
+    "from the extension");
+  console.log(request);
+  const { action, data } = request;
+  if(action === 'font') {
+    const {
+      fontUrl,
+      fontFamily
+    } = data;
+
+    $("#wstoolfontstyles").remove();
+    const customFontStyles = `<style type='text/css' id="wstoolfontstyles"> 
+      @import url('${fontUrl}');
+      .Markdown, .Comment .Markdown.MarkdownViewer--small { 
+        font-family: ${fontFamily} !important;
+        font-size: 20px;
+        font-weight: 400;
+        color: rgba(0,0,0,.84);
+      }
+    </style>`
+    $(customFontStyles).appendTo("head");
+  }
+  // sendResponse({ ok: true });
+  
+});
