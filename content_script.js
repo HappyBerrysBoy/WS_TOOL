@@ -1,6 +1,6 @@
-(async() => {
-    // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
-    const cetegoryDom = $(`
+(async () => {
+  // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
+  const cetegoryDom = $(`
     <div id="app">
       <div style="position:fixed;left:0px;top:60px;z-index:100;">
         <md-speed-dial class="md-top-left" md-direction="bottom">
@@ -46,35 +46,6 @@
     </div>
   `);
 
-    $(".App__content").before(cetegoryDom);
+  $(".App__content").before(cetegoryDom);
 
-  })();
-
-// 폰트 체인저
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log(sender.tab ?
-    "from a content script:" + sender.tab.url :
-    "from the extension");
-  console.log(request);
-  const { action, data } = request;
-  if(action === 'font') {
-    const {
-      fontUrl,
-      fontFamily
-    } = data;
-
-    $("#wstoolfontstyles").remove();
-    const customFontStyles = `<style type='text/css' id="wstoolfontstyles"> 
-      @import url('${fontUrl}');
-      .Markdown, .Comment .Markdown.MarkdownViewer--small { 
-        font-family: ${fontFamily} !important;
-        font-size: 20px;
-        font-weight: 400;
-        color: rgba(0,0,0,.84);
-      }
-    </style>`
-    $(customFontStyles).appendTo("head");
-  }
-  // sendResponse({ ok: true });
-  
-});
+})();

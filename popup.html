@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <title>Steem Markdown Design Tool</title>
-    <link rel="stylesheet" href="popup.css">
+  <meta charset="utf-8" />
+  <title>Steem Markdown Design Tool</title>
+  <link rel="stylesheet" href="thirdParty/semantic.min.css">
+  <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
-    <div id="app">
-        글꼴: <select id="fontSelector">
+  <div class="ui container">
+    <div class="column">
+      <form class="ui form">
+        <h4 class="ui dividing header">폰트 설정</h4>
+        <div class="field">
+          <label>글꼴</label>
+          <select id="fontFamilySelector">
             <option value="" selected>기본값</option>
-        </select>
+          </select>
+        </div>
+        <div class="field">
+          <label>크기</label>
+          <select id="fontSizeSelector">
+            <option value="" selected>기본값</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>줄간격</label>
+          <select id="fontLineHeightSelector">
+            <option value="" selected>기본값</option>
+          </select>
+        </div>
+      </form>
     </div>
-    <script src="thirdParty/jquery3.3.1.min.js"></script>
-    <script src="popup.js"></script>
+  </div>
+  <script src="thirdParty/jquery3.3.1.min.js"></script>
+  <script src="thirdParty/semantic.min.js"></script>
+  <script src="popup.js"></script>
 </body>
+
 </html>

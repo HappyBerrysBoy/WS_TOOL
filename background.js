@@ -1,22 +1,54 @@
-// Respond to the click on extension Icon
-chrome.browserAction.onClicked.addListener(function (tab) {
-    chrome.tabs.executeScript({
-        code: ''
-    });
-    // chrome.tabs.executeScript(tab.id, {
-    //     file: 'inject.js'
-    // });
+// 스팀 포스팅 URL 여부 검사
+function isSteemitPostUrl(url) {
+	return /^https?:\/\/steemit\.com\/[^\/]+\/@[^\/]+\/.+/.test(url);
+}
+
+// 페이지 업데이트 되었을 때
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+	console.log('onUpdated', {
+		tabId,
+		changeInfo,
+		tab
+	});
+	// console.log(changeInfo.status === 'complete', isSteemitPostUrl(tab.url))
+	if (changeInfo.status === 'complete' && isSteemitPostUrl(tab.url)) {
+		// 폰트 체인저 호출
+		loadFontChanger(tabId);
+	}
 });
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
- 
-	chrome.pageAction.onClicked.addListener(function(tab) {
-	    chrome.tabs.getSelected(null, function(tab) {
-	    	// 컨텐트 스크립트에 배경 처리를 요청합니다.
-	    	chrome.tabs.sendMessage(tab.id, {});
-	    });
-	});
- 
-	// 페이지 액션 아이콘을 보여준다.
-	chrome.pageAction.show(sender.tab.id);
+chrome.runtime.onInstalled.addListener(details => {
+	console.log('onInstalled', details)
 });
+
+chrome.tabs.onActivated.addListener(activeInfo => {
+	console.log('onActivated1', activeInfo);
+	chrome.tabs.get(activeInfo.tabId, tab => {
+		console.log('onActivated2', tab)
+		if (isSteemitPostUrl(tab.url)) {
+			loadFontChanger(tab.id);
+		}
+	});
+});
+
+const loadFontChanger = (tabId) => loadContentScript({
+	tabId,
+	file: '/content/fontChanger.js'
+});
+
+// 컨텐츠 스크립트 실행
+const loadContentScript = ({
+	tabId,
+	file
+}) => {
+	console.log('[WS] loadContentScript', {
+		tabId,
+		file
+	});
+	return new Promise((resolve, reject) => {
+		chrome.tabs.executeScript(tabId, {
+			file,
+			runAt: 'document_end'
+		}, ret => resolve(ret));
+	})
+}
