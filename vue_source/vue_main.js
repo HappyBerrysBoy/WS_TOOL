@@ -11,6 +11,7 @@ Vue.use(VueMaterial.default)
         showCategory: false,
         showGetMarkdown: false,
         showFamilySite: false,
+        showRunUrl: false,
         tagFilterList: []
     },
     created() {
@@ -36,6 +37,8 @@ Vue.use(VueMaterial.default)
 
             const tagFilterList = JSON.parse(localStorage.getItem(WSTOOLS_POST_FILTER_KEY));
 
+            if ($('#posts_list ul li:eq(0)').find('.timestamp__link').attr('href') == undefined) return;
+
             // 최초 아이템은 따로 삭제 해준다.
             if (tagFilterList.indexOf($('#posts_list ul li:eq(0)').find('.timestamp__link').attr('href').split('/')[1]) > -1) {
                 $('#posts_list ul li:eq(0)').remove();
@@ -57,6 +60,7 @@ Vue.use(VueMaterial.default)
             this.showTagFilter = false;
             this.showGetMarkdown = false;
             this.showFamilySite = false;
+            this.showRunUrl = false;
         },
         showMenu() {
             this.show = !this.show;
@@ -91,6 +95,10 @@ Vue.use(VueMaterial.default)
         },
         closeShortcutUser() {
             this.showUserShortcut = false;
+        },
+        runUrl() {
+            this.allClose();
+            this.showRunUrl = true;
         }
     }
 }))()

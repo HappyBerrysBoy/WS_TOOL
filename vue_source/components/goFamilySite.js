@@ -97,6 +97,10 @@ Vue.component('goFamilySite', {
                         {{site.description}}
                     </md-button>
             </div>
+
+            <md-divider></md-divider>
+
+            <run-url />
         </div>
     `,
     methods: {
