@@ -71,7 +71,8 @@ Vue.use(VueMaterial.default)
             }
         },
         goCategory() {
-            window.open(`https://anpigon.github.io/steemit-community/#/`);
+            alert('멋진 모습으로 개발중..!!');
+            // window.open(`https://anpigon.github.io/steemit-community/#/`);
         },
         userShortcut() {
             this.allClose();

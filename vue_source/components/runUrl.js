@@ -3,10 +3,8 @@ Vue.component('runUrl', {
         return {
             inputName: '',
             inputUrl: '',
-            urls: [{
-                    name: 'Claim SCT',
-                    url: `https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22SCT%22%7D`
-                },
+            clickDel:false,
+            urls: [
                 {
                     name: 'Claim Weed',
                     url: `https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22WEED%22%7D`
@@ -29,49 +27,48 @@ Vue.component('runUrl', {
         <div>
             <h5>Cutom Url</h5>
             <div style="display:flex;">
-                <md-field style="width:100px;margin-right:10px;">
+                <md-field style="width:150px;margin-right:10px;">
                     <label>Name</label>
                     <md-input v-model="inputName"></md-input>
                 </md-field>
-                <md-field style="width:600px;" @keyup.enter="insertUrl">
-                    <label>URL</label>
-                    <md-input v-model="inputUrl"></md-input>
+                <md-field style="width:600px;">
+                    <label>URL(ex:https://www.google.com/)</label>
+                    <md-input v-model="inputUrl" @keyup.enter="insertUrl"></md-input>
                 </md-field>
-                <md-button class="md-accent md-mini md-raised" @click="insertUrl">Add Url</md-button>
+                <md-button style="margin-top:16px;" class="md-accent md-mini md-raised" @click="insertUrl">Add Url</md-button>
             </div>
             <div style="display:flex;">
-                <div v-for="url in urls">
-                    <md-button 
-                        class="md-raised md-primary" 
-                        @click="runUrl(url.url)">
-                        {{url.name}}
-                    </md-button>
-                </div>
+                <md-chip 
+                    v-for="url in urls" 
+                    class="md-primary" 
+                    md-deletable
+                    @click="runUrl(url.url)"
+                    @md-delete="delCustomUrl">
+                    {{url.name}}
+                </md-chip>
             </div>
         </div>
     `,
-    computed: {
-        customUrlStyle: function() {
-            return {
-                width: '50px;'
-            }
-        },
-        customUrlStyle: function() {
-            return {
-                width: '50px;'
-            }
-        }
-    },
     methods: {
         insertUrl() {
-
             this.urls.push({ name: this.inputName, url: this.inputUrl });
             localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
+            this.inputName = '';
+            this.inputUrl = '';
         },
-        deleteTag() {
+        delCustomUrl(e) {
+            this.clickDel = true;
+            let selIdx = -1;
+            let selName = $(e.target).closest('.md-chip').text().trim();
+            this.urls.filter((url, idx) => {if(url.name == selName) selIdx = idx;});
+            this.urls.splice(selIdx, 1);
             localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
         },
         runUrl(url) {
+            if(this.clickDel) {
+                this.clickDel = false;
+                return;
+            }
             window.open(url);
         }
     }

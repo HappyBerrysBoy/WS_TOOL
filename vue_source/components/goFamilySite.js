@@ -68,6 +68,9 @@ Vue.component('goFamilySite', {
                 {
                     groupName: 'Steemengine Sites',
                     siteList: [{
+                        name:'Claim SCT',
+                        url:'https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22SCT%22%7D'
+                    },{
                         name: 'Steem Engine',
                         description: '',
                         url: 'https://steem-engine.com/'
