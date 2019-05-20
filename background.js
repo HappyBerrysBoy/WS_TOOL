@@ -1,6 +1,8 @@
 // 스팀 포스팅 URL 여부 검사
 function isSteemitPostUrl(url) {
-  return /^https?:\/\/steemit\.com\/[^\/]+\/@[^\/]+\/.+/.test(url);
+  return /^https?:\/\/(www\.)?steem(it)|(coinpan)\.com\/[^\/]+\/@[^\/]+\/.+/.test(
+    url
+  );
 }
 
 // 페이지 업데이트 되었을 때

@@ -68,7 +68,10 @@ const fontUpdate = () => {
   // 참고: https://developer.chrome.com/apps/messaging
   chrome.tabs.getSelected(null, function(tab) {
     console.log("getSelected", tab);
-    if (tab && tab.url.startsWith("https://steemit.com")) {
+
+    // 현재 페이지가 스팀잇 페이지면 메세지 전송
+    if (tab && checkMatcheUrl(tab.url)) {
+      console.log("checkMatcheUrl", true);
       chrome.tabs.sendMessage(tab.id, {
         action: "font",
         data
@@ -76,6 +79,18 @@ const fontUpdate = () => {
     }
   });
 };
+
+const MATCHE_URLS = [
+  "https://steemit.com/*",
+  "https://steemcoinpan.com/*",
+  "https://www.steemcoinpan.com/*"
+];
+function checkMatcheUrl(tabUrl) {
+  for (url of MATCHE_URLS) {
+    if (new RegExp(url).test(tabUrl)) return true;
+  }
+  return false;
+}
 
 fontFamilySelector.change(fontUpdate);
 fontSizeSelector.change(fontUpdate);
