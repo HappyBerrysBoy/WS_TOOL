@@ -12,6 +12,7 @@ Vue.use(VueMaterial.default)
         showGetMarkdown: false,
         showFamilySite: false,
         showRunUrl: false,
+        scotVoting:[],
         tagFilterList: []
     },
     created() {
@@ -37,6 +38,7 @@ Vue.use(VueMaterial.default)
 
             const tagFilterList = JSON.parse(localStorage.getItem(WSTOOLS_POST_FILTER_KEY));
 
+            if(!tagFilterList) return;
             if ($('#posts_list ul li:eq(0)').find('.timestamp__link').attr('href') == undefined) return;
 
             // 최초 아이템은 따로 삭제 해준다.
@@ -52,6 +54,9 @@ Vue.use(VueMaterial.default)
                 }
             });
         }, 3000);
+
+        // var f = $('#scotAccountInfo').contents();
+        // scotAccountInfo
     },
     methods: {
         allClose() {
