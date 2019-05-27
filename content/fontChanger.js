@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       ? "from a content script:" + sender.tab.url
       : "from the extension"
   );
-  console.log(request);
+  console.log("chrome.runtime.onMessage.addListener", request);
   const { action, data } = request;
   if (action === "font") {
     updateFontStyle();

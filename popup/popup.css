@@ -4,10 +4,15 @@ html {
 }
 
 .ui.container {
-  padding: 35px 25px;
+  /* padding: 35px 25px; */
+  padding: 15px 0;
 }
 
 #app {
   width: 250px;
   min-height: 250px;
+}
+
+.tabular.menu .item {
+  cursor: pointer;
 }
