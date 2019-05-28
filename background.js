@@ -67,12 +67,26 @@ const loadContentScript = ({ tabId, file }) => {
 
 // 컨텐츠 스크립트에 메세지 전달
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log("chrome.extension.onMessage", request);
-  chrome.tabs.getSelected(null, function(tab) {
-    // if (tab && checkMatcheUrl(tab.url)) {
-    chrome.tabs.sendMessage(tab.id, {
-      action: "getUsername"
+  console.log("chrome.extension.onMessage", request, sender);
+  const { action, data } = request;
+
+  // SCOT 계정 정보 가져오기
+  if(action === 'getAccount') {
+    console.log("getAccount", data.username);
+    Promise.all([
+      getAccount(data.username),
+      getSCOTAccount(data.username),
+    ]).then(data => {
+      console.log('getAllAccount', data);
+      const steem = currentVotinPower(data[0]);
+      const scot = currentVotinPower(data[1]['SCT']);
+      // sendResponse({ action, data });
+      const result = {
+        steem, 
+        scot
+      }
+      chrome.tabs.sendMessage(sender.tab.id, { action, data: result });
     });
-    // }
-  });
+  }
+  
 });

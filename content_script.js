@@ -1,6 +1,6 @@
-(async() => {
-    // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
-    const cetegoryDom = $(`
+(async () => {
+  // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
+  const cetegoryDom = $(`
     <div id="app">
       <div style="position:fixed;left:0px;top:60px;z-index:100;">
         <md-speed-dial class="md-top-left" md-direction="bottom">
@@ -77,8 +77,21 @@
     
   `);
 
-    $(".App__content").before(cetegoryDom);
-    // $(".App__content").before($(`<iframe src="https://scot-api.steem-engine.com/@happyberrysboy" style="width:100%;height:300px;"></iframe>`));
-    // <iframe id="scotAccountInfo" src="https://scot-api.steem-engine.com/@happyberrysboy" style="width:100%;height:200px;"></iframe>
-
+  $('.App__content').before(cetegoryDom);
+  // $(".App__content").before($(`<iframe src="https://busy.org/" style="width:100%;height:300px;"></iframe>`));
 })();
+
+// 보팅 파워 가져오기
+chrome.runtime.sendMessage({
+  action: 'getAccount',
+  data: { username: 'anpigon' },
+});
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log('getAccount', request);
+  const { action, data } = request;
+  if (action === 'getAccount') {
+    document
+      .querySelector('.Header__logotype')
+      .append(`steem:${data.steem}% / scot:${data.scot}%`);
+  }
+});
