@@ -95,3 +95,11 @@ function checkMatcheUrl(tabUrl) {
 fontFamilySelector.change(fontUpdate);
 fontSizeSelector.change(fontUpdate);
 fontLineHeightSelector.change(fontUpdate);
+
+$(".tabular.menu .item").tab();
+
+/* content script의 entry point */
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log(request, sender);
+  console.log($("body"));
+});

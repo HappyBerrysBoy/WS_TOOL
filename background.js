@@ -64,3 +64,15 @@ const loadContentScript = ({ tabId, file }) => {
     );
   });
 };
+
+// 컨텐츠 스크립트에 메세지 전달
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log("chrome.extension.onMessage", request);
+  chrome.tabs.getSelected(null, function(tab) {
+    // if (tab && checkMatcheUrl(tab.url)) {
+    chrome.tabs.sendMessage(tab.id, {
+      action: "getUsername"
+    });
+    // }
+  });
+});

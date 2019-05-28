@@ -9,33 +9,55 @@
 
   <body>
     <div class="ui container">
-      <div class="column">
-        <form class="ui form">
-          <h4 class="ui dividing header">폰트 설정</h4>
-          <div class="field">
-            <label>글꼴</label>
-            <select id="fontFamilySelector">
-              <option value="" selected>기본값</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>크기</label>
-            <select id="fontSizeSelector">
-              <option value="" selected>기본값</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>줄간격</label>
-            <select id="fontLineHeightSelector">
-              <option value="" selected>기본값</option>
-            </select>
-          </div>
-        </form>
+      <div class="ui top attached tabular menu">
+        <div class="item active" data-tab="account">계정</div>
+        <div class="item" data-tab="font">폰트</div>
+      </div>
+      <div class="ui bottom attached tab segment active" data-tab="account">
+        <div class="ui small right labeled action input">
+          <label for="amount" class="ui small label">@</label>
+          <input type="text" placeholder="Enter Username" id="username" />
+          <button class="ui small button" id="searchAccount">Search</button>
+        </div>
+        <div class="ui small teal progress" data-percent="100" id="steem_vp">
+          <div class="bar"><div class="progress"></div></div>
+          <div class="label">Steem Voting Power</div>
+        </div>
+        <div class="ui small blue progress" data-percent="100" id="scot_vp">
+          <div class="bar"><div class="progress"></div></div>
+          <div class="label">SCT Voting Power</div>
+        </div>
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="font">
+        <div class="column">
+          <form class="ui form">
+            <h4 class="ui dividing header">폰트 설정</h4>
+            <div class="field">
+              <label>글꼴</label>
+              <select id="fontFamilySelector">
+                <option value="" selected>기본값</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>크기</label>
+              <select id="fontSizeSelector">
+                <option value="" selected>기본값</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>줄간격</label>
+              <select id="fontLineHeightSelector">
+                <option value="" selected>기본값</option>
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <script src="../thirdParty/jquery3.3.1.min.js"></script>
     <script src="../thirdParty/semantic.min.js"></script>
     <script src="fonts_data.js"></script>
     <script src="popup.js"></script>
+    <script src="account.js"></script>
   </body>
 </html>
