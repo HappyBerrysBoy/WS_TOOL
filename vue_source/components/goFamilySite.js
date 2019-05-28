@@ -79,8 +79,9 @@ Vue.component('goFamilySite', {
                         description: '',
                         url: 'http://www.steemcoinpan.com/'
                     }, {
-                        name: 'Weedcash',
-                        url: 'http://www.weedcash.network/'
+                        name: 'Scot Voting Power',
+                        description:'@blockchainstudio',
+                        url: 'https://economicstudio.github.io/vp/?t=SCT&a='
                     }]
                 }
             ]
@@ -108,7 +109,12 @@ Vue.component('goFamilySite', {
     `,
     methods: {
         goSite(url) {
-            window.open(url);
+            let account = localStorage.getItem(WSTOOLS_ACCOUNT);
+            if(account == null){
+                window.open(url);
+            }else{
+                window.open(url + account);
+            }
         }
     }
 })

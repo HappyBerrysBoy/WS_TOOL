@@ -32,6 +32,14 @@ Vue.use(VueMaterial.default)
             alert('zdzxc;lksjdf');
         });
 
+        // Save Account
+        if($('.Header .Userpic').attr('style')){
+            let account = $('.Header .Userpic').attr('style').split('/')[4];
+            localStorage.setItem(WSTOOLS_ACCOUNT, account);
+        }else{
+            localStorage.setItem(WSTOOLS_ACCOUNT, null);
+        }
+        
         // Tag Filter Scheduler(3 sec)
         setInterval(() => {
             console.log('Run tag filter..');
