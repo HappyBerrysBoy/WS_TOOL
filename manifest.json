@@ -47,7 +47,7 @@
     },
     "manifest_version": 2,
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["background.js", "popup/account.js"],
         "persistent": false
     }
 }
