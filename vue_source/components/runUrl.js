@@ -1,31 +1,31 @@
 Vue.component('runUrl', {
-    data() {
-        return {
-            inputName: '',
-            inputUrl: '',
-            clickDel:false,
-            urls: [
-                {
-                    name: 'Claim Weed',
-                    url: `https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22WEED%22%7D`
-                },
-                {
-                    name: 'Go Steemit!!',
-                    url: `https://www.steemit.com/`
-                }
-            ]
-        }
-    },
-    created() {
-        const items = localStorage.getItem(WSTOOLS_URL_STORAGE);
+  data() {
+    return {
+      inputName: '',
+      inputUrl: '',
+      clickDel: false,
+      urls: [
+        {
+          name: 'Claim Weed',
+          url: `https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22WEED%22%7D`,
+        },
+        {
+          name: 'Go Steemit!!',
+          url: `https://www.steemit.com/`,
+        },
+      ],
+    };
+  },
+  created() {
+    const items = localStorage.getItem(WSTOOLS_URL_STORAGE);
 
-        if (items) {
-            this.urls = JSON.parse(items);
-        }
-    },
-    template: `
+    if (items) {
+      this.urls = JSON.parse(items);
+    }
+  },
+  template: `
         <div>
-            <h5>Cutom Url</h5>
+            <h5>Custom Url</h5>
             <div style="display:flex;">
                 <md-field style="width:150px;margin-right:10px;">
                     <label>Name</label>
@@ -49,27 +49,32 @@ Vue.component('runUrl', {
             </div>
         </div>
     `,
-    methods: {
-        insertUrl() {
-            this.urls.push({ name: this.inputName, url: this.inputUrl });
-            localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
-            this.inputName = '';
-            this.inputUrl = '';
-        },
-        delCustomUrl(e) {
-            this.clickDel = true;
-            let selIdx = -1;
-            let selName = $(e.target).closest('.md-chip').text().trim();
-            this.urls.filter((url, idx) => {if(url.name == selName) selIdx = idx;});
-            this.urls.splice(selIdx, 1);
-            localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
-        },
-        runUrl(url) {
-            if(this.clickDel) {
-                this.clickDel = false;
-                return;
-            }
-            window.open(url);
-        }
-    }
-})
+  methods: {
+    insertUrl() {
+      this.urls.push({ name: this.inputName, url: this.inputUrl });
+      localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
+      this.inputName = '';
+      this.inputUrl = '';
+    },
+    delCustomUrl(e) {
+      this.clickDel = true;
+      let selIdx = -1;
+      let selName = $(e.target)
+        .closest('.md-chip')
+        .text()
+        .trim();
+      this.urls.filter((url, idx) => {
+        if (url.name == selName) selIdx = idx;
+      });
+      this.urls.splice(selIdx, 1);
+      localStorage.setItem(WSTOOLS_URL_STORAGE, JSON.stringify(this.urls));
+    },
+    runUrl(url) {
+      if (this.clickDel) {
+        this.clickDel = false;
+        return;
+      }
+      window.open(url);
+    },
+  },
+});

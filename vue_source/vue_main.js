@@ -16,6 +16,14 @@ Vue.use(VueMaterial.default)(
       steemVP: 0,
       sctVP: 0,
     },
+    computed: {
+      steemVPtoFix() {
+        return this.steemVP.toFixed(0);
+      },
+      sctVPtoFix() {
+        return this.sctVP.toFixed(0);
+      },
+    },
     created() {
       this.tagFilterList = JSON.parse(
         localStorage.getItem(WSTOOLS_POST_FILTER_KEY),
@@ -111,8 +119,8 @@ Vue.use(VueMaterial.default)(
         console.log('getAccount', request);
         const { action, data } = request;
         if (action === 'getAccount') {
-          self.steemVP = data.steem;
-          self.sctVP = data.scot;
+          self.steemVP = parseFloat(data.steem);
+          self.sctVP = parseFloat(data.scot);
         }
       });
     },

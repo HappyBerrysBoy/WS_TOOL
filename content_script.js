@@ -48,10 +48,12 @@
         <div style="float:left;">
           <md-progress-spinner md-mode="determinate" md-diameter="25" :md-value="steemVP"></md-progress-spinner>
           <md-tooltip md-direction="top">Steem {{steemVP}}%</md-tooltip>
+          <span style="font-size:0.4rem;">{{steemVPtoFix}}%</span>
         </div>
         <div style="float:left;margin-left:5px;">
           <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="sctVP"></md-progress-spinner>
           <md-tooltip md-direction="top">SCT {{sctVP}}%</md-tooltip>
+          <span style="font-size:0.4rem;">{{sctVPtoFix}}%</span>
         </div>
         <div id="scotInfo">
 
