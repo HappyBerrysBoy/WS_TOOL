@@ -50,14 +50,34 @@
                 <option value="" selected>기본값</option>
               </select>
             </div>
+            <div class="field">
+              <label>줄간격</label>
+              <select id="fontLineHeightSelector">
+                <option value="" selected>기본값</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>글자색</label>
+              <input type="color" id="fontColorSelector" name="fontColorSelector" value="#333333">
+              <div class="ui left pointing label">
+                기본
+              </div>
+              &emsp;
+              <input type="color" id="fontColorDarkSelector" name="fontColorDarkSelector" value="#FCFCFC">
+              <div class="ui left pointing label">
+                다크
+              </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
     <script src="../thirdParty/jquery3.3.1.min.js"></script>
     <script src="../thirdParty/semantic.min.js"></script>
-    <script src="fonts_data.js"></script>
-    <script src="popup.js"></script>
-    <script src="account.js"></script>
+    <script src="../background/account.js"></script>
+    <script src="src/popup.js"></script>
+    <script src="src/fonts_data.js"></script>
+    <script src="src/font_changer.js"></script>
+    <script src="src/get_account.js"></script>
   </body>
 </html>
