@@ -16,3 +16,7 @@ html {
 .tabular.menu .item {
   cursor: pointer;
 }
+
+.ui.toggle.checkbox{
+  margin-bottom:5px;
+}

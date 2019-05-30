@@ -15,6 +15,11 @@ Vue.use(VueMaterial.default)(
       tagFilterList: [],
       steemVP: 0,
       sctVP: 0,
+      aaaVP: 0,
+      displayFuncIcon: false,
+      displaySteemVP: false,
+      displaySctVP: false,
+      displayAaaVP: false,
     },
     computed: {
       steemVPtoFix() {
@@ -22,6 +27,9 @@ Vue.use(VueMaterial.default)(
       },
       sctVPtoFix() {
         return this.sctVP.toFixed(0);
+      },
+      aaaVPtoFix() {
+        return this.aaaVP.toFixed(0);
       },
     },
     created() {
@@ -104,6 +112,19 @@ Vue.use(VueMaterial.default)(
           });
       }, 3000);
 
+      let self = this;
+
+      // Display Control
+      chrome.storage.sync.get(
+        ['displayFunction', 'steemVP', 'sctVP', 'aaaVP'],
+        function(result) {
+          this.displayFuncIcon = result.displayFunction;
+          this.displaySteemVP = result.steemVP;
+          this.displaySctVP = result.sctVP;
+          this.displayAaaVP = result.aaaVP;
+        }.bind(this),
+      );
+
       // 보팅 파워 가져오기
       let account = localStorage.getItem(WSTOOLS_ACCOUNT);
       if (account) {
@@ -113,14 +134,33 @@ Vue.use(VueMaterial.default)(
         });
       }
 
-      let self = this;
-
       chrome.extension.onMessage.addListener(function(request) {
-        console.log('getAccount', request);
+        // console.log('getAccount', request);
         const { action, data } = request;
+
+        console.log(
+          `vue_main chrome.extension.onMessage : ${action}, ${data.name}, ${
+            data.val
+          }`,
+        );
+
         if (action === 'getAccount') {
-          self.steemVP = parseFloat(data.steem);
-          self.sctVP = parseFloat(data.scot);
+          self.steemVP = parseFloat(isNaN(data.steem) ? 0 : data.steem);
+          self.sctVP = parseFloat(isNaN(data.sct) ? 0 : data.sct);
+          self.aaaVP = parseFloat(isNaN(data.aaa) ? 0 : data.aaa);
+        } else if (action === 'displayControl') {
+          if (data.name === 'displayFunction') {
+            self.displayFuncIcon = data.val;
+          } else if (data.name === 'steemVP') {
+            console.log(`Change steemVP Display status:${data.val}`);
+            self.displaySteemVP = data.val;
+          } else if (data.name === 'sctVP') {
+            console.log(`Change SCT_VP Display status:${data.val}`);
+            self.displaySctVP = data.val;
+          } else if (data.name === 'aaaVP') {
+            console.log(`Change AAA_VP Display status:${data.val}`);
+            self.displayAaaVP = data.val;
+          }
         }
       });
     },

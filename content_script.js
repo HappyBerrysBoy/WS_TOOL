@@ -2,7 +2,7 @@
   // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
   const cetegoryDom = $(`
     <div id="app">
-      <div style="position:fixed;left:0px;top:70px;z-index:100;">
+      <div style="position:fixed;left:0px;top:70px;z-index:100;" v-if="displayFuncIcon">
         <md-speed-dial class="md-top-left" md-direction="bottom" md-diameter="30">
           <md-speed-dial-target @click="allClose">
             <md-icon class="md-morph-initial">add</md-icon>
@@ -44,19 +44,27 @@
         </md-speed-dial>
       </div>
 
-      <div style="position:fixed;left:15px;top:93%;z-index:100;">
-        <div style="float:left;">
-          <md-progress-spinner md-mode="determinate" md-diameter="25" :md-value="steemVP"></md-progress-spinner>
-          <md-tooltip md-direction="top">Steem {{steemVP}}%</md-tooltip>
-          <span style="font-size:0.4rem;">{{steemVPtoFix}}%</span>
+      <div style="position:fixed;left:10px;top:88%;">
+        <div>
+          <div style="float:left;" v-if="displaySteemVP">
+            <md-progress-spinner md-mode="determinate" md-diameter="25" :md-value="steemVP"></md-progress-spinner>
+            <md-tooltip md-direction="top">Steem {{steemVP}}%</md-tooltip>
+            <span style="font-size:0.4rem;">{{steemVPtoFix}}%</span>
+          </div>
+          <div style="float:left;margin-left:5px;" v-if="displaySctVP">
+            <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="sctVP"></md-progress-spinner>
+            <md-tooltip md-direction="top">SCT {{sctVP}}%</md-tooltip>
+            <span style="font-size:0.4rem;">{{sctVPtoFix}}%</span>
+          </div>
         </div>
-        <div style="float:left;margin-left:5px;">
-          <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="sctVP"></md-progress-spinner>
-          <md-tooltip md-direction="top">SCT {{sctVP}}%</md-tooltip>
-          <span style="font-size:0.4rem;">{{sctVPtoFix}}%</span>
+        <div>
+          <div style="float:left;" v-if="displayAaaVP">
+            <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="aaaVP"></md-progress-spinner>
+            <md-tooltip md-direction="top">AAA {{aaaVP}}%</md-tooltip>
+            <span style="font-size:0.4rem;">{{aaaVPtoFix}}%</span>
+          </div>
         </div>
         <div id="scotInfo">
-
         </div>
       </div>
 
