@@ -78,7 +78,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
       getSCOTAccount(data.username),
     ]).then(data => {
       console.log('getAllAccount', data);
-      debugger;
+
       const steem = currentVotinPower(data[0]);
       const sct = currentVotinPower(data[1]['SCT'] ? data[1]['SCT'] : 0);
       const aaa = currentVotinPower(data[1]['AAA'] ? data[1]['AAA'] : 0);

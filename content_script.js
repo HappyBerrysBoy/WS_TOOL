@@ -10,11 +10,6 @@
           </md-speed-dial-target>
 
           <md-speed-dial-content>
-            <md-button class="md-icon-button" @click="goCategory">
-              <md-icon>chrome_reader_mode</md-icon>
-              <md-tooltip md-direction="right">Tag Group View(Under development by @anpigon)</md-tooltip>
-            </md-button>
-          
             <md-button class="md-icon-button" @click="userShortcut">
               <md-icon>account_circle</md-icon>
               <md-tooltip md-direction="right">User Shortcut</md-tooltip>
@@ -40,6 +35,11 @@
               <md-tooltip md-direction="right">Family Site</md-tooltip>
             </md-button>
 
+            <md-button class="md-icon-button" @click="goCategory">
+              <md-icon>chrome_reader_mode</md-icon>
+              <md-tooltip md-direction="right">Tag Group View(Under development by @anpigon)</md-tooltip>
+            </md-button>
+            
             </md-speed-dial-content>
         </md-speed-dial>
       </div>
