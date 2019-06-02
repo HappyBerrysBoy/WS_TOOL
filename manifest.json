@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -51,5 +51,6 @@
   "background": {
     "scripts": ["background/background.js", "background/account.js"],
     "persistent": false
-  }
+  },
+  "Content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'"
 }
