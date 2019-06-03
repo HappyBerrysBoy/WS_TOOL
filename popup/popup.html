@@ -27,10 +27,10 @@
         <div class="ui small teal progress mb0" data-percent="100" id="steem_vp">
           <div class="bar"><div class="progress"></div></div>
         </div>
-        <div class="ui small blue progress mb0" data-percent="100" id="scot_vp">
+        <div class="ui small blue progress mb0" data-percent="100" id="SCT_vp">
           <div class="bar"><div class="progress"></div></div>
         </div>
-        <div class="ui small blue progress mb0" data-percent="100" id="aaa_vp">
+        <div class="ui small blue progress mb0" data-percent="100" id="AAA_vp">
           <div class="bar"><div class="progress"></div></div>
         </div>
         <!-- <div class="ui divider"></div> -->
@@ -52,6 +52,17 @@
           </span> 
           </a>
         </div>
+
+        <h4 class="ui header">Scot Balances</h4>
+        <div class="ui styled accordion" id="scotList">
+          <!-- <div class="title">
+            <i class="dropdown icon"></i>
+            Title
+          </div>
+          <div class="content"></div> -->
+        </div>
+        
+        <div class="ui active loader" id="accountLoader"></div>
       </div>
 
       <!-- 폰트 설정 -->
@@ -114,14 +125,14 @@
         </div>
       </div>
     </div>
-    <!-- CDN js -->
-    <!-- <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sscjs@latest/dist/ssc.min.js"></script> -->
-
+    <!-- js -->
     <script src="../thirdParty/jquery3.3.1.min.js"></script>
     <script src="../thirdParty/semantic.min.js"></script>
     <script src="../thirdParty/steemjs.min.js"></script>
+
+    <script src="../thirdParty/axios.min.js"></script>
+    <script src="../thirdParty/ssc.min.js"></script>
+
     <script src="../background/account.js"></script>
     <script src="src/popup.js"></script>
     <script src="src/fonts_data.js"></script>

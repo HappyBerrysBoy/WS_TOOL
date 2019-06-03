@@ -22,4 +22,10 @@ html {
   margin-bottom:5px;
 }
 
+#scotList {
+  max-width: 400px;
+}
+
+/* common styles */
 .mb0 {margin-bottom:0 !important}
+.textRight { text-align: right !important }
