@@ -6,6 +6,7 @@ html {
 .ui.container {
   /* padding: 35px 25px; */
   padding: 15px 0;
+  min-width: 400px;
 }
 
 #app {
@@ -20,3 +21,5 @@ html {
 .ui.toggle.checkbox{
   margin-bottom:5px;
 }
+
+.mb0 {margin-bottom:0 !important}
