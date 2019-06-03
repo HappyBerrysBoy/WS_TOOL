@@ -33,3 +33,18 @@ div.gpt-ad[data-google-query-id] {
 .md-dialog.md-theme-default {
     z-index: 104;
 }
+
+#vpBox{
+    position:fixed;
+    left:10px;
+    top:88%;
+    border-radius: 15px;
+    background-color:rgba(22, 22, 22, 0.8);
+    padding:10px 10px 0px 10px;;
+    z-index: 10;
+    color:#fff;
+}
+
+.tooltipZindex{
+    z-index:11;
+}
