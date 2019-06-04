@@ -20,6 +20,36 @@ Vue.use(VueMaterial.default)(
       displaySteemVP: false,
       displaySctVP: false,
       displayAaaVP: false,
+      vpBoxTop: 100,
+      siteList: [
+        {
+          site: 'steemit.com/',
+          scot: false,
+          unit: 'Steem',
+          context: 'https://steemit.com/',
+          textareaSelector:
+            "document.getElementsByClassName('upload-enabled')[0]",
+          contentArea: '.App__content',
+        },
+        {
+          site: 'steemcoinpan.com/',
+          scot: true,
+          unit: 'SCT',
+          context: 'https://steemcoinpan.com/',
+          textareaSelector:
+            "document.getElementsByClassName('upload-enabled')[0]",
+          contentArea: '.App__content',
+        },
+        {
+          site: 'triplea.reviews/',
+          scot: true,
+          unit: 'AAA',
+          context: 'https://triplea.reviews/',
+          textareaSelector:
+            "document.getElementsByClassName('upload-enabled')[0]",
+          contentArea: '.App__content',
+        },
+      ],
     },
     computed: {
       steemVPtoFix() {
@@ -122,6 +152,12 @@ Vue.use(VueMaterial.default)(
           this.displaySteemVP = result.steemVP;
           this.displaySctVP = result.sctVP;
           this.displayAaaVP = result.aaaVP;
+
+          let cnt = 0;
+          if (this.displaySteemVP) cnt += 1;
+          if (this.displaySctVP) cnt += 1;
+          if (this.displayAaaVP) cnt += 1;
+          this.vpBoxTop -= 100 - cnt * 5 + '%';
         }.bind(this),
       );
 
