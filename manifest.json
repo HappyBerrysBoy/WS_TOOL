@@ -23,7 +23,6 @@
         "vue_source/components/graphql.js",
         "vue_source/components/dialContent.js",
         "vue_source/components/tag.js",
-        "vue_source/components/category.js",
         "vue_source/components/mdListItem.js",
         "vue_source/components/shortcutUser.js",
         "vue_source/components/tagFilter.js",

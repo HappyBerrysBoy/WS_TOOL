@@ -18,14 +18,83 @@ html {
   cursor: pointer;
 }
 
-.ui.toggle.checkbox{
-  margin-bottom:5px;
+.ui.toggle.checkbox {
+  margin-bottom: 5px;
 }
 
 #scotList {
   max-width: 400px;
 }
 
+#scotList .title {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+#scotList .symbol {
+  color: #000;
+  font-weight: 900;
+  min-width: 50px;
+}
+
+#scotList .price {
+  font-weight: 400;
+  position: absolute;
+  right: 20px;
+}
+
 /* common styles */
-.mb0 {margin-bottom:0 !important}
-.textRight { text-align: right !important }
+.mb0 {
+  margin-bottom: 0 !important
+}
+
+.textRight {
+  text-align: right !important
+}
+
+/* loading animation */
+.lds-facebook {
+  /* display: inline-block; */
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+}
+
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: #00000010;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+
+  50%,
+  100% {
+    top: 19px;
+    height: 26px;
+  }
+}

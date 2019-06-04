@@ -1,143 +1,155 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Steem Markdown Design Tool</title>
-    <link rel="stylesheet" href="../thirdParty/semantic.min.css" />
-    <link rel="stylesheet" href="popup.css" />
-  </head>
 
-  <body>
-    <div class="ui container">
-      <div class="ui top attached tabular menu">
-        <div class="item active" data-tab="account">계정</div>
-        <div class="item" data-tab="font">폰트</div>
-        <div class="item" data-tab="setting">설정</div>
+<head>
+  <meta charset="utf-8" />
+  <title>Steem Markdown Design Tool</title>
+  <link rel="stylesheet" href="../thirdParty/semantic.min.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <div class="ui container">
+    <div class="ui top attached tabular menu">
+      <div class="item active" data-tab="account">계정</div>
+      <div class="item" data-tab="font">폰트</div>
+      <div class="item" data-tab="setting">설정</div>
+    </div>
+
+    <!-- 계정 정보 -->
+    <div class="ui bottom attached tab segment active" data-tab="account">
+      <div class="ui small right labeled action input">
+        <label for="amount" class="ui small label">@</label>
+        <input type="text" placeholder="Enter Username" id="username" />
+        <button class="ui small button" id="searchAccount">Search</button>
       </div>
 
-      <!-- 계정 정보 -->
-      <div class="ui bottom attached tab segment active" data-tab="account">
-        <div class="ui small right labeled action input">
-          <label for="amount" class="ui small label">@</label>
-          <input type="text" placeholder="Enter Username" id="username" />
-          <button class="ui small button" id="searchAccount">Search</button>
+      <h4 class="ui header">Voting Power</h4>
+      <div class="ui small teal progress mb0" data-percent="100" id="steem_vp">
+        <div class="bar">
+          <div class="progress"></div>
         </div>
+      </div>
+      <div class="ui small blue progress mb0" data-percent="100" id="SCT_vp">
+        <div class="bar">
+          <div class="progress"></div>
+        </div>
+      </div>
+      <div class="ui small blue progress mb0" data-percent="100" id="AAA_vp">
+        <div class="bar">
+          <div class="progress"></div>
+        </div>
+      </div>
+      <!-- <div class="ui divider"></div> -->
+      <h4 class="ui header">Account Info</h4>
+      <div class="ui divided selection list">
+        <a class="item">
+          <div class="ui horizontal label">명성도</div>
+          <span id="reputation">0.000</span>
+        </a>
+        <a class="item">
+          <div class="ui horizontal label">스팀 파워</div>
+          <span id="steemPower">0 STEEM</span>
+        </a>
+        <a class="item">
+          <div class="ui horizontal label">보팅 금액</div>
+          <span>
+            <span id="upvoteValue">$0.000 ($0.000)</span>
+            <!-- <a href="https://anpigon.github.io/steemit-calculator/" onclick="return window.open(this.href, 'width=500,height=500')"><img src='./img/icon/calculator.png' height="20"/></a> -->
+          </span>
+        </a>
+      </div>
 
-        <h4 class="ui header">Voting Power</h4>
-        <div class="ui small teal progress mb0" data-percent="100" id="steem_vp">
-          <div class="bar"><div class="progress"></div></div>
+      <h4 class="ui header">Steem Engine Tokens</h4>
+      <div class="ui styled accordion" id="scotList">
+        <div class="lds-facebook">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-        <div class="ui small blue progress mb0" data-percent="100" id="SCT_vp">
-          <div class="bar"><div class="progress"></div></div>
-        </div>
-        <div class="ui small blue progress mb0" data-percent="100" id="AAA_vp">
-          <div class="bar"><div class="progress"></div></div>
-        </div>
-        <!-- <div class="ui divider"></div> -->
-        <h4 class="ui header">Account Info</h4>
-        <div class="ui divided selection list">
-          <a class="item">
-            <div class="ui horizontal label">명성도</div>
-            <span id="reputation">0.000</span>
-          </a>
-          <a class="item">
-            <div class="ui horizontal label">스팀 파워</div>
-            <span id="steemPower">0 STEEM</span>
-          </a>
-          <a class="item">
-            <div class="ui horizontal label">보팅 금액</div>
-            <span>
-              <span id="upvoteValue">$0.000 ($0.000)</span>  
-              <!-- <a href="https://anpigon.github.io/steemit-calculator/" onclick="return window.open(this.href, 'width=500,height=500')"><img src='./img/icon/calculator.png' height="20"/></a> -->
-          </span> 
-          </a>
-        </div>
+      </div>
 
-        <h4 class="ui header">Steem Engine Tokens</h4>
-        <div class="ui styled accordion" id="scotList">
-          <!-- <div class="title">
-            <i class="dropdown icon"></i>
-            Title
+      <div class="ui active loader" id="accountLoader"></div>
+    </div>
+
+
+    <!-- 폰트 설정 -->
+    <div class="ui bottom attached tab segment" data-tab="font">
+      <div class="column">
+        <form class="ui form">
+          <h4 class="ui dividing header">폰트 설정</h4>
+          <div class="field">
+            <label>글꼴</label>
+            <select id="fontFamilySelector">
+              <option value="" selected>기본값</option>
+            </select>
           </div>
-          <div class="content"></div> -->
-        </div>
-        
-        <div class="ui active loader" id="accountLoader"></div>
-      </div>
-
-      <!-- 폰트 설정 -->
-      <div class="ui bottom attached tab segment" data-tab="font">
-        <div class="column">
-          <form class="ui form">
-            <h4 class="ui dividing header">폰트 설정</h4>
-            <div class="field">
-              <label>글꼴</label>
-              <select id="fontFamilySelector">
-                <option value="" selected>기본값</option>
-              </select>
+          <div class="field">
+            <label>크기</label>
+            <select id="fontSizeSelector">
+              <option value="" selected>기본값</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>줄간격</label>
+            <select id="fontLineHeightSelector">
+              <option value="" selected>기본값</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>글자색</label>
+            <input type="color" id="fontColorSelector" name="fontColorSelector" value="#333333">
+            <div class="ui left pointing label">
+              기본
             </div>
-            <div class="field">
-              <label>크기</label>
-              <select id="fontSizeSelector">
-                <option value="" selected>기본값</option>
-              </select>
+            &emsp;
+            <input type="color" id="fontColorDarkSelector" name="fontColorDarkSelector" value="#FCFCFC">
+            <div class="ui left pointing label">
+              다크
             </div>
-            <div class="field">
-              <label>줄간격</label>
-              <select id="fontLineHeightSelector">
-                <option value="" selected>기본값</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>글자색</label>
-              <input type="color" id="fontColorSelector" name="fontColorSelector" value="#333333">
-              <div class="ui left pointing label">
-                기본
-              </div>
-              &emsp;
-              <input type="color" id="fontColorDarkSelector" name="fontColorDarkSelector" value="#FCFCFC">
-              <div class="ui left pointing label">
-                다크
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 컨텐츠 설정 -->
-      <div class="ui bottom attached tab segment" data-tab="setting">
-        <div class="ui toggle checkbox" name="displayFunction">
-          <input type="checkbox">
-          <label>Display Function Icon</label>
-        </div>
-        <h4 class="ui dividing header">Select to show voting power</h4>
-        <div class="ui toggle checkbox" name="steemVP">
-          <input type="checkbox">
-          <label>Steem</label>
-        </div>
-        <div class="ui toggle checkbox" name="sctVP">
-          <input type="checkbox">
-          <label>SCT</label>
-        </div>
-        <div class="ui toggle checkbox" name="aaaVP">
-          <input type="checkbox">
-          <label>AAA</label>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
-    <!-- js -->
-    <script src="../thirdParty/jquery3.3.1.min.js"></script>
-    <script src="../thirdParty/semantic.min.js"></script>
-    <script src="../thirdParty/steemjs.min.js"></script>
 
-    <script src="../thirdParty/axios.min.js"></script>
-    <script src="../thirdParty/ssc.min.js"></script>
+    <!-- 컨텐츠 설정 -->
+    <div class="ui bottom attached tab segment" data-tab="setting">
+      <div class="ui toggle checkbox" name="displayFunction">
+        <input type="checkbox">
+        <label>Display Function Icon</label>
+      </div>
+      <h4 class="ui dividing header">Select to show voting power</h4>
+      <div class="ui toggle checkbox" name="steemVP">
+        <input type="checkbox">
+        <label>Steem</label>
+      </div>
+      <div class="ui toggle checkbox" name="sctVP">
+        <input type="checkbox">
+        <label>SCT</label>
+      </div>
+      <div class="ui toggle checkbox" name="aaaVP">
+        <input type="checkbox">
+        <label>AAA</label>
+      </div>
+    </div>
+  </div>
+  <!-- js -->
+  <script src="../thirdParty/jquery3.3.1.min.js"></script>
+  <script src="../thirdParty/semantic.min.js"></script>
+  <script src="../thirdParty/steemjs.min.js"></script>
 
-    <script src="../background/account.js"></script>
-    <script src="src/popup.js"></script>
-    <script src="src/fonts_data.js"></script>
-    <script src="src/font_changer.js"></script>
-    <script src="src/get_account.js"></script>
-    <script src="src/setting.js"></script>
-  </body>
+  <script src="../thirdParty/axios.min.js"></script>
+  <script src="../thirdParty/ssc.min.js"></script>
+
+  <script src="../background/account.js"></script>
+  <script src="src/fomatter.js"></script>
+
+  <script src="src/popup.js"></script>
+  <script src="src/fonts_data.js"></script>
+
+  <script src="src/font_changer.js"></script>
+  <script src="src/get_account.js"></script>
+  <script src="src/setting.js"></script>
+</body>
+
 </html>

@@ -8,10 +8,52 @@ const showVotingProgress = (target, value, symbol) => {
   });
 };
 
+const renderSteemTokens = (tokens=[], filterSymbol=['SCT']) => {
+  for(token of tokens) {
+    if(filterSymbol.includes(token.symbol)) {
+      const tokenHtml = [];
+      const metadata = JSON.parse(token.metadata || '{}');
+
+      // 토큰명
+      tokenHtml.push(`<p class="item">
+        <div class="ui horizontal label">Name</div> 
+        ${metadata.icon?`<img class="ui avatar image" alt="${metadata.icon} 토큰 아이콘" src="${metadata.icon}">`:''}
+        <b>${token.name}</b>
+      <p/>`);
+      // 토큰 심볼
+      // tokenHtml.push(`<p class="item">
+      //   <div class="ui horizontal label">Symbol</div> 
+      //   <b>${token.symbol}</b>
+      // <p/>`);
+      // 토큰 발행자
+      tokenHtml.push(`<p class="item">
+        <div class="ui horizontal label">Issuer</div> 
+        <a href='https://steemit.com/@${token.issuer}' target='_blank'>@${token.issuer}</a>
+      <p/>`);
+      // 토큰 홈페이지
+      if(metadata.url) {
+        tokenHtml.push(`<p class="item">
+          <div class="ui horizontal label">URL</div> 
+          <a href='${metadata.url}' target='_blank'>${metadata.url}</a>
+        <p/>`);
+      }
+      // 토큰 설명
+      if(metadata.desc) {
+        tokenHtml.push(`<p class="item">
+          <div class="ui horizontal label">Desc</div> 
+          ${metadata.desc}
+        <p/>`);
+      }
+      $(`#${token.symbol}_content`).html(tokenHtml);
+    }
+  }
+}
+
 // 계정 정보 가져오기
 const getAccountAllInfo = username => {
   console.log('getAccountAllInfo');
   if (Boolean(username)) {
+    $('#accountLoader').show();
     const sscClient = new SSC('https://api.steem-engine.com/rpc/');
 
     Promise.all([
@@ -24,7 +66,10 @@ const getAccountAllInfo = username => {
     ]).then(
       ([global, price, rewardFund, account, scotAccount, sccBalances]) => {
         console.log({ account, scotAccount, sccBalances });
-        if (!account) return;
+        if (!account) {
+          $('#accountLoader').hide();
+          return alert('사용자가 존재하지 않습니다.');
+        }
 
         const steemVp = currentVotinPower(account);
         showVotingProgress('#steem_vp', steemVp, 'STEEM');
@@ -47,10 +92,10 @@ const getAccountAllInfo = username => {
           `<b>${reputation.toFixed(3)}</b> (${account.post_count} posts)`,
         );
 
-        // 스팀파워 계산
+        // 스팀 파워 계산
         const sp = calculatorSteemPower(global, account);
         const steemPowerHtml = [];
-        steemPowerHtml.push(`<b>${sp.vestingSteem.toFixed(2)} STEEM</b>`);
+        steemPowerHtml.push(`<b>${comma(sp.vestingSteem.toFixed(2))} STEEM</b>`);
         if (sp.receivedVestingSteem || sp.delegatedVestingSteem) {
           steemPowerHtml.push(' (');
           if (sp.receivedVestingSteem)
@@ -93,24 +138,37 @@ const getAccountAllInfo = username => {
         // SCOT 잔액
         const scotListHtml = [];
         const _sccBalances = sccBalances
-          .filter(e => e.balance > 0)
-          .sort((a, b) => parseFloat(b.balance) - parseFloat(a.balance)); // 필터링 및 내림차순으로 정렬
+          .filter(e => {
+            e.totalBalance = parseFloat(e.balance) + parseFloat(e.stake || 0);
+            return e.totalBalance > 0;
+          })
+          .sort((a, b) => parseFloat(b.totalBalance) - parseFloat(a.totalBalance)); // 필터링 및 내림차순으로 정렬
+        
+        const filterSymbols = [];  
         for (sccBalance of _sccBalances) {
+          const symbol = sccBalance.symbol;
+          filterSymbols.push(symbol);
+          
           // SCOT 정보
+          const scotInfo = scotAccount[symbol];
           scotListHtml.push(`
             <div class="title">
-            <i class="dropdown icon"></i>
-            ${sccBalance.balance} ${sccBalance.symbol}
+              <i class="dropdown icon"></i>
+              <span class='symbol'>${symbol} 
+                ${(scotInfo && scotInfo.pending_token)?'<div class="ui horizontal label">Pending Claim</div>':''}
+              </span>
+              <span class='price'>${comma(sccBalance.totalBalance.toFixed(3))}</span>
             </div>`);
-          const scotInfo = scotAccount[sccBalance.symbol];
           if (scotInfo) {
             scotListHtml.push(`
               <div class="content">
                 <p class="item">
                   <div class="ui horizontal label">Staked</div> 
-                  <b>${parseFloat(sccBalance.stake).toFixed(3)} ${
-              sccBalance.symbol
-            }</b>
+                  <b>${parseFloat(sccBalance.stake).toFixed(3)} ${symbol}</b>
+                <p/>
+                <p class="item">
+                  <div class="ui horizontal label">Unstaked</div> 
+                  <b>${parseFloat(sccBalance.balance).toFixed(3)} ${symbol}</b>
                 <p/>
                 <p class="item">
                   <div class="ui horizontal label">Pending Unstaked</div> 
@@ -120,20 +178,36 @@ const getAccountAllInfo = username => {
                   <div class="ui horizontal label">Pending Claim</div> 
                   <b>${(scotInfo.pending_token / 1000).toFixed(3)}</b>
                 </p>
+                <div class='ui divider' />
+                <div id='${symbol}_content'>Loading...</div>
               </div>`);
           } else {
-            scotListHtml.push(`<div class="content"></div>`);
+            scotListHtml.push(`<div class="content"><div id='${symbol}_content'>Loading...</div></div>`);
           }
         }
         $('#scotList')
           .html(scotListHtml.join(''))
           .accordion({
             selector: {
-              trigger: '.title .icon',
+              trigger: '.title',
             },
           });
 
+        chrome.storage.local.get('STEEM_ENGINE_TOKENS', ({ STEEM_ENGINE_TOKENS: tokens }) => {
+          // console.log('STEEM_ENGINE_TOKENS', tokens);
+          renderSteemTokens(tokens, filterSymbols);
+        });
+
         $('#accountLoader').hide();
+
+        sscClient.find('tokens', 'tokens', { /*symbol:'SCT'*/ }).then(tokens => {
+          // chrome.storage.sync.set({
+          chrome.storage.local.set({
+            'STEEM_ENGINE_TOKENS': tokens
+          });
+
+          renderSteemTokens(tokens, filterSymbols);
+        });
 
         chrome.storage.sync.set(
           {
@@ -143,6 +217,8 @@ const getAccountAllInfo = username => {
         );
       },
     );
+  } else {
+    $('#accountLoader').hide();
   }
 };
 
