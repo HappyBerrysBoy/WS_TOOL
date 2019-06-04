@@ -16,10 +16,10 @@ Vue.use(VueMaterial.default)(
       steemVP: 0,
       sctVP: 0,
       aaaVP: 0,
-      displayFuncIcon: false,
-      displaySteemVP: false,
-      displaySctVP: false,
-      displayAaaVP: false,
+      displayFuncIcon: true,
+      displaySteemVP: true,
+      displaySctVP: true,
+      displayAaaVP: true,
       vpBoxTop: 100,
       siteList: [
         {
