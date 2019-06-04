@@ -101,6 +101,18 @@ Vue.component('goFamilySite', {
           groupName: 'Steemengine Sites',
           siteList: [
             {
+              name: 'Steem Coinpan',
+              needAccount: false,
+              description: '',
+              url: 'http://www.steemcoinpan.com/',
+            },
+            {
+              name: 'AAA',
+              needAccount: false,
+              description: '',
+              url: 'https://www.triplea.reviews/',
+            },
+            {
               name: 'Claim SCT',
               needAccount: false,
               url:
@@ -111,12 +123,6 @@ Vue.component('goFamilySite', {
               needAccount: false,
               description: '',
               url: 'https://steem-engine.com/',
-            },
-            {
-              name: 'Steem Coinpan',
-              needAccount: false,
-              description: '',
-              url: 'http://www.steemcoinpan.com/',
             },
             {
               name: 'Scot Voting Power',
