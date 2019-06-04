@@ -8,7 +8,8 @@
       "matches": [
         "https://steemit.com/*",
         "https://weedcash.com/*",
-        "https://*.steemcoinpan.com/*"
+        "https://*.steemcoinpan.com/*",
+        "https://www.triplea.reviews/*"
       ],
       "run_at": "document_idle",
       "js": [

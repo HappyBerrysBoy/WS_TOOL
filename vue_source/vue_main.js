@@ -38,14 +38,14 @@ Vue.use(VueMaterial.default)(
       );
     },
     mounted() {
-      window.addEventListener(
-        'hashchange',
-        () => {
-          console.log(location.hash);
-          this.showCategory = location.hash === '#category';
-        },
-        false,
-      );
+      // window.addEventListener(
+      //   'hashchange',
+      //   () => {
+      //     console.log(location.hash);
+      //     this.showCategory = location.hash === '#category';
+      //   },
+      //   false,
+      // );
 
       window.document.body.addEventListener('resize', () => {
         alert('test');

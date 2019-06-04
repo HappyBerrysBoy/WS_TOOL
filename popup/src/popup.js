@@ -2,6 +2,7 @@ const MATCHE_URLS = [
   'https://steemit.com/*',
   'https://steemcoinpan.com/*',
   'https://www.steemcoinpan.com/*',
+  'https://www.triplea.reviews/*',
 ];
 function checkMatcheUrl(tabUrl) {
   for (url of MATCHE_URLS) {

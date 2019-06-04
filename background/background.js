@@ -1,8 +1,13 @@
 // 스팀 포스팅 URL 여부 검사
 function isSteemitPostUrl(url) {
-  return /^https?:\/\/(www\.)?steem(it)|(coinpan)\.com\/[^\/]+\/@[^\/]+\/.+/.test(
+  // return /^https?:\/\/(www\.)?steem(it)|(coinpan)\.com\/[^\/]+\/@[^\/]+\/.+/.test(
+  //   url,
+  // );
+  const result = /^https?:\/\/(www\.)?(steemit\.com|steemcoinpan\.com|triplea\.reviews)\/[^\/]+\/@[^\/]+\/.+/.test(
     url,
   );
+  console.log('isSteemitPostUrl:', result);
+  return result;
 }
 
 // 페이지 업데이트 되었을 때
@@ -14,6 +19,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   });
   // console.log(changeInfo.status === 'complete', isSteemitPostUrl(tab.url))
   if (changeInfo.status === 'complete' && isSteemitPostUrl(tab.url)) {
+    console.log('isSteemitPostUrl:', true);
     // 폰트 체인저 호출
     loadFontChanger(tabId);
   }
