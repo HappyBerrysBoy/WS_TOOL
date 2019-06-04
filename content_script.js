@@ -39,31 +39,27 @@
               <md-icon>chrome_reader_mode</md-icon>
               <md-tooltip md-direction="right">Tag Group View(Under development by @anpigon)</md-tooltip>
             </md-button>
-            
+
             </md-speed-dial-content>
         </md-speed-dial>
       </div>
 
-      <div style="position:fixed;left:10px;top:88%;">
-        <div>
-          <div style="float:left;" v-if="displaySteemVP">
-            <md-progress-spinner md-mode="determinate" md-diameter="25" :md-value="steemVP"></md-progress-spinner>
-            <md-tooltip md-direction="top">Steem {{steemVP}}%</md-tooltip>
-            <span style="font-size:0.4rem;">{{steemVPtoFix}}%</span>
-          </div>
-          <div style="float:left;margin-left:5px;" v-if="displaySctVP">
-            <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="sctVP"></md-progress-spinner>
-            <md-tooltip md-direction="top">SCT {{sctVP}}%</md-tooltip>
-            <span style="font-size:0.4rem;">{{sctVPtoFix}}%</span>
-          </div>
-        </div>
-        <div>
-          <div style="float:left;" v-if="displayAaaVP">
-            <md-progress-spinner class="md-accent" md-diameter="25" md-mode="determinate" :md-value="aaaVP"></md-progress-spinner>
-            <md-tooltip md-direction="top">AAA {{aaaVP}}%</md-tooltip>
-            <span style="font-size:0.4rem;">{{aaaVPtoFix}}%</span>
-          </div>
-        </div>
+      <div id="vpBox">
+        <disp-voting-power 
+            v-if="displaySteemVP"
+            vpstyle=""
+            unit="Steem"
+            :percent="steemVP" />
+        <disp-voting-power 
+            v-if="displaySctVP"
+            vpstyle="md-accent"
+            unit="SCT"
+            :percent="sctVP" />
+        <disp-voting-power 
+            v-if="displayAaaVP"
+            vpstyle="md-accent"
+            unit="AAA"
+            :percent="aaaVP" />
         <div id="scotInfo">
         </div>
       </div>
@@ -100,7 +96,10 @@
     </div>
     
   `);
-
-  $('.App__content').before(cetegoryDom);
-  // $(".App__content").before($(`<iframe src="https://busy.org/" style="width:100%;height:300px;"></iframe>`));
+  sites.forEach(site => {
+    if (location.href.indexOf(site.site) > -1) {
+      $(site.contentArea).before(cetegoryDom);
+      return;
+    }
+  });
 })();

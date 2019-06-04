@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.0.7",
+  "version": "2.0.9",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -10,6 +10,7 @@
         "https://weedcash.com/*",
         "https://*.steemcoinpan.com/*",
         "https://www.triplea.reviews/*"
+        "https://*.triplea.reviews/*"
       ],
       "run_at": "document_idle",
       "js": [
@@ -21,9 +22,9 @@
         "contentConst.js",
         "content_script.js",
         "vue_source/components/graphql.js",
+        "vue_source/components/dispVotingPower.js",
         "vue_source/components/dialContent.js",
         "vue_source/components/tag.js",
-        "vue_source/components/category.js",
         "vue_source/components/mdListItem.js",
         "vue_source/components/shortcutUser.js",
         "vue_source/components/tagFilter.js",
