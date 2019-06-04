@@ -35,9 +35,9 @@ div.gpt-ad[data-google-query-id] {
 }
 
 #vpBox{
-    position:fixed;
+    position: fixed;
     left:10px;
-    top:88%;
+    bottom:10px;
     border-radius: 15px;
     background-color:rgba(22, 22, 22, 0.8);
     padding:10px 0px 0px 10px;;
