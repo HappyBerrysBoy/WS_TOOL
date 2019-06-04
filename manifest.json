@@ -1,14 +1,15 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.0.7",
+  "version": "2.0.9",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
       "matches": [
         "https://steemit.com/*",
         "https://weedcash.com/*",
-        "https://*.steemcoinpan.com/*"
+        "https://*.steemcoinpan.com/*",
+        "https://*.triplea.reviews/*"
       ],
       "run_at": "document_idle",
       "js": [
