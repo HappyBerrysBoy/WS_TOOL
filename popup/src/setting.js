@@ -14,7 +14,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 });
 
 // Popup Loading시 값 적용
-chrome.storage.sync.get(['displayFunction', 'steemVP'], function(result) {
+chrome.storage.sync.get(['displayFunction', 'steem'], function(result) {
   $('.ui.checkbox').each(function() {
     let name = $(this).attr('name');
     $(this)

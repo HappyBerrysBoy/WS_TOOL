@@ -2,8 +2,8 @@
   // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
   const cetegoryDom = $(`
     <div id="extensionApp">
-      <div style="position:fixed;left:0px;top:70px;z-index:100;" v-if="displayFuncIcon">
-        <md-speed-dial class="md-top-left" md-direction="bottom" md-diameter="30">
+      <div id="funcIcon" v-if="displayFuncIcon">
+        <md-speed-dial class="md-top-right" md-direction="bottom" md-diameter="30">
           <md-speed-dial-target @click="allClose">
             <md-icon class="md-morph-initial">add</md-icon>
             <md-icon class="md-morph-final">settings</md-icon>
@@ -51,24 +51,6 @@
           :vpstyle="scot.style"
           :unit="scot.unit"
           :percent="scot.vpPercent" />
-
-        <disp-voting-power 
-            v-if="displaySteemVP"
-            vpstyle=""
-            unit="Steem"
-            :percent="steemVP" />
-        <disp-voting-power 
-            v-if="displaySctVP"
-            vpstyle="md-accent"
-            unit="SCT"
-            :percent="sctVP" />
-        <disp-voting-power 
-            v-if="displayAaaVP"
-            vpstyle="md-accent"
-            unit="AAA"
-            :percent="aaaVP" />
-        <div id="scotInfo">
-        </div>
       </div>
 
       <transition name="slide-fade">

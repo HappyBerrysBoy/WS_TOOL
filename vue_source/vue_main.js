@@ -13,31 +13,13 @@ Vue.use(VueMaterial.default)(
       showRunUrl: false,
       scotVoting: [],
       tagFilterList: [],
-      steemVP: 0,
-      sctVP: 0,
-      aaaVP: 0,
       displayFuncIcon: true,
-      displaySteemVP: true,
-      displaySctVP: true,
-      displayAaaVP: true,
       vpList: [
         {
           unit: 'steem',
           style: '',
           display: true,
           vpPercent: 50,
-        },
-        {
-          unit: 'SCT',
-          style: 'md-accent',
-          display: true,
-          vpPercent: 60,
-        },
-        {
-          unit: 'AAA',
-          style: 'md-accent',
-          display: true,
-          vpPercent: 70,
         },
       ],
     },
@@ -56,17 +38,29 @@ Vue.use(VueMaterial.default)(
       this.tagFilterList = JSON.parse(
         localStorage.getItem(WSTOOLS_POST_FILTER_KEY),
       );
+
+      const self = this;
+
+      chrome.storage.sync.get('scotList', function(items) {
+        if (!items['scotList']) return;
+
+        items['scotList'].forEach(scot => {
+          new Promise((resolve, reject) => {
+            chrome.storage.sync.get(scot, function(item) {
+              resolve(item);
+            });
+          }).then(item => {
+            self.vpList.push({
+              unit: scot,
+              style: 'md-accent',
+              display: item[scot],
+              vpPercent: 0,
+            });
+          });
+        });
+      });
     },
     mounted() {
-      // window.addEventListener(
-      //   'hashchange',
-      //   () => {
-      //     console.log(location.hash);
-      //     this.showCategory = location.hash === '#category';
-      //   },
-      //   false,
-      // );
-
       window.document.body.addEventListener('resize', () => {
         alert('test');
       });
@@ -134,23 +128,11 @@ Vue.use(VueMaterial.default)(
 
       let self = this;
 
-      // Display Control
-      // chrome.storage.sync.get(
-      //   ['displayFunction', 'steemVP', 'SCTVP', 'AAAVP'],
-      //   function(result) {
-      //     this.displayFuncIcon = result.displayFunction;
-      //     this.displaySteemVP = result.steemVP;
-      //     this.displaySctVP = result.sctVP;
-      //     this.displayAaaVP = result.aaaVP;
-      //   }.bind(this),
-      // );
-
       // 보팅 파워 가져오기 & 자동 Refresh 5sec
       this.refreshVP();
       setInterval(this.refreshVP, 5000);
 
       chrome.extension.onMessage.addListener(function(request) {
-        // console.log('getAccount', request);
         const { action, data } = request;
 
         console.log(
@@ -159,44 +141,26 @@ Vue.use(VueMaterial.default)(
           }`,
         );
 
-        // vpList
-        // {
-        //   unit: 'steem',
-        //   style: '',
-        //   display: true,
-        //   vpPercent: 50,
-        // },
-
-        data.scotArray.forEach(scot => {});
-
         if (action === 'getAccount') {
-          self.steemVP = parseFloat(isNaN(data.steem) ? 0 : data.steem);
-          self.sctVP = parseFloat(isNaN(data.sct) ? 0 : data.sct);
-          self.aaaVP = parseFloat(isNaN(data.aaa) ? 0 : data.aaa);
-
-          chrome.storage.sync.get([`${scot}VP`], function(result) {
-            $('.ui.checkbox').each(function() {
-              let name = $(this).attr('name');
-              if (name != Object.keys(result)[0]) return;
-
-              $(this)
-                .find('input')
-                .prop('checked', result[name]);
+          data.scotArray.forEach(scot => {
+            self.vpList.forEach(vp => {
+              if (vp.unit == scot.unit) {
+                vp.vpPercent = parseFloat(isNaN(scot.vp) ? 0 : scot.vp);
+              }
             });
           });
         } else if (action === 'displayControl') {
           debugger;
           if (data.name === 'displayFunction') {
             self.displayFuncIcon = data.val;
-          } else if (data.name === 'steemVP') {
-            console.log(`Change steemVP Display status:${data.val}`);
-            self.displaySteemVP = data.val;
-          } else if (data.name === 'SCTVP') {
-            console.log(`Change SCT_VP Display status:${data.val}`);
-            self.displaySctVP = data.val;
-          } else if (data.name === 'AAAVP') {
-            console.log(`Change AAA_VP Display status:${data.val}`);
-            self.displayAaaVP = data.val;
+          } else {
+            chrome.storage.sync.get([data.name], function(result) {
+              self.vpList.forEach(vp => {
+                if (vp.unit == data.name) {
+                  vp.display = result[data.name];
+                }
+              });
+            });
           }
         }
       });

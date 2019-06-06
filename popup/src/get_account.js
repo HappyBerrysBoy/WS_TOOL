@@ -145,17 +145,22 @@ const getAccountAllInfo = username => {
           }
         }
 
+        // SCOT 토큰 리스트 저장
+        chrome.storage.sync.set({ scotList: Object.keys(scotAccount) }, () =>
+          console.log('SCOT token list saved.'),
+        );
+
         // SCOT 토큰 모두 Setting에 표시 및 체크
         Object.keys(scotAccount).forEach(scot => {
           const html = `
-              <div class="ui toggle checkbox" name="${scot}VP">
+              <div class="ui toggle checkbox" name="${scot}">
                 <input type="checkbox">
                 <label>${scot}</label>
               </div>`;
 
           $('#vpCheckBoxList').append(html);
 
-          chrome.storage.sync.get([`${scot}VP`], function(result) {
+          chrome.storage.sync.get([`${scot}`], function(result) {
             $('.ui.checkbox').each(function() {
               let name = $(this).attr('name');
               if (name != Object.keys(result)[0]) return;
