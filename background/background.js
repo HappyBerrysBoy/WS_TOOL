@@ -86,11 +86,17 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
       console.log('getAllAccount', data);
 
       const steem = currentVotinPower(data[0]);
+      let scotArray = [];
+      Object.keys(data[1]).forEach(scot => {
+        scotArray.push({ unit: scot, vp: currentVotinPower(data[1][scot]) });
+      });
       const sct = currentVotinPower(data[1]['SCT'] ? data[1]['SCT'] : 0);
       const aaa = currentVotinPower(data[1]['AAA'] ? data[1]['AAA'] : 0);
+
       // sendResponse({ action, data });
       const result = {
         username: data.username,
+        scotArray,
         steem,
         sct,
         aaa,

@@ -1,7 +1,7 @@
 (async () => {
   // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
   const cetegoryDom = $(`
-    <div id="app">
+    <div id="extensionApp">
       <div style="position:fixed;left:0px;top:70px;z-index:100;" v-if="displayFuncIcon">
         <md-speed-dial class="md-top-left" md-direction="bottom" md-diameter="30">
           <md-speed-dial-target @click="allClose">
@@ -45,6 +45,13 @@
       </div>
 
       <div id="vpBox">
+        <disp-voting-power
+          v-for="scot in vpList"
+          v-if="scot.display"
+          :vpstyle="scot.style"
+          :unit="scot.unit"
+          :percent="scot.vpPercent" />
+
         <disp-voting-power 
             v-if="displaySteemVP"
             vpstyle=""
