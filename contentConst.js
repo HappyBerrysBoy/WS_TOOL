@@ -46,4 +46,12 @@ const sites = [
     textareaSelector: "document.getElementById('body')",
     contentArea: '.content',
   },
+  // {
+  //   site: 'steempeak.com/',
+  //   scot: false,
+  //   unit: 'Steem',
+  //   context: 'https://steempeak.com/',
+  //   textareaSelector: "document.getElementById('body')",
+  //   contentArea: '#app',
+  // },
 ];

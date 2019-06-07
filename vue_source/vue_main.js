@@ -1,6 +1,6 @@
 Vue.use(VueMaterial.default)(
   new Vue({
-    el: '#app',
+    el: '#extensionApp',
     data: {
       show: false,
       menuIcon: 'menu',
@@ -13,41 +13,13 @@ Vue.use(VueMaterial.default)(
       showRunUrl: false,
       scotVoting: [],
       tagFilterList: [],
-      steemVP: 0,
-      sctVP: 0,
-      aaaVP: 0,
       displayFuncIcon: true,
-      displaySteemVP: true,
-      displaySctVP: true,
-      displayAaaVP: true,
-      vpBoxTop: 100,
-      siteList: [
+      vpList: [
         {
-          site: 'steemit.com/',
-          scot: false,
-          unit: 'Steem',
-          context: 'https://steemit.com/',
-          textareaSelector:
-            "document.getElementsByClassName('upload-enabled')[0]",
-          contentArea: '.App__content',
-        },
-        {
-          site: 'steemcoinpan.com/',
-          scot: true,
-          unit: 'SCT',
-          context: 'https://steemcoinpan.com/',
-          textareaSelector:
-            "document.getElementsByClassName('upload-enabled')[0]",
-          contentArea: '.App__content',
-        },
-        {
-          site: 'triplea.reviews/',
-          scot: true,
-          unit: 'AAA',
-          context: 'https://triplea.reviews/',
-          textareaSelector:
-            "document.getElementsByClassName('upload-enabled')[0]",
-          contentArea: '.App__content',
+          unit: 'steem',
+          style: '',
+          display: true,
+          vpPercent: 50,
         },
       ],
     },
@@ -66,17 +38,29 @@ Vue.use(VueMaterial.default)(
       this.tagFilterList = JSON.parse(
         localStorage.getItem(WSTOOLS_POST_FILTER_KEY),
       );
+
+      const self = this;
+
+      chrome.storage.sync.get('scotList', function(items) {
+        if (!items['scotList']) return;
+
+        items['scotList'].forEach(scot => {
+          new Promise((resolve, reject) => {
+            chrome.storage.sync.get(scot, function(item) {
+              resolve(item);
+            });
+          }).then(item => {
+            self.vpList.push({
+              unit: scot,
+              style: 'md-accent',
+              display: item[scot],
+              vpPercent: 0,
+            });
+          });
+        });
+      });
     },
     mounted() {
-      // window.addEventListener(
-      //   'hashchange',
-      //   () => {
-      //     console.log(location.hash);
-      //     this.showCategory = location.hash === '#category';
-      //   },
-      //   false,
-      // );
-
       window.document.body.addEventListener('resize', () => {
         alert('test');
       });
@@ -144,34 +128,11 @@ Vue.use(VueMaterial.default)(
 
       let self = this;
 
-      // Display Control
-      chrome.storage.sync.get(
-        ['displayFunction', 'steemVP', 'sctVP', 'aaaVP'],
-        function(result) {
-          this.displayFuncIcon = result.displayFunction;
-          this.displaySteemVP = result.steemVP;
-          this.displaySctVP = result.sctVP;
-          this.displayAaaVP = result.aaaVP;
-
-          let cnt = 0;
-          if (this.displaySteemVP) cnt += 1;
-          if (this.displaySctVP) cnt += 1;
-          if (this.displayAaaVP) cnt += 1;
-          this.vpBoxTop -= 100 - cnt * 5 + '%';
-        }.bind(this),
-      );
-
-      // 보팅 파워 가져오기
-      let account = localStorage.getItem(WSTOOLS_ACCOUNT);
-      if (account) {
-        chrome.runtime.sendMessage({
-          action: 'getAccount',
-          data: { username: account },
-        });
-      }
+      // 보팅 파워 가져오기 & 자동 Refresh 5sec
+      this.refreshVP();
+      setInterval(this.refreshVP, 5000);
 
       chrome.extension.onMessage.addListener(function(request) {
-        // console.log('getAccount', request);
         const { action, data } = request;
 
         console.log(
@@ -181,21 +142,25 @@ Vue.use(VueMaterial.default)(
         );
 
         if (action === 'getAccount') {
-          self.steemVP = parseFloat(isNaN(data.steem) ? 0 : data.steem);
-          self.sctVP = parseFloat(isNaN(data.sct) ? 0 : data.sct);
-          self.aaaVP = parseFloat(isNaN(data.aaa) ? 0 : data.aaa);
+          data.scotArray.forEach(scot => {
+            self.vpList.forEach(vp => {
+              if (vp.unit == scot.unit) {
+                vp.vpPercent = parseFloat(isNaN(scot.vp) ? 0 : scot.vp);
+              }
+            });
+          });
         } else if (action === 'displayControl') {
+          debugger;
           if (data.name === 'displayFunction') {
             self.displayFuncIcon = data.val;
-          } else if (data.name === 'steemVP') {
-            console.log(`Change steemVP Display status:${data.val}`);
-            self.displaySteemVP = data.val;
-          } else if (data.name === 'sctVP') {
-            console.log(`Change SCT_VP Display status:${data.val}`);
-            self.displaySctVP = data.val;
-          } else if (data.name === 'aaaVP') {
-            console.log(`Change AAA_VP Display status:${data.val}`);
-            self.displayAaaVP = data.val;
+          } else {
+            chrome.storage.sync.get([data.name], function(result) {
+              self.vpList.forEach(vp => {
+                if (vp.unit == data.name) {
+                  vp.display = result[data.name];
+                }
+              });
+            });
           }
         }
       });
@@ -247,6 +212,21 @@ Vue.use(VueMaterial.default)(
       runUrl() {
         this.allClose();
         this.showRunUrl = true;
+      },
+      getAccount() {
+        // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
+        const account = $('.Header .Userpic').attr('style');
+        return account ? account.split('/')[4] : '';
+      },
+      refreshVP() {
+        // 보팅 파워 가져오기
+        const account = this.getAccount();
+        if (account) {
+          chrome.runtime.sendMessage({
+            action: 'getAccount',
+            data: { username: account },
+          });
+        }
       },
     },
   }),

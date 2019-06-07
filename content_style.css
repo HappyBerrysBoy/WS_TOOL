@@ -34,6 +34,13 @@ div.gpt-ad[data-google-query-id] {
     z-index: 104;
 }
 
+#funcIcon{
+    position:fixed;
+    left:105px;
+    top:70px;
+    z-index:10;
+}
+
 #vpBox{
     position: fixed;
     left:10px;
