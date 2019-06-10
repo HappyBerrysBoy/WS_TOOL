@@ -91,7 +91,6 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         scotArray.push({ unit: scot, vp: currentVotinPower(data[1][scot]) });
       });
 
-      // sendResponse({ action, data });
       const result = {
         username: data.username,
         scotArray,

@@ -142,6 +142,13 @@ Vue.use(VueMaterial.default)(
         );
 
         if (action === 'getAccount') {
+          if (data['steem']) {
+            // 0번이 항상 Steem
+            self.vpList[0].vpPercent = parseFloat(
+              isNaN(data['steem']) ? 0 : data['steem'],
+            );
+          }
+
           data.scotArray.forEach(scot => {
             self.vpList.forEach(vp => {
               if (vp.unit == scot.unit) {
