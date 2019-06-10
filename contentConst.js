@@ -46,6 +46,14 @@ const sites = [
     textareaSelector: "document.getElementById('body')",
     contentArea: '.content',
   },
+  {
+    site: 'splintertalk.io/',
+    scot: true,
+    unit: 'SPT',
+    context: 'https://splintertalk.io/',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: '.App__content',
+  },
   // {
   //   site: 'steempeak.com/',
   //   scot: false,

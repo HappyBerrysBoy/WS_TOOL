@@ -157,7 +157,6 @@ Vue.use(VueMaterial.default)(
             });
           });
         } else if (action === 'displayControl') {
-          debugger;
           if (data.name === 'displayFunction') {
             self.displayFuncIcon = data.val;
           } else {

@@ -107,7 +107,7 @@ Vue.component('goFamilySite', {
               url: 'http://www.steemcoinpan.com/',
             },
             {
-              name: 'Triple A',
+              name: 'AAA',
               needAccount: false,
               description: '',
               url: 'https://www.triplea.reviews/',
@@ -124,7 +124,6 @@ Vue.component('goFamilySite', {
               description: '',
               url: 'https://steem-engine.com/',
             },
-
             {
               name: 'Scot Voting Power',
               needAccount: true,
