@@ -20,10 +20,15 @@ Vue.use(VueMaterial.default)(
           style: '',
           display: true,
           vpPercent: 0,
+          url: 'https://www.steemit.com/',
         },
       ],
     },
     computed: {
+      account() {
+        const account = localStorage.getItem(WSTOOLS_ACCOUNT);
+        return account == 'null' ? '-' : localStorage.getItem(WSTOOLS_ACCOUNT);
+      },
       steemVPtoFix() {
         return this.steemVP.toFixed(0);
       },
@@ -50,11 +55,16 @@ Vue.use(VueMaterial.default)(
               resolve(item);
             });
           }).then(item => {
+            const unitSites = sites.filter(site => {
+              return site.unit == scot;
+            });
+
             self.vpList.push({
               unit: scot,
               style: 'md-accent',
               display: item[scot],
               vpPercent: 0,
+              url: unitSites[0].url,
             });
           });
         });

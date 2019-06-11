@@ -45,9 +45,11 @@
       </div>
 
       <div id="vpBox">
+        <div style="font-size:0.7rem;word-break:break-word;width:50px;">{{account}}</div>
         <disp-voting-power
           v-for="scot in vpList"
           v-if="scot.display"
+          :url="scot.url"
           :vpstyle="scot.style"
           :unit="scot.unit"
           :percent="scot.vpPercent" />
@@ -87,7 +89,7 @@
   `);
   sites.forEach(site => {
     if (location.href.indexOf(site.site) > -1) {
-      $(site.contentArea).before(cetegoryDom);
+      $(site.contentArea).after(cetegoryDom);
       return;
     }
   });
