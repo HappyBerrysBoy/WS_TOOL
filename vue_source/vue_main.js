@@ -19,7 +19,7 @@ Vue.use(VueMaterial.default)(
           unit: 'steem',
           style: '',
           display: true,
-          vpPercent: 50,
+          vpPercent: 0,
         },
       ],
     },
@@ -63,10 +63,6 @@ Vue.use(VueMaterial.default)(
     mounted() {
       window.document.body.addEventListener('resize', () => {
         alert('test');
-      });
-
-      $('.App__content').resize(function() {
-        alert('zdzxc;lksjdf');
       });
 
       // Save Account
@@ -148,6 +144,8 @@ Vue.use(VueMaterial.default)(
               isNaN(data['steem']) ? 0 : data['steem'],
             );
           }
+
+          console.log(data.scotArray);
 
           data.scotArray.forEach(scot => {
             self.vpList.forEach(vp => {

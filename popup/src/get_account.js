@@ -150,6 +150,9 @@ const getAccountAllInfo = username => {
           console.log('SCOT token list saved.'),
         );
 
+        console.log('Scot account', scotAccount);
+
+        debugger;
         // SCOT 토큰 모두 Setting에 표시 및 체크
         Object.keys(scotAccount).forEach(scot => {
           const html = `

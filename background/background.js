@@ -1,3 +1,20 @@
+// Scot 추가시 여기에 추가
+const scotList = [
+  'SCT',
+  'AAA',
+  'WEED',
+  'SPT',
+  'ACTNEARN',
+  'DOLPHIN',
+  'BLQ',
+  'EM',
+  'ENG',
+  'LASSECASH',
+  'PAL',
+  'PALM',
+  'PALMM',
+];
+
 // 스팀 포스팅 URL 여부 검사
 function isSteemitPostUrl(url) {
   // return /^https?:\/\/(www\.)?steem(it)|(coinpan)\.com\/[^\/]+\/@[^\/]+\/.+/.test(
@@ -87,8 +104,9 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
       const steem = currentVotinPower(data[0]);
       let scotArray = [];
-      Object.keys(data[1]).forEach(scot => {
-        scotArray.push({ unit: scot, vp: currentVotinPower(data[1][scot]) });
+
+      scotList.forEach(scot => {
+        scotArray.push({ unit: scot, vp: getScotData(data[1], scot) });
       });
 
       const result = {
@@ -96,6 +114,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         scotArray,
         steem,
       };
+
       if (sender.tab) {
         // 컨텐츠로 응답
         chrome.tabs.sendMessage(sender.tab.id, { action, data: result });
@@ -106,3 +125,8 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     });
   }
 });
+
+function getScotData(data, unit) {
+  if (!unit) return;
+  return currentVotinPower(data[unit] ? data[unit] : 0);
+}
