@@ -41,15 +41,30 @@ div.gpt-ad[data-google-query-id] {
     z-index:10;
 }
 
-#vpBox{
+#extensionApp{
     position: fixed;
     left:10px;
-    bottom:10px;
-    border-radius: 15px;
-    background-color:rgba(22, 22, 22, 0.8);
-    padding:10px 0px 0px 10px;;
+    bottom:5px;
+    /* padding:10px 0px 0px 10px; */
     z-index: 10;
     color:#fff;
+}
+
+.vpBox{
+    position: relative;
+    border-radius: 15px;
+    background-color:rgba(22, 22, 22, 0.8);
+    padding:10px 0px 0px 10px;
+    margin-bottom:5px;
+}
+
+.vpBox i{
+    color:#fff!important;
+}
+
+.vpBox button{
+    width:30px;
+    height:30px;
 }
 
 .tooltipZindex{
@@ -58,8 +73,8 @@ div.gpt-ad[data-google-query-id] {
 
 .vpMark{
   position:relative;
-  left:-18px;
-  top:-9px;
+  left:-20px;
+  top:-10px;
   font-size:0.5rem;
 }
 

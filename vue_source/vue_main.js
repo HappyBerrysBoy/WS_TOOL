@@ -14,13 +14,51 @@ Vue.use(VueMaterial.default)(
       scotVoting: [],
       tagFilterList: [],
       displayFuncIcon: true,
+      funcButtons: [
+        {
+          name: 'userShortcut',
+          text: 'User Shortcut',
+          icon: 'account_circle',
+          func: this.userShortcut,
+          display: true,
+        },
+        {
+          name: 'tagShortcut',
+          text: 'Tag Shortcut',
+          icon: 'bookmarks',
+          func: this.tagShortcut,
+          display: true,
+        },
+        {
+          name: 'tagFilter',
+          text: 'Tag Filter',
+          icon: 'visibility_off',
+          func: this.tagFilter,
+          display: true,
+        },
+        {
+          name: 'getMarkdown',
+          text: 'Get Markdown',
+          icon: 'pageview',
+          func: this.getMarkdown,
+          display: true,
+        },
+        {
+          name: 'goFamilySite',
+          text: 'Family Site',
+          icon: 'airport_shuttle',
+          func: this.goFamilySite,
+          display: true,
+        },
+      ],
       vpList: [
         {
-          unit: 'steem',
+          unit: 'STEEM',
           style: '',
           display: true,
           vpPercent: 0,
           url: 'https://www.steemit.com/',
+          favicon: 'https://steemit.com/images/favicons/favicon-16x16.png',
         },
       ],
     },
@@ -49,6 +87,8 @@ Vue.use(VueMaterial.default)(
       chrome.storage.sync.get('scotList', function(items) {
         if (!items['scotList']) return;
 
+        // console.log('Scot List Storage Sync Get', items['scotList']);
+
         items['scotList'].forEach(scot => {
           new Promise((resolve, reject) => {
             chrome.storage.sync.get(scot, function(item) {
@@ -65,6 +105,7 @@ Vue.use(VueMaterial.default)(
               display: item[scot],
               vpPercent: 0,
               url: unitSites[0].url,
+              favicon: unitSites[0].favicon,
             });
           });
         });
@@ -87,7 +128,7 @@ Vue.use(VueMaterial.default)(
 
       // Tag Filter Scheduler(3 sec)
       setInterval(() => {
-        console.log('Run tag filter..');
+        // console.log('Run tag filter..');
 
         const tagFilterList = JSON.parse(
           localStorage.getItem(WSTOOLS_POST_FILTER_KEY),
@@ -141,11 +182,11 @@ Vue.use(VueMaterial.default)(
       chrome.extension.onMessage.addListener(function(request) {
         const { action, data } = request;
 
-        console.log(
-          `vue_main chrome.extension.onMessage : ${action}, ${data.name}, ${
-            data.val
-          }`,
-        );
+        // console.log(
+        //   `vue_main chrome.extension.onMessage : ${action}, ${data.name}, ${
+        //     data.val
+        //   }`,
+        // );
 
         if (action === 'getAccount') {
           if (data['steem']) {
@@ -155,7 +196,7 @@ Vue.use(VueMaterial.default)(
             );
           }
 
-          console.log(data.scotArray);
+          // console.log(data.scotArray);
 
           data.scotArray.forEach(scot => {
             self.vpList.forEach(vp => {
@@ -165,7 +206,7 @@ Vue.use(VueMaterial.default)(
             });
           });
         } else if (action === 'displayControl') {
-          if (data.name === 'displayFunction') {
+          if (data.name === 'userShortcut') {
             self.displayFuncIcon = data.val;
           } else {
             chrome.storage.sync.get([data.name], function(result) {
@@ -178,6 +219,25 @@ Vue.use(VueMaterial.default)(
           }
         }
       });
+
+      document.body.onkeydown = function(e) {
+        // metakey => Mac Command Key
+        // (event.ctrlKey || event.metaKey)
+        if (e.keyCode == 27) {
+          self.allClose();
+        } else if (event.altKey && e.keyCode == 49) {
+          self.userShortcut();
+        } else if (event.altKey && e.keyCode == 50) {
+          self.tagShortcut();
+        } else if (event.altKey && e.keyCode == 51) {
+          self.tagFilter();
+        } else if (event.altKey && e.keyCode == 52) {
+          self.getMarkdown();
+        } else if (event.altKey && e.keyCode == 53) {
+          self.goFamilySite();
+        }
+        // alert(String.fromCharCode(e.keyCode) + ' --> ' + e.keyCode);
+      };
     },
     methods: {
       allClose() {

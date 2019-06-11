@@ -146,74 +146,65 @@ const getAccountAllInfo = username => {
         }
 
         // SCOT 토큰 리스트 저장
-        chrome.storage.sync.set({ scotList: Object.keys(scotAccount) }, () =>
-          console.log('SCOT token list saved.'),
-        );
+        // chrome.storage.sync.set({ scotList: Object.keys(scotAccount) }, () =>
+        //   console.log('SCOT token list saved.'),
+        // );
 
-        console.log('Scot account', scotAccount);
+        // console.log('Scot account', scotAccount);
 
-        debugger;
         // SCOT 토큰 모두 Setting에 표시 및 체크
-        Object.keys(scotAccount).forEach(scot => {
-          const html = `
-              <div class="ui toggle checkbox" name="${scot}">
-                <input type="checkbox">
-                <label>${scot}</label>
-              </div>`;
+        // Object.keys(scotAccount).forEach(scot => {
+        //   chrome.storage.sync.get([`${scot}`], function(result) {
+        //     $('.ui.checkbox').each(function() {
+        //       let name = $(this).attr('name');
+        //       if (name != Object.keys(result)[0]) return;
 
-          $('#vpCheckBoxList').append(html);
+        //       $(this)
+        //         .find('input')
+        //         .prop('checked', result[name]);
+        //     });
+        //   });
+        // });
 
-          chrome.storage.sync.get([`${scot}`], function(result) {
-            $('.ui.checkbox').each(function() {
-              let name = $(this).attr('name');
-              if (name != Object.keys(result)[0]) return;
+        // // Scot VP Checkbox Event
+        // $('.ui.checkbox').change(function() {
+        //   let obj = new Object();
+        //   $('.ui.checkbox').each(function() {
+        //     let name = $(this).attr('name');
+        //     let val = $(this)
+        //       .find('input')
+        //       .is(':checked');
+        //     obj[name] = val;
+        //   });
 
-              $(this)
-                .find('input')
-                .prop('checked', result[name]);
-            });
-          });
-        });
+        //   chrome.storage.sync.set(obj, () => console.log('VP value saved.'));
 
-        // Scot VP Checkbox Event
-        $('.ui.checkbox').change(function() {
-          let obj = new Object();
-          $('.ui.checkbox').each(function() {
-            let name = $(this).attr('name');
-            let val = $(this)
-              .find('input')
-              .is(':checked');
-            obj[name] = val;
-          });
+        //   let action = 'displayControl';
+        //   let currName = $(this).attr('name');
+        //   const currVal = $(this)
+        //     .find('input')
+        //     .is(':checked');
 
-          chrome.storage.sync.set(obj, () => console.log('VP value saved.'));
-
-          let action = 'displayControl';
-          let currName = $(this).attr('name');
-          const currVal = $(this)
-            .find('input')
-            .is(':checked');
-
-          chrome.tabs.query({ active: true, currentWindow: true }, function(
-            tabs,
-          ) {
-            chrome.tabs.sendMessage(
-              tabs[0].id,
-              {
-                action,
-                data: {
-                  name: currName,
-                  val: currVal,
-                },
-              },
-              function(response) {
-                console.log(
-                  `SendMessage to content : ${action}, ${currName}, ${currVal}`,
-                );
-              },
-            );
-          });
-        });
+        //   chrome.tabs.query({ active: true, currentWindow: true }, function(
+        //     tabs,
+        //   ) {
+        //     chrome.tabs.sendMessage(
+        //       tabs[0].id,
+        //       {
+        //         action,
+        //         data: {
+        //           name: currName,
+        //           val: currVal,
+        //         },
+        //       },
+        //       function(response) {
+        //         console.log(
+        //           `SendMessage to content : ${action}, ${currName}, ${currVal}`,
+        //         );
+        //       },
+        //     );
+        //   });
+        // });
 
         // SCOT 잔액
         const scotListHtml = [];
@@ -333,6 +324,44 @@ chrome.storage.sync.get('USERNAME', ({ USERNAME: username }) => {
   console.log('USERNAME', username);
   $('#username').val(username);
   getAccountAllInfo(username);
+});
+
+// Scot VP Checkbox Event
+$('.ui.checkbox').change(function() {
+  let obj = new Object();
+  $('.ui.checkbox').each(function() {
+    let name = $(this).attr('name');
+    let val = $(this)
+      .find('input')
+      .is(':checked');
+    obj[name] = val;
+  });
+
+  chrome.storage.sync.set(obj, () => console.log('VP value saved.'));
+
+  let action = 'displayControl';
+  let currName = $(this).attr('name');
+  const currVal = $(this)
+    .find('input')
+    .is(':checked');
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(
+      tabs[0].id,
+      {
+        action,
+        data: {
+          name: currName,
+          val: currVal,
+        },
+      },
+      function(response) {
+        console.log(
+          `SendMessage to content : ${action}, ${currName}, ${currVal}`,
+        );
+      },
+    );
+  });
 });
 
 // SCOT 환경 변수 가져오기

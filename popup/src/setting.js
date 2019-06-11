@@ -13,8 +13,18 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
   }
 });
 
-// Popup Loading시 값 적용
-chrome.storage.sync.get(['displayFunction', 'steem'], function(result) {
+// Popup Loading시 값 적용(Function Button)
+chrome.storage.sync.get(functionList, function(result) {
+  $('.vpBox .funcBtn').each(function() {
+    let name = $(this).attr('name');
+    $(this)
+      .find('input')
+      .prop('checked', result[name]);
+  });
+});
+
+// Popup Loading시 값 적용(Scot List)
+chrome.storage.sync.get(vpList, function(result) {
   $('.ui.checkbox').each(function() {
     let name = $(this).attr('name');
     $(this)

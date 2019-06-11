@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -11,7 +11,11 @@
         "https://*.steemcoinpan.com/*",
         "https://*.triplea.reviews/*",
         "https://*.splintertalk.io/*",
-        "https://*.tokenbb.io/"
+        "https://*.tokenbb.io/",
+        "https://*.actnearn.com/*",
+        "https://*.weedcash.network/*",
+        "https://blogs.bloque64.com/*",
+        "https://*.palnet.io/*"
       ],
       "run_at": "document_idle",
       "js": [
@@ -24,6 +28,7 @@
         "content_script.js",
         "vue_source/components/graphql.js",
         "vue_source/components/dispVotingPower.js",
+        "vue_source/components/dispFuncBtn.js",
         "vue_source/components/dialContent.js",
         "vue_source/components/tag.js",
         "vue_source/components/mdListItem.js",
@@ -52,7 +57,7 @@
   },
   "manifest_version": 2,
   "background": {
-    "scripts": ["background/background.js", "background/account.js"],
+    "scripts": ["background/account.js", "background/background.js"],
     "persistent": false
   }
 }

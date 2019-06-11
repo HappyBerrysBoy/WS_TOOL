@@ -1,20 +1,3 @@
-// Scot 추가시 여기에 추가
-const scotList = [
-  'SCT',
-  'AAA',
-  'WEED',
-  'SPT',
-  'ACTNEARN',
-  'DOLPHIN',
-  'BLQ',
-  'EM',
-  'ENG',
-  'LASSECASH',
-  'PAL',
-  'PALM',
-  'PALMM',
-];
-
 // 스팀 포스팅 URL 여부 검사
 function isSteemitPostUrl(url) {
   // return /^https?:\/\/(www\.)?steem(it)|(coinpan)\.com\/[^\/]+\/@[^\/]+\/.+/.test(
@@ -44,6 +27,32 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.runtime.onInstalled.addListener(details => {
   console.log('onInstalled', details);
+
+  chrome.storage.sync.get('scotList', function(items) {
+    if (items['scotList']) return;
+
+    console.log('onInstalled(Set default data)');
+    chrome.storage.sync.set({ scotList: scotList }, () =>
+      console.log('SCOT token list saved.'),
+    );
+
+    let steemObj = new Object();
+    steemObj[scot] = true;
+    chrome.storage.sync.set(steemObj, () => console.log('VP value saved.'));
+
+    // 초기 설치시에 저장된 값이 없으면 무조건 저장
+    scotList.forEach(scot => {
+      let obj = new Object();
+      obj[scot] = true;
+      chrome.storage.sync.set(obj, () => console.log('VP value saved.'));
+    });
+
+    functionList.forEach(btn => {
+      let obj = new Object();
+      obj[btn] = true;
+      chrome.storage.sync.set(obj, () => console.log('Function button saved.'));
+    });
+  });
 });
 
 chrome.tabs.onActivated.addListener(activeInfo => {
