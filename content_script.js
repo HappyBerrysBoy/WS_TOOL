@@ -2,45 +2,14 @@
   // console.log("팝업 페이지의 DOM 접근 : ", $("header.Header").text());
   const cetegoryDom = $(`
     <div id="extensionApp">
-      <div class="vpBox">
-        <div class="funcBtn" name="userShortcut">
-          <md-button class="md-icon-button" @click="userShortcut">
-            <md-icon>account_circle</md-icon>
-            <md-tooltip md-direction="right">User Shortcut</md-tooltip>
-          </md-button>
-        </div>
-        <div class="funcBtn" name="tagShortcut">
-          <md-button class="md-icon-button" @click="tagShortcut">
-            <md-icon>bookmarks</md-icon>
-            <md-tooltip md-direction="right">Tag Shortcut</md-tooltip>
-          </md-button>
-        </div>
-        <div class="funcBtn" name="tagFilter">
-          <md-button class="md-icon-button" @click="tagFilter">
-            <md-icon>visibility_off</md-icon>
-            <md-tooltip md-direction="right">Tag Filter</md-tooltip>
-          </md-button>
-        </div>
-        <div class="funcBtn" name="getMarkdown">
-          <md-button class="md-icon-button" @click="getMarkdown">
-            <md-icon>pageview</md-icon>
-            <md-tooltip md-direction="right">Get Markdown</md-tooltip>
-          </md-button>
-        </div>
-        <div class="funcBtn" name="goFamilySite">
-          <md-button class="md-icon-button" @click="goFamilySite">
-            <md-icon>airport_shuttle</md-icon>
-            <md-tooltip md-direction="right">Family Site</md-tooltip>
-          </md-button>
-        </div>
-        
+      <div class="vpBox" v-show="showBtnsBoxTag">
         <disp-func-btn
           v-for="func in funcButtons"
           v-if="func.display"
           :name="func.name"
           :text="func.text"
           :icon="func.icon"
-          :func="func.func" />
+          @funcinfo="funcdo" />
       </div>
 
       <div class="vpBox">

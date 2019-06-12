@@ -13,7 +13,7 @@ Vue.use(VueMaterial.default)(
       showRunUrl: false,
       scotVoting: [],
       tagFilterList: [],
-      displayFuncIcon: true,
+      showBtnsBoxTag: true,
       funcButtons: [
         {
           name: 'userShortcut',
@@ -206,8 +206,13 @@ Vue.use(VueMaterial.default)(
             });
           });
         } else if (action === 'displayControl') {
-          if (data.name === 'userShortcut') {
-            self.displayFuncIcon = data.val;
+          var selBtn = self.funcButtons.filter(btn => {
+            return btn.name == data.name;
+          });
+
+          if (selBtn.length) {
+            selBtn[0].display = data.val;
+            self.showBtnsBox();
           } else {
             chrome.storage.sync.get([data.name], function(result) {
               self.vpList.forEach(vp => {
@@ -217,12 +222,13 @@ Vue.use(VueMaterial.default)(
               });
             });
           }
+
+          // self.showBtnsBox();
         }
       });
 
+      // 단축키 설정
       document.body.onkeydown = function(e) {
-        // metakey => Mac Command Key
-        // (event.ctrlKey || event.metaKey)
         if (e.keyCode == 27) {
           self.allClose();
         } else if (event.altKey && e.keyCode == 49) {
@@ -301,6 +307,25 @@ Vue.use(VueMaterial.default)(
             data: { username: account },
           });
         }
+      },
+      funcdo(name) {
+        if (name === 'userShortcut') {
+          this.userShortcut();
+        } else if (name === 'tagShortcut') {
+          this.tagShortcut();
+        } else if (name === 'tagFilter') {
+          this.tagFilter();
+        } else if (name === 'getMarkdown') {
+          this.getMarkdown();
+        } else if (name === 'goFamilySite') {
+          this.goFamilySite();
+        }
+      },
+      showBtnsBox() {
+        const showBtns = this.funcButtons.filter(btn => {
+          return btn.display == true;
+        });
+        this.showBtnsBoxTag = showBtns.length ? true : false;
       },
     },
   }),
