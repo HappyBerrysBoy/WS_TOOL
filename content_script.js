@@ -26,31 +26,31 @@
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
-          <user-shortcut v-show="showUserShortcut" @closeShortcutUserEvent="allClose" />
+          <user-shortcut v-show="showUserShortcut" @closefunc="allClose" />
         </md-content>
       </transition>
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel tagFilter">
-          <tag-shortcut v-show="showTagShortcut" />
+          <tag-shortcut v-show="showTagShortcut" @closefunc="allClose" />
         </md-content>
       </transition>
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel tagFilter">
-          <tag-filter v-show="showTagFilter" />
+          <tag-filter v-show="showTagFilter" @closefunc="allClose" />
         </md-content>
       </transition>
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
-          <get-markdown v-show="showGetMarkdown" />
+          <get-markdown v-show="showGetMarkdown" @closefunc="allClose" />
         </md-content>
       </transition>
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
-          <go-family-site v-show="showFamilySite" />
+          <go-family-site v-show="showFamilySite" @closefunc="allClose" />
         </md-content>
       </transition>
     </div>

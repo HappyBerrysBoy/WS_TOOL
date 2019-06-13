@@ -89,4 +89,8 @@ div.gpt-ad[data-google-query-id] {
     right:10px;
     top:10px;
     float:right;
+    min-width:20px;
+    width:20px;
+    margin:0px;
+    padding:0px;
 }

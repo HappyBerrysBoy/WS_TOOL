@@ -57,7 +57,7 @@
   },
   "manifest_version": 2,
   "background": {
-    "scripts": ["background/account.js", "background/background.js"],
+    "scripts": ["contentConst.js", "background/account.js", "background/background.js"],
     "persistent": false
   }
 }

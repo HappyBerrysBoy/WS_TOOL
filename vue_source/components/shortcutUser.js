@@ -25,7 +25,9 @@ Vue.component('userShortcut', {
             md-confirm-text="Add" />
 
         <md-button class="md-primary md-mini md-raised" @click="addUserEvent">Add Account</md-button>
-        <md-icon class="closeLocation" @click="closeEvent">close</md-icon>
+        <md-button class="closeLocation" @click="closeEvent">
+          <md-icon>close</md-icon>
+        </md-button>
 
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>
@@ -62,7 +64,7 @@ Vue.component('userShortcut', {
       localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
     },
     closeEvent() {
-      this.$emit('closeShortcutUserEvent');
+      this.$emit('closefunc');
     },
   },
 });

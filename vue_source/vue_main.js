@@ -84,6 +84,21 @@ Vue.use(VueMaterial.default)(
 
       const self = this;
 
+      functionList.forEach(funcBtn => {
+        new Promise((resolve, reject) => {
+          chrome.storage.sync.get(funcBtn, function(item) {
+            resolve(item);
+          });
+        }).then(item => {
+          const btns = self.funcButtons.filter(btn => {
+            return btn.name == funcBtn;
+          });
+
+          btns[0].display = item[funcBtn];
+          self.showBtnsBox();
+        });
+      });
+
       chrome.storage.sync.get('scotList', function(items) {
         if (!items['scotList']) return;
 
@@ -242,7 +257,6 @@ Vue.use(VueMaterial.default)(
         } else if (event.altKey && e.keyCode == 53) {
           self.goFamilySite();
         }
-        // alert(String.fromCharCode(e.keyCode) + ' --> ' + e.keyCode);
       };
     },
     methods: {
