@@ -1,19 +1,19 @@
 Vue.component('userShortcut', {
-    data() {
-        return {
-            users: [],
-            active: false,
-            value: null
-        }
-    },
-    created() {
-        const items = localStorage.getItem(WSTOOLS_USER_KEY);
+  data() {
+    return {
+      users: [],
+      active: false,
+      value: null,
+    };
+  },
+  created() {
+    const items = localStorage.getItem(WSTOOLS_USER_KEY);
 
-        if (items) {
-            this.users = JSON.parse(items);
-        }
-    },
-    template: `
+    if (items) {
+      this.users = JSON.parse(items);
+    }
+  },
+  template: `
         <div>
         <md-dialog-prompt
             :md-active.sync="active"
@@ -25,6 +25,7 @@ Vue.component('userShortcut', {
             md-confirm-text="Add" />
 
         <md-button class="md-primary md-mini md-raised" @click="addUserEvent">Add Account</md-button>
+        <md-icon class="closeLocation" @click="closeEvent">close</md-icon>
 
         <md-list class="md-dense">
             <md-divider class="md-inset"></md-divider>
@@ -35,33 +36,33 @@ Vue.component('userShortcut', {
         </md-list>
         </div>
     `,
-    methods: {
-        addUserEvent() {
-            this.value = '';
-            this.active = true;
-        },
-        insertUser() {
-            const self = this;
-            this.value = this.value.replace(/@/g, '');
-            steem.api.getAccounts([this.value], function(err, response) {
-                if (err || response.length === 0) {
-                    alert('Check Account ID');
-                    console.log(err);
-                } else {
-                    console.log(response);
-                    self.users.push(self.value);
-                    self.users = Array.from(new Set(self.users));
-                    localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(self.users));
-                }
-            });
-        },
-        removeAccountEvent(account) {
-            const idx = this.users.indexOf(account);
-            this.users.splice(idx, 1);
-            localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
-        },
-        closeEvent() {
-            this.$emit('closeShortcutUserEvent');
+  methods: {
+    addUserEvent() {
+      this.value = '';
+      this.active = true;
+    },
+    insertUser() {
+      const self = this;
+      this.value = this.value.replace(/@/g, '');
+      steem.api.getAccounts([this.value], function(err, response) {
+        if (err || response.length === 0) {
+          alert('Check Account ID');
+          console.log(err);
+        } else {
+          console.log(response);
+          self.users.push(self.value);
+          self.users = Array.from(new Set(self.users));
+          localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(self.users));
         }
-    }
-})
+      });
+    },
+    removeAccountEvent(account) {
+      const idx = this.users.indexOf(account);
+      this.users.splice(idx, 1);
+      localStorage.setItem(WSTOOLS_USER_KEY, JSON.stringify(this.users));
+    },
+    closeEvent() {
+      this.$emit('closeShortcutUserEvent');
+    },
+  },
+});

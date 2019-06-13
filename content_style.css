@@ -83,3 +83,10 @@ div.gpt-ad[data-google-query-id] {
   position:relative;
   left:-10px;
 }
+
+.closeLocation{
+    position:relative;
+    right:10px;
+    top:10px;
+    float:right;
+}

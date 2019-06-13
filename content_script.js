@@ -26,7 +26,7 @@
 
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
-          <user-shortcut v-show="showUserShortcut" @closeShortcutUserEvent="userShortcut" />
+          <user-shortcut v-show="showUserShortcut" @closeShortcutUserEvent="allClose" />
         </md-content>
       </transition>
 
