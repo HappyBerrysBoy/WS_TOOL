@@ -10,7 +10,7 @@ Vue.component('dispFuncBtn', {
         <div class="funcBtn" name="name">
             <md-button class="md-icon-button" @click="funcInfo(name)">
                 <md-icon>{{icon}}</md-icon>
-                <md-tooltip md-direction="right">{{text}}</md-tooltip>
+                <md-tooltip md-direction="right" class="tooltipZindex">{{text}}</md-tooltip>
             </md-button>
         </div>
       `,

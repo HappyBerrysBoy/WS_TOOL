@@ -5,19 +5,21 @@ const WSTOOLS_USER_KEY = 'wstools_users';
 const WSTOOLS_POST_FILTER_KEY = 'wstools_post_filter_key';
 const WSTOOLS_URL_STORAGE = 'wstools_url_storage';
 
-// Scot 추가시 여기에 추가
 const functionList = [
   'userShortcut',
   'tagShortcut',
   'tagFilter',
   'getMarkdown',
   'goFamilySite',
+  'sourceStorage',
 ];
 
+// Scot 추가시 여기에 추가 First
 const vpList = ['STEEM', 'SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
 const scotList = ['SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
 
 // Steem Condensor Site List
+// Scot 추가시 여기에 추가 Second
 const sites = [
   {
     site: 'steemit.com/',

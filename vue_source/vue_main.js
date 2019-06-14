@@ -11,6 +11,7 @@ Vue.use(VueMaterial.default)(
       showGetMarkdown: false,
       showFamilySite: false,
       showRunUrl: false,
+      // showSourceStorage: false,
       scotVoting: [],
       tagFilterList: [],
       showBtnsBoxTag: true,
@@ -19,35 +20,30 @@ Vue.use(VueMaterial.default)(
           name: 'userShortcut',
           text: 'User Shortcut',
           icon: 'account_circle',
-          func: this.userShortcut,
           display: true,
         },
         {
           name: 'tagShortcut',
           text: 'Tag Shortcut',
           icon: 'bookmarks',
-          func: this.tagShortcut,
           display: true,
         },
         {
           name: 'tagFilter',
           text: 'Tag Filter',
           icon: 'visibility_off',
-          func: this.tagFilter,
           display: true,
         },
         {
           name: 'getMarkdown',
           text: 'Get Markdown',
           icon: 'pageview',
-          func: this.getMarkdown,
           display: true,
         },
         {
           name: 'goFamilySite',
           text: 'Family Site',
           icon: 'airport_shuttle',
-          func: this.goFamilySite,
           display: true,
         },
       ],
@@ -257,6 +253,9 @@ Vue.use(VueMaterial.default)(
         } else if (event.altKey && e.keyCode == 53) {
           self.goFamilySite();
         }
+        // else if (event.altKey && e.keyCode == 54) {
+        //   self.sourceStorage();
+        // }
       };
     },
     methods: {
@@ -267,6 +266,7 @@ Vue.use(VueMaterial.default)(
         this.showGetMarkdown = false;
         this.showFamilySite = false;
         this.showRunUrl = false;
+        // this.showSourceStorage = false;
       },
       showMenu() {
         this.show = !this.show;
@@ -300,9 +300,10 @@ Vue.use(VueMaterial.default)(
         this.allClose();
         this.showFamilySite = true;
       },
-      closeShortcutUser() {
-        this.showUserShortcut = false;
-      },
+      // sourceStorage() {
+      //   this.allClose();
+      //   this.showSourceStorage = true;
+      // },
       runUrl() {
         this.allClose();
         this.showRunUrl = true;
@@ -334,6 +335,9 @@ Vue.use(VueMaterial.default)(
         } else if (name === 'goFamilySite') {
           this.goFamilySite();
         }
+        // else if (name === 'sourceStorage') {
+        //   this.sourceStorage();
+        // }
       },
       showBtnsBox() {
         const showBtns = this.funcButtons.filter(btn => {

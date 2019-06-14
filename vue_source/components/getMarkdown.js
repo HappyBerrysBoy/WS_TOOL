@@ -34,7 +34,7 @@ Vue.component('getMarkdown', {
             <md-icon>info</md-icon>
             <label>Type url</label>
             <md-input v-model="url" @keyup.enter="searchMarkdown"></md-input>
-            <md-button class="md-accent md-mini md-raised" @click="searchMarkdown">Load</md-button>
+            <md-button class="md-accent md-mini md-raised" @click="searchMarkdown">Get Markdown</md-button>
             <span class="md-helper-text">{{msg}}</span>
         </md-field>
         

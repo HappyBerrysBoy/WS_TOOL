@@ -317,7 +317,7 @@ const getAccountAllInfo = username => {
 // Popup.html 실행시 최초 저장된 계정정보 가져옴
 chrome.storage.sync.get('accountArray', function(result) {
   console.log('Value currently is ' + result['accountArray']);
-  accountArray = result['accountArray'];
+  accountArray = result['accountArray'] ? result['accountArray'] : [];
   result['accountArray'].forEach(account => {
     addAccountItem(account);
   });
