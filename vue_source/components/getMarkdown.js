@@ -10,7 +10,12 @@ Vue.component('getMarkdown', {
   },
   template: `
         <div style="width:600px;height:500px;padding:10px;">
-        <h5>Get Markdown Text</h5>
+        <div>
+          <div style="float:left;"><h5>Get Markdown Text</h5></div>
+          <md-button class="closeLocation" @click="closeEvent">
+            <md-icon>close</md-icon>
+          </md-button>
+        </div>
         <md-dialog :md-active.sync="showDialog">
             <center>
                 <md-dialog-title>Converted to HTML</md-dialog-title>
@@ -52,6 +57,9 @@ Vue.component('getMarkdown', {
         .getContentAsync(account, permlink)
         .then(postObject => (this.markdown = postObject.body))
         .catch(error => console.log(error));
+    },
+    closeEvent() {
+      this.$emit('closefunc');
     },
   },
 });

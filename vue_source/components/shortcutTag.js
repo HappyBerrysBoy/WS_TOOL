@@ -15,12 +15,13 @@ Vue.component('tagShortcut', {
   },
   template: `
         <div style="margin:5px 10px;">
-            <div>
-              <h5>Input Tag for Shortcut</h5>
-              <md-button class="closeLocation" @click="closeEvent">
-                <md-icon>close</md-icon>
-              </md-button>
-            </div>
+          <div>
+            <div style="float:left;"><h5>Tag Shortcut</h5></div>
+            <md-button class="closeLocation" @click="closeEvent">
+              <md-icon>close</md-icon>
+            </md-button>
+          </div>
+          <div>
             <md-chips 
                 v-model="tags" 
                 md-placeholder="Add tag..." 
@@ -28,7 +29,7 @@ Vue.component('tagShortcut', {
                 @md-insert="insertTag" 
                 @md-delete="deleteTag">
             </md-chips>
-        </div>
+         </div>
     `,
   methods: {
     insertTag() {

@@ -137,22 +137,27 @@ Vue.component('goFamilySite', {
   },
   template: `
         <div style="margin:5px 10px;">
-            <h5>Link Family Sites</h5>
-            <div v-for="group in sites">
-                <div>{{group.groupName}}</div>
-                    <md-button 
-                        v-for="site in group.siteList"
-                        class="md-raised md-primary" 
-                        @click="goSite(site.url, site.needAccount)">
-                        {{site.name}}
-                        <br>
-                        {{site.description}}
-                    </md-button>
-            </div>
+          <div>
+            <div style="float:left;"><h5>Link Family Sites</h5></div>
+            <md-button class="closeLocation" @click="closeEvent">
+              <md-icon>close</md-icon>
+            </md-button>
+          </div>
+          <div v-for="group in sites">
+              <div>{{group.groupName}}</div>
+                  <md-button 
+                      v-for="site in group.siteList"
+                      class="md-raised md-primary" 
+                      @click="goSite(site.url, site.needAccount)">
+                      {{site.name}}
+                      <br>
+                      {{site.description}}
+                  </md-button>
+          </div>
 
-            <md-divider></md-divider>
+          <md-divider></md-divider>
 
-            <run-url />
+          <run-url />
         </div>
     `,
   methods: {
@@ -163,6 +168,9 @@ Vue.component('goFamilySite', {
       } else {
         window.open(url + account);
       }
+    },
+    closeEvent() {
+      this.$emit('closefunc');
     },
   },
 });
