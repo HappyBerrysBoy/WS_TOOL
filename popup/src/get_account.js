@@ -1,3 +1,5 @@
+let accountArray = [];
+
 // 보팅 파워 보이기
 const showVotingProgress = (target, value, symbol) => {
   $(target).progress({
@@ -312,11 +314,13 @@ const getAccountAllInfo = username => {
   }
 };
 
-$('#searchAccount').click(() => {
-  const username = $('#username')
-    .val()
-    .trim();
-  getAccountAllInfo(username);
+// Popup.html 실행시 최초 저장된 계정정보 가져옴
+chrome.storage.sync.get('accountArray', function(result) {
+  console.log('Value currently is ' + result['accountArray']);
+  accountArray = result['accountArray'];
+  result['accountArray'].forEach(account => {
+    addAccountItem(account);
+  });
 });
 
 // 로컬 스토리지에서 조회
@@ -325,6 +329,84 @@ chrome.storage.sync.get('USERNAME', ({ USERNAME: username }) => {
   $('#username').val(username);
   getAccountAllInfo(username);
 });
+
+// Username 입력 후 Enter 치면 바로 Add
+$('#username').keydown(key => {
+  if (key.keyCode == 13) {
+    addAccount(
+      $('#username')
+        .val()
+        .trim(),
+    );
+  }
+});
+
+// AddAccount Event 추가
+$('#addAccount').click(() => {
+  addAccount(
+    $('#username')
+      .val()
+      .trim(),
+  );
+});
+
+function addAccount(username) {
+  if (accountArray.indexOf(username) > -1) return;
+
+  accountArray.push(username);
+  addAccountItem(username);
+  $('#username').val('');
+}
+
+function addAccountItem(username) {
+  const itemTemplet = `<button class="ui right labeled blue icon button accountItem" account="{{account}}" style="padding-left:7px!important;padding-right:27px!important;">
+  <i class="icon deletableItem">X</i>
+  {{account}}
+</button>`;
+
+  $('#shortcutList').append(itemTemplet.replace(/{{account}}/g, username));
+
+  addAccountItemEvent();
+
+  chrome.storage.sync.set({ accountArray: accountArray }, () => {
+    console.log('added account ', accountArray);
+  });
+}
+
+function addAccountItemEvent() {
+  $('.deletableItem').off('click');
+  $('.accountItem').off('click');
+
+  $('.deletableItem').on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const username = $(this)
+      .parent()
+      .attr('account');
+
+    accountArray.splice(accountArray.indexOf(username), 1);
+    chrome.storage.sync.set({ accountArray: accountArray }, () => {
+      console.log('added account ', accountArray);
+    });
+
+    $(this)
+      .parent()
+      .remove();
+  });
+
+  $('.accountItem').on('click', function() {
+    $('#username').val($(this).attr('account'));
+    getAccountAllInfo($(this).attr('account'));
+  });
+}
+
+function searchAccount() {
+  const username = $('#username')
+    .val()
+    .trim();
+  getAccountAllInfo(username);
+}
 
 // SCOT 환경 변수 가져오기
 // const ssc = new SSC('https://api.steem-engine.com/rpc/');

@@ -98,3 +98,14 @@ html {
     height: 26px;
   }
 }
+
+.accountItem{
+  margin:4px!important;
+  padding-top:5px!important;
+  padding-bottom:5px!important;
+}
+
+.deletableItem{
+  padding-top:4px!important;
+  width:20px!important;
+}
