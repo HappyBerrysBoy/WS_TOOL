@@ -6,23 +6,53 @@ const CURR_ACTIVE_PAGE = 'currActivePage'; // localstorage lastest active page k
 const DETAIL_CHECK_VALUE = 'detailCheckVal'; // localstorage detail view check key
 
 // Steem Condensor Site List
-const sites = [
-  {
-    site: 'steemit.com/',
-    context: 'https://steemit.com/',
-    textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
-  },
-  {
-    site: 'steemkr.com/',
-    context: 'https://steemkr.com/',
-    textareaSelector: "document.getElementsByName('body')[0]",
-  },
-  {
-    site: 'busy.org/',
-    context: 'https://busy.org/',
-    textareaSelector: "document.getElementById('body')",
-  },
-];
+// const sites = [
+//   {
+//     site: 'steemit.com/',
+//     context: 'https://steemit.com/',
+//     textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
+//   },
+//   {
+//     site: 'steemkr.com/',
+//     context: 'https://steemkr.com/',
+//     textareaSelector: "document.getElementsByName('body')[0]",
+//   },
+//   {
+//     site: 'busy.org/',
+//     context: 'https://busy.org/',
+//     textareaSelector: "document.getElementById('body')",
+//   },
+// ];
+
+/**
+ * Source Class
+ */
+class Source {
+  constructor(name, isImage, src) {
+    this.name = name;
+    this.isImage = isImage;
+    this.src = src;
+  }
+  getName() {
+    return this.name;
+  }
+  getHtmlSrc() {
+    return this.isImage
+      ? '<img style="margin-top:10px;" class="registeredSrc" src="' +
+          this.src +
+          '" />'
+      : this.src;
+  }
+  getSrc() {
+    return this.src;
+  }
+  setJSONString(str) {
+    let obj = JSON.parse(str);
+    this.name = obj.name;
+    this.isImage = obj.isImage;
+    this.src = obj.src;
+  }
+}
 
 // /**
 //  * Default Image List(for Init)

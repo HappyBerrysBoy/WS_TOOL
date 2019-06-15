@@ -5,11 +5,14 @@
   <meta charset="utf-8" />
   <title>Steem Markdown Design Tool</title>
   <link rel="stylesheet" href="../thirdParty/semantic.min.css" />
+  <link rel="stylesheet" href="../thirdParty/animate.min.css" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
   <div class="ui container">
+    <div id="copied" style="display:none;position:fixed;top:10px;right:15px;z-index:999;font-size:1.5rem;font-weight:bold;color:blueviolet;">Copied!!</div>
+
     <div class="ui top attached tabular menu">
       <div class="item active" data-tab="account">Account</div>
       <div class="item" data-tab="font">Font</div>
@@ -120,17 +123,17 @@
       <div class="content" id="srcManager">
           <div class="ui form">
               <div class="four fields">
-                  <div class="field" style="width:60%!important">
+                  <div class="field" style="width:50%!important">
                       <input type="text" id="srcName" placeholder="Input Name">
                   </div>
                   <div class="field" style="width:10%!important">
                       <label>Image</label>
                       <input style="width:30px" type="checkbox" id="isImage" checked>
                   </div>
-                  <div class="field" style="width:15%!important">
+                  <div class="field" style="width:20%!important">
                       <div class="ui primary button" id="addManualSrc">Add</div>
                   </div>
-                  <div class="field" style="width:15%!important">
+                  <div class="field" style="width:20%!important">
                       <div class="ui teal button" id="initialSetting">Init</div>
                   </div>
               </div>
@@ -232,6 +235,9 @@
   <script src="src/font_changer.js"></script>
   <script src="src/get_account.js"></script>
   <script src="src/setting.js"></script>
+  <script src="src/srcManagerConst.js"></script>
+  <script src="src/common.js"></script>
+  <script src="src/srcManager.js"></script>
 </body>
 
 </html>
