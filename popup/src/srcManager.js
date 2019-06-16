@@ -29,9 +29,7 @@
       );
     }
 
-    console.log('1111');
     srcList.forEach(v => {
-      console.log('2222');
       eleTable.insertAdjacentHTML(
         'beforeend',
         getImageItemHtml(v.getName(), v.getSrc(), v.getHtmlSrc()),
@@ -41,19 +39,12 @@
     /**
      * Add EventListener Each Button
      */
-    console.log('3333');
-    console.log(document);
-    console.log(document.getElementsByClassName('addBtn'));
-    console.log(document.getElementsByClassName('delBtn'));
-    console.log('444444444');
-    document.addEventListener('DOMContentLoaded', () => {
-      const addBtns = document.getElementsByClassName('addBtn');
-      const delBtns = document.getElementsByClassName('delBtn');
-      for (let i = 0; i < addBtns.length; i += 1) {
-        addBtns[i].addEventListener('click', addClick);
-        delBtns[i].addEventListener('click', delClick);
-      }
-    });
+    const addBtns = document.getElementsByClassName('addBtn');
+    const delBtns = document.getElementsByClassName('delBtn');
+    for (let i = 0; i < addBtns.length; i += 1) {
+      addBtns[i].addEventListener('click', addClick);
+      delBtns[i].addEventListener('click', delClick);
+    }
   });
 
   /**
@@ -152,8 +143,6 @@
       srcList,
       e.target.parentElement.getAttribute('name'),
     );
-
-    console.log(index);
 
     if (index < 0) return;
 
