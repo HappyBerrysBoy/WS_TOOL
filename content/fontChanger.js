@@ -24,7 +24,7 @@
             )}:400,700&display=swap&subset=korean');`
           : ''
       }
-.Markdown, .Comment .Markdown.MarkdownViewer--small { 
+.Markdown, .PostFull__footer, .Comment .Markdown.MarkdownViewer--small { 
 	${
     fontName
       ? `font-family: "${fontName}", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !important;`
@@ -33,6 +33,9 @@
 	${fontSize ? `font-size: ${fontSize}px;` : ''}
   font-weight: 400;
 	color: ${fontColor ? fontColor : '#333333'};
+}
+.PostFull__footer.row{
+  ${fontSize ? `font-size: ${(fontSize * 3) / 4}px;` : ''}
 }
 .theme-dark .Markdown, 
 .theme-dark .Comment .Markdown.MarkdownViewer--small { 

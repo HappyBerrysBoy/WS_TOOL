@@ -58,7 +58,7 @@
   `);
   sites.forEach(site => {
     if (location.href.indexOf(site.site) > -1) {
-      $(site.contentArea).after(cetegoryDom);
+      $(site.contentArea).before(cetegoryDom);
       return;
     }
   });

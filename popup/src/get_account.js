@@ -102,6 +102,16 @@ const getAccountAllInfo = username => {
           `<b>${reputation.toFixed(3)}</b> (${account.post_count} posts)`,
         );
 
+        // Steem SBD Balance
+        $('#steemSbdBalance').html(
+          `<b>${account.balance}/${account.sbd_balance}</b>`,
+        );
+
+        // Saving Steem SBD Balance
+        $('#steemSbdSavingBalance').html(
+          `<b>${account.savings_balance}/${account.savings_sbd_balance}</b>`,
+        );
+
         // 스팀 파워 계산
         const sp = calculatorSteemPower(global, account);
         const steemPowerHtml = [];
