@@ -117,3 +117,7 @@ div.gpt-ad[data-google-query-id] {
 .Story__content__body{
   color:#000;
 }
+
+.ant-tooltip-inner div p a{
+  color:#fff;
+}
