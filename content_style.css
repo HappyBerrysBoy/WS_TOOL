@@ -112,3 +112,8 @@ div.gpt-ad[data-google-query-id] {
     margin:0px;
     padding:0px;
 }
+
+/* busy posting list content color */
+.Story__content__body{
+  color:#000;
+}
