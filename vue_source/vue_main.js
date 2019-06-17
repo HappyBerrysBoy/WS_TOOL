@@ -11,6 +11,7 @@ Vue.use(VueMaterial.default)(
       showGetMarkdown: false,
       showFamilySite: false,
       showRunUrl: false,
+      // showSourceStorage: false,
       scotVoting: [],
       tagFilterList: [],
       showBtnsBoxTag: true,
@@ -19,35 +20,30 @@ Vue.use(VueMaterial.default)(
           name: 'userShortcut',
           text: 'User Shortcut',
           icon: 'account_circle',
-          func: this.userShortcut,
           display: true,
         },
         {
           name: 'tagShortcut',
           text: 'Tag Shortcut',
           icon: 'bookmarks',
-          func: this.tagShortcut,
           display: true,
         },
         {
           name: 'tagFilter',
           text: 'Tag Filter',
           icon: 'visibility_off',
-          func: this.tagFilter,
           display: true,
         },
         {
           name: 'getMarkdown',
           text: 'Get Markdown',
           icon: 'pageview',
-          func: this.getMarkdown,
           display: true,
         },
         {
           name: 'goFamilySite',
           text: 'Family Site',
           icon: 'airport_shuttle',
-          func: this.goFamilySite,
           display: true,
         },
       ],
@@ -83,48 +79,6 @@ Vue.use(VueMaterial.default)(
       );
 
       const self = this;
-
-      functionList.forEach(funcBtn => {
-        new Promise((resolve, reject) => {
-          chrome.storage.sync.get(funcBtn, function(item) {
-            resolve(item);
-          });
-        }).then(item => {
-          const btns = self.funcButtons.filter(btn => {
-            return btn.name == funcBtn;
-          });
-
-          btns[0].display = item[funcBtn];
-          self.showBtnsBox();
-        });
-      });
-
-      chrome.storage.sync.get('scotList', function(items) {
-        if (!items['scotList']) return;
-
-        // console.log('Scot List Storage Sync Get', items['scotList']);
-
-        items['scotList'].forEach(scot => {
-          new Promise((resolve, reject) => {
-            chrome.storage.sync.get(scot, function(item) {
-              resolve(item);
-            });
-          }).then(item => {
-            const unitSites = sites.filter(site => {
-              return site.unit == scot;
-            });
-
-            self.vpList.push({
-              unit: scot,
-              style: 'md-accent',
-              display: item[scot],
-              vpPercent: 0,
-              url: unitSites[0].url,
-              favicon: unitSites[0].favicon,
-            });
-          });
-        });
-      });
     },
     mounted() {
       window.document.body.addEventListener('resize', () => {
@@ -132,14 +86,16 @@ Vue.use(VueMaterial.default)(
       });
 
       // Save Account
-      if ($('.Header .Userpic').attr('style')) {
-        let account = $('.Header .Userpic')
-          .attr('style')
-          .split('/')[4];
-        localStorage.setItem(WSTOOLS_ACCOUNT, account);
-      } else {
-        localStorage.setItem(WSTOOLS_ACCOUNT, null);
-      }
+      // if ($('.Header .Userpic').attr('style')) {
+      //   let account = $('.Header .Userpic')
+      //     .attr('style')
+      //     .split('/')[4];
+      //   localStorage.setItem(WSTOOLS_ACCOUNT, account);
+      // } else {
+      //   localStorage.setItem(WSTOOLS_ACCOUNT, null);
+      // }
+
+      localStorage.setItem(WSTOOLS_ACCOUNT, this.getAccount());
 
       // Tag Filter Scheduler(3 sec)
       setInterval(() => {
@@ -189,6 +145,50 @@ Vue.use(VueMaterial.default)(
       }, 3000);
 
       let self = this;
+
+      functionList.forEach(funcBtn => {
+        new Promise((resolve, reject) => {
+          chrome.storage.sync.get(funcBtn, function(item) {
+            resolve(item);
+          });
+        }).then(item => {
+          const btns = self.funcButtons.filter(btn => {
+            return btn.name == funcBtn;
+          });
+
+          if (!btns.length) return;
+
+          btns[0].display = item[funcBtn];
+          self.showBtnsBox();
+        });
+      });
+
+      chrome.storage.sync.get('scotList', function(items) {
+        if (!items['scotList']) return;
+
+        // console.log('Scot List Storage Sync Get', items['scotList']);
+
+        items['scotList'].forEach(scot => {
+          new Promise((resolve, reject) => {
+            chrome.storage.sync.get(scot, function(item) {
+              resolve(item);
+            });
+          }).then(item => {
+            const unitSites = sites.filter(site => {
+              return site.unit == scot;
+            });
+
+            self.vpList.push({
+              unit: scot,
+              style: 'md-accent',
+              display: item[scot],
+              vpPercent: 0,
+              url: unitSites[0].url,
+              favicon: unitSites[0].favicon,
+            });
+          });
+        });
+      });
 
       // 보팅 파워 가져오기 & 자동 Refresh 5sec
       this.refreshVP();
@@ -257,9 +257,26 @@ Vue.use(VueMaterial.default)(
         } else if (event.altKey && e.keyCode == 53) {
           self.goFamilySite();
         }
+        // else if (event.altKey && e.keyCode == 54) {
+        //   self.sourceStorage();
+        // }
       };
     },
     methods: {
+      // getAccountName() {
+      //   if (location.href.indexOf('busy.org') > -1) {
+      //     if ($('.Topnav__user')) {
+      //       // Logged In
+      //       account = $('.Topnav__user')[0].href.split('@')[1];
+      //     } else {
+      //       // Logged Out
+      //       account = '';
+      //     }
+      //   } else {
+      //     account = $('.Header .Userpic').attr('style');
+      //   }
+      //   return account;
+      // },
       allClose() {
         this.showUserShortcut = false;
         this.showTagShortcut = false;
@@ -267,6 +284,7 @@ Vue.use(VueMaterial.default)(
         this.showGetMarkdown = false;
         this.showFamilySite = false;
         this.showRunUrl = false;
+        // this.showSourceStorage = false;
       },
       showMenu() {
         this.show = !this.show;
@@ -300,17 +318,29 @@ Vue.use(VueMaterial.default)(
         this.allClose();
         this.showFamilySite = true;
       },
-      closeShortcutUser() {
-        this.showUserShortcut = false;
-      },
+      // sourceStorage() {
+      //   this.allClose();
+      //   this.showSourceStorage = true;
+      // },
       runUrl() {
         this.allClose();
         this.showRunUrl = true;
       },
       getAccount() {
-        // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
-        const account = $('.Header .Userpic').attr('style');
-        return account ? account.split('/')[4] : '';
+        let account = null;
+
+        if (location.href.indexOf('busy.org') > -1) {
+          if ($('.Topnav__user')) {
+            // Logged In
+            account = $('.Topnav__user')[0].href.split('@')[1];
+          }
+        } else {
+          // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
+          account = $('.Header .Userpic').attr('style');
+          account = account ? account.split('/')[4] : null;
+        }
+
+        return account;
       },
       refreshVP() {
         // 보팅 파워 가져오기
@@ -334,6 +364,9 @@ Vue.use(VueMaterial.default)(
         } else if (name === 'goFamilySite') {
           this.goFamilySite();
         }
+        // else if (name === 'sourceStorage') {
+        //   this.sourceStorage();
+        // }
       },
       showBtnsBox() {
         const showBtns = this.funcButtons.filter(btn => {

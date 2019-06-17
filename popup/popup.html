@@ -5,15 +5,19 @@
   <meta charset="utf-8" />
   <title>Steem Markdown Design Tool</title>
   <link rel="stylesheet" href="../thirdParty/semantic.min.css" />
+  <link rel="stylesheet" href="../thirdParty/animate.min.css" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
   <div class="ui container">
+    <div id="copied" style="display:none;position:fixed;top:10px;right:15px;z-index:999;font-size:1.5rem;font-weight:bold;color:blueviolet;">Copied!!</div>
+
     <div class="ui top attached tabular menu">
-      <div class="item active" data-tab="account">계정</div>
-      <div class="item" data-tab="font">폰트</div>
-      <div class="item" data-tab="setting">설정</div>
+      <div class="item active" data-tab="account">Account</div>
+      <div class="item" data-tab="font">Font</div>
+      <div class="item" data-tab="imgStorage">Image/Html</div>
+      <div class="item" data-tab="setting">Setting</div>
     </div>
 
     <!-- 계정 정보 -->
@@ -46,15 +50,23 @@
       <h4 class="ui header">Account Info</h4>
       <div class="ui divided selection list">
         <a class="item">
-          <div class="ui horizontal label">명성도</div>
+          <div class="ui horizontal label">Reputation</div>
           <span id="reputation">0.000</span>
         </a>
         <a class="item">
-          <div class="ui horizontal label">스팀 파워</div>
+          <div class="ui horizontal label">Steem/SBD Balance</div>
+          <span id="steemSbdBalance">0 STEEM/0 SBD</span>
+        </a>
+        <a class="item">
+          <div class="ui horizontal label">Saving Balance</div>
+          <span id="steemSbdSavingBalance">0 STEEM/0 SBD</span>
+        </a>
+        <a class="item">
+          <div class="ui horizontal label">Steem Power</div>
           <span id="steemPower">0 STEEM</span>
         </a>
         <a class="item">
-          <div class="ui horizontal label">보팅 금액</div>
+          <div class="ui horizontal label">Upvoting Value</div>
           <span>
             <span id="upvoteValue">$0.000 ($0.000)</span>
             <!-- <a href="https://anpigon.github.io/steemit-calculator/" onclick="return window.open(this.href, 'width=500,height=500')"><img src='./img/icon/calculator.png' height="20"/></a> -->
@@ -79,38 +91,72 @@
     <div class="ui bottom attached tab segment" data-tab="font">
       <div class="column">
         <form class="ui form">
-          <h4 class="ui dividing header">폰트 설정</h4>
+          <h4 class="ui dividing header">Font Setting</h4>
           <div class="field">
-            <label>글꼴</label>
+            <label>Font</label>
             <select id="fontFamilySelector">
-              <option value="" selected>기본값</option>
+              <option value="" selected>Default</option>
             </select>
           </div>
           <div class="field">
-            <label>크기</label>
+            <label>Size</label>
             <select id="fontSizeSelector">
-              <option value="" selected>기본값</option>
+              <option value="" selected>Default</option>
             </select>
           </div>
           <div class="field">
-            <label>줄간격</label>
+            <label>Line Height</label>
             <select id="fontLineHeightSelector">
-              <option value="" selected>기본값</option>
+              <option value="" selected>Default</option>
             </select>
           </div>
           <div class="field">
-            <label>글자색</label>
+            <label>Font Color</label>
             <input type="color" id="fontColorSelector" name="fontColorSelector" value="#333333">
             <div class="ui left pointing label">
-              기본
+              Default
             </div>
             &emsp;
             <input type="color" id="fontColorDarkSelector" name="fontColorDarkSelector" value="#FCFCFC">
             <div class="ui left pointing label">
-              다크
+              Dark Mode
             </div>
           </div>
         </form>
+      </div>
+    </div>
+
+    <div class="ui bottom attached tab segment" data-tab="imgStorage">
+      <h4 class="ui dividing header">Storage Image/HTML Source</h4>
+      <div class="content" id="srcManager">
+          <div class="ui form">
+              <div class="four fields">
+                  <div class="field" style="width:50%!important">
+                      <input type="text" id="srcName" placeholder="Input Name">
+                  </div>
+                  <div class="field" style="width:10%!important">
+                      <label>Image</label>
+                      <input style="width:30px" type="checkbox" id="isImage" checked>
+                  </div>
+                  <div class="field" style="width:20%!important">
+                      <div class="ui primary button" id="addManualSrc">Add</div>
+                  </div>
+                  <div class="field" style="width:20%!important">
+                      <div class="ui teal button" id="initialSetting">Init</div>
+                  </div>
+              </div>
+              <div class="field">
+                  <input type="text" id="manualSrc" placeholder="Input Image URL/HTML/Markdown">
+              </div>
+          </div>
+          <div class="ui divider"></div>
+          <table class="ui olive table">
+              <tbody id="underlist">
+              </tbody>
+          </table>
+          <div class="ui input">
+              <input type="text" id="clipboard" style="display:none;" />
+          </div>
       </div>
     </div>
 
@@ -137,6 +183,10 @@
         <input type="checkbox">
         <label>Go Family Site</label>
       </div>
+      <!-- <div class="ui toggle checkbox" name="sourceStorage">
+        <input type="checkbox">
+        <label>Save Image/HTML</label>
+      </div> -->
 
       <h4 class="ui dividing header">Select to show voting power</h4>
       <div id="vpCheckBoxList">
@@ -193,6 +243,9 @@
   <script src="src/font_changer.js"></script>
   <script src="src/get_account.js"></script>
   <script src="src/setting.js"></script>
+  <script src="src/srcManagerConst.js"></script>
+  <script src="src/common.js"></script>
+  <script src="src/srcManager.js"></script>
 </body>
 
 </html>

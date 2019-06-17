@@ -1,15 +1,3 @@
-// // Scot 추가시 여기에 추가
-// const functionList = [
-//   'userShortcut',
-//   'tagShortcut',
-//   'tagFilter',
-//   'getMarkdown',
-//   'goFamilySite',
-// ];
-
-// const vpList = ['STEEM', 'SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
-// const scotList = ['SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
-
 const VP_REGENERATION_SECS_STEEM = 432000;
 const VP_REGENERATION_SECS_SCT = 216000;
 const VP_REGENERATION_SECS_SCOT_MAP = {};
