@@ -141,3 +141,9 @@ img.registeredSrc {
 .md-chip {
   margin-right: 0px !important;
 }
+
+.btnClaim{
+  height:20px;
+  padding:5px!important;
+  margin-left:10px!important;
+}

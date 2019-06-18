@@ -15,6 +15,7 @@ Vue.use(VueMaterial.default)(
       scotVoting: [],
       tagFilterList: [],
       showBtnsBoxTag: true,
+      account: '',
       funcButtons: [
         {
           name: 'userShortcut',
@@ -59,10 +60,6 @@ Vue.use(VueMaterial.default)(
       ],
     },
     computed: {
-      account() {
-        const account = localStorage.getItem(WSTOOLS_ACCOUNT);
-        return account == 'null' ? '-' : localStorage.getItem(WSTOOLS_ACCOUNT);
-      },
       steemVPtoFix() {
         return this.steemVP.toFixed(0);
       },
@@ -77,24 +74,13 @@ Vue.use(VueMaterial.default)(
       this.tagFilterList = JSON.parse(
         localStorage.getItem(WSTOOLS_POST_FILTER_KEY),
       );
-
-      const self = this;
     },
     mounted() {
       window.document.body.addEventListener('resize', () => {
         alert('test');
       });
 
-      // Save Account
-      // if ($('.Header .Userpic').attr('style')) {
-      //   let account = $('.Header .Userpic')
-      //     .attr('style')
-      //     .split('/')[4];
-      //   localStorage.setItem(WSTOOLS_ACCOUNT, account);
-      // } else {
-      //   localStorage.setItem(WSTOOLS_ACCOUNT, null);
-      // }
-
+      // Save Account 추후에 Chrome.storage.sync 로 이동
       localStorage.setItem(WSTOOLS_ACCOUNT, this.getAccount());
 
       // Tag Filter Scheduler(3 sec)
@@ -177,6 +163,8 @@ Vue.use(VueMaterial.default)(
             const unitSites = sites.filter(site => {
               return site.unit == scot;
             });
+
+            if (!unitSites.length) return;
 
             self.vpList.push({
               unit: scot,
@@ -263,20 +251,6 @@ Vue.use(VueMaterial.default)(
       };
     },
     methods: {
-      // getAccountName() {
-      //   if (location.href.indexOf('busy.org') > -1) {
-      //     if ($('.Topnav__user')) {
-      //       // Logged In
-      //       account = $('.Topnav__user')[0].href.split('@')[1];
-      //     } else {
-      //       // Logged Out
-      //       account = '';
-      //     }
-      //   } else {
-      //     account = $('.Header .Userpic').attr('style');
-      //   }
-      //   return account;
-      // },
       allClose() {
         this.showUserShortcut = false;
         this.showTagShortcut = false;
@@ -334,10 +308,21 @@ Vue.use(VueMaterial.default)(
             // Logged In
             account = $('.Topnav__user')[0].href.split('@')[1];
           }
+        } else if (location.href.indexOf('steempeak.com') > -1) {
+          const peakAccount = $('.dropdown.dropdown-user')
+            .find('.router-link-active')
+            .attr('href');
+          if (peakAccount) {
+            account = peakAccount.split('@')[1];
+          }
         } else {
           // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
           account = $('.Header .Userpic').attr('style');
           account = account ? account.split('/')[4] : null;
+        }
+
+        if (account) {
+          this.account = account;
         }
 
         return account;

@@ -61,7 +61,15 @@ const sites = [
     unit: 'STEEM',
     url: 'https://busy.org/',
     textareaSelector: "document.getElementById('body')",
-    contentArea: '#app',
+    contentArea: 'body',
+  },
+  {
+    site: 'steempeak.com/',
+    scot: false,
+    unit: 'STEEM',
+    url: 'https://steempeak.com/',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: 'body',
   },
   {
     site: 'splintertalk.io/',

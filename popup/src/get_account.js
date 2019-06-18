@@ -239,10 +239,12 @@ const getAccountAllInfo = username => {
           scotListHtml.push(`
             <div class="title">
               <i class="dropdown icon"></i>
-              <span class='symbol'>${symbol} 
+              <span class='symbol' symbol="${symbol}">${symbol} 
                 ${
                   scotInfo && scotInfo.pending_token
-                    ? '<div class="ui horizontal label">Pending Claim</div>'
+                    ? `<div class="mini ui primary button btnClaim">Claim Pending Token(${(
+                        scotInfo.pending_token / 1000
+                      ).toFixed(1)})</div>`
                     : ''
                 }
               </span>
@@ -285,6 +287,18 @@ const getAccountAllInfo = username => {
               trigger: '.title',
             },
           });
+
+        // Claim Eventlistener
+        $('.btnClaim').on('click', function(e) {
+          e.stopPropagation();
+          const symbol = $(this)
+            .parent()
+            .attr('symbol');
+          console.log(symbol);
+          window.open(
+            `https://app.steemconnect.com/sign/custom-json?id=scot_claim_token&json=%7B%22symbol%22%3A%22${symbol}%22%7D`,
+          );
+        });
 
         chrome.storage.local.get(
           'STEEM_ENGINE_TOKENS',
