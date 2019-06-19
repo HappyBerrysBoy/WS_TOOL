@@ -315,6 +315,14 @@ Vue.use(VueMaterial.default)(
           if (peakAccount) {
             account = peakAccount.split('@')[1];
           }
+        } else if (location.href.indexOf('steem-engine.com') > -1) {
+          $('#lnkUsername')
+            .find('span')
+            .remove();
+          account = $('#lnkUsername')
+            .text()
+            .trim()
+            .replace(/@/g, '');
         } else {
           // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
           account = $('.Header .Userpic').attr('style');

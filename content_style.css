@@ -74,6 +74,7 @@ div.gpt-ad[data-google-query-id] {
     background-color:rgba(22, 22, 22, 0.8);
     padding:10px 0px 0px 10px;
     margin-bottom:5px;
+    font-family:Arial, Helvetica, sans-serif
 }
 
 .vpBox i{
@@ -91,7 +92,7 @@ div.gpt-ad[data-google-query-id] {
 
 .vpMark{
   position:relative;
-  left:-20px;
+  left:-21px;
   top:-10px;
   font-size:0.5rem;
 }

@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -17,7 +17,8 @@
         "https://blogs.bloque64.com/*",
         "https://*.palnet.io/*",
         "https://*.busy.org/*",
-        "https://steempeak.com/*"
+        "https://steempeak.com/*",
+        "https://steem-engine.com/*"
       ],
       "run_at": "document_idle",
       "js": [

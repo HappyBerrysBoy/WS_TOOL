@@ -72,6 +72,14 @@ const sites = [
     contentArea: 'body',
   },
   {
+    site: 'steem-engine.com/',
+    scot: false,
+    unit: 'STEEM',
+    url: 'https://steem-engine.com/',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: 'body',
+  },
+  {
     site: 'splintertalk.io/',
     scot: true,
     unit: 'SPT',
