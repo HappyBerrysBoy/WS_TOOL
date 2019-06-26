@@ -24,6 +24,10 @@
           :percent="scot.vpPercent" />
       </div>
 
+      <div class="vpBox" @mouseover="showAdv">
+        <img src="http://file3.instiz.net/data/file3/2018/02/15/2/c/3/2c3f9cfc0b4a582fbb2262910f01f35a.gif" style="width:100px;height:70px;" />
+      </div>
+
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
           <user-shortcut v-show="showUserShortcut" @closefunc="allClose" />
@@ -51,6 +55,12 @@
       <transition name="slide-fade">
         <md-content class="md-elevation-7 popupPanel">
           <go-family-site v-show="showFamilySite" @closefunc="allClose" />
+        </md-content>
+      </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel" v-show="showAd">
+            <img src="http://file3.instiz.net/data/file3/2018/02/15/2/c/3/2c3f9cfc0b4a582fbb2262910f01f35a.gif" style="width:100%;height:100%;"  />
         </md-content>
       </transition>
     </div>

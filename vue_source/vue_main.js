@@ -11,6 +11,7 @@ Vue.use(VueMaterial.default)(
       showGetMarkdown: false,
       showFamilySite: false,
       showRunUrl: false,
+      showAd: false,
       // showSourceStorage: false,
       scotVoting: [],
       tagFilterList: [],
@@ -258,6 +259,7 @@ Vue.use(VueMaterial.default)(
         this.showGetMarkdown = false;
         this.showFamilySite = false;
         this.showRunUrl = false;
+        this.showAd = false;
         // this.showSourceStorage = false;
       },
       showMenu() {
@@ -366,6 +368,17 @@ Vue.use(VueMaterial.default)(
           return btn.display == true;
         });
         this.showBtnsBoxTag = showBtns.length ? true : false;
+      },
+      showAdv() {
+        console.log('showAdv');
+        debugger;
+        this.allClose();
+        this.showAd = true;
+      },
+      closeAd() {
+        console.log('closeadv');
+        debugger;
+        this.allClose();
       },
     },
   }),
