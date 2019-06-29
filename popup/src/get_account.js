@@ -1,4 +1,21 @@
 let accountArray = [];
+let precisionList = {
+  AAA: 4,
+  PAL: 3,
+  SPT: 6,
+  ACTNEARN: 2,
+  BATTLE: 0,
+  BLQ: 8,
+  DOLPHIN: 8,
+  ENG: 8,
+  LASSECASH: 8,
+  LEO: 3,
+  MOT: 8,
+  SCT: 3,
+  SPORTS: 3,
+  WEED: 8,
+  ZZAN: 5,
+};
 
 // 보팅 파워 보이기
 const showVotingProgress = (target, value, symbol) => {
@@ -243,7 +260,8 @@ const getAccountAllInfo = username => {
                 ${
                   scotInfo && scotInfo.pending_token
                     ? `<div class="mini ui primary button btnClaim">Claim Pending Token(${(
-                        scotInfo.pending_token / 1000
+                        scotInfo.pending_token /
+                        10 ** precisionList[symbol]
                       ).toFixed(1)})</div>`
                     : ''
                 }
@@ -269,7 +287,10 @@ const getAccountAllInfo = username => {
                 </p>
                 <p class="item">
                   <div class="ui horizontal label">Pending Claim</div> 
-                  <b>${(scotInfo.pending_token / 1000).toFixed(3)}</b>
+                  <b>${(
+                    scotInfo.pending_token /
+                    10 ** precisionList[symbol]
+                  ).toFixed(3)}</b>
                 </p>
                 <div class='ui divider' />
                 <div id='${symbol}_content'>Loading...</div>

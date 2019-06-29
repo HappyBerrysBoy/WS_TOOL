@@ -15,8 +15,29 @@ const functionList = [
 ];
 
 // Scot 추가시 여기에 추가 First
-const vpList = ['STEEM', 'SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
-const scotList = ['SCT', 'AAA', 'WEED', 'SPT', 'ACTNEARN', 'BLQ', 'PAL'];
+const vpList = [
+  'STEEM',
+  'SCT',
+  'AAA',
+  'WEED',
+  'SPT',
+  'ACTNEARN',
+  'BLQ',
+  'PAL',
+  'SPORTS',
+  'ZZAN',
+];
+const scotList = [
+  'SCT',
+  'AAA',
+  'WEED',
+  'SPT',
+  'ACTNEARN',
+  'BLQ',
+  'PAL',
+  'SPORTS',
+  'ZZAN',
+];
 
 // Steem Condensor Site List
 // Scot 추가시 여기에 추가 Second
@@ -47,6 +68,25 @@ const sites = [
     textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
     contentArea: '.App__content',
     favicon: 'https://www.triplea.reviews/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'steemzzang.com/',
+    scot: true,
+    unit: 'ZZAN',
+    url: 'https://www.steemzzang.com/',
+    textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
+    contentArea: '.App__content',
+    favicon: 'https://www.steemzzang.com/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'sportstalksocial.com/',
+    scot: true,
+    unit: 'SPORTS',
+    url: 'https://www.sportstalksocial.com/',
+    textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
+    contentArea: '.App__content',
+    favicon:
+      'https://www.sportstalksocial.com/images/favicons/favicon-16x16.png',
   },
   {
     site: 'steemkr.com/',

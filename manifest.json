@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -10,6 +10,8 @@
         "https://weedcash.com/*",
         "https://*.steemcoinpan.com/*",
         "https://*.triplea.reviews/*",
+        "https://*.steemzzang.com/*",
+        "https://*.sportstalksocial.com/*",
         "https://*.splintertalk.io/*",
         "https://*.tokenbb.io/",
         "https://*.actnearn.com/*",

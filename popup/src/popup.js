@@ -3,6 +3,10 @@ const MATCHE_URLS = [
   'https://steemcoinpan.com/*',
   'https://www.steemcoinpan.com/*',
   'https://www.triplea.reviews/*',
+  'https://steemcoinpan.com/*',
+  'https://www.steemcoinpan.com/*',
+  'https://sportstalksocial.com/*',
+  'https://www.sportstalksocial.com/*',
 ];
 function checkMatcheUrl(tabUrl) {
   for (url of MATCHE_URLS) {

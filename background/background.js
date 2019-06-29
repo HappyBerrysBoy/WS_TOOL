@@ -29,7 +29,8 @@ chrome.runtime.onInstalled.addListener(details => {
   console.log('onInstalled', details);
 
   chrome.storage.sync.get('scotList', function(items) {
-    if (items['scotList']) return;
+    if (items['scotList'] && items['scotList'].length == scotList.length)
+      return;
 
     console.log('onInstalled(Set default data)');
     chrome.storage.sync.set({ scotList: scotList }, () =>
