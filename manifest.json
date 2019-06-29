@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -44,6 +44,8 @@
         "vue_source/components/runUrl.js",
         "vue_source/components/tabs.js",
         "vue_source/components/title.js",
+        "vue_source/components/numberBtn.js",
+        "vue_source/components/game1to50.js",
         "vue_source/vue_main.js"
       ],
       "css": [

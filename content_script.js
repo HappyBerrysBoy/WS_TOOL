@@ -53,6 +53,13 @@
           <go-family-site v-show="showFamilySite" @closefunc="allClose" />
         </md-content>
       </transition>
+
+      <transition name="slide-fade">
+        <md-content class="md-elevation-7 popupPanel">
+          <game v-show="showGameland" @closefunc="allClose" />
+        </md-content>
+      </transition>
+      
     </div>
     
   `);

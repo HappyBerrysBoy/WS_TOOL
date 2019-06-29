@@ -11,6 +11,7 @@ Vue.use(VueMaterial.default)(
       showGetMarkdown: false,
       showFamilySite: false,
       showRunUrl: false,
+      showGameland: false,
       // showSourceStorage: false,
       scotVoting: [],
       tagFilterList: [],
@@ -45,6 +46,12 @@ Vue.use(VueMaterial.default)(
           name: 'goFamilySite',
           text: 'Family Site',
           icon: 'airport_shuttle',
+          display: true,
+        },
+        {
+          name: 'gameLand',
+          text: 'Game Land',
+          icon: 'videogame_asset',
           display: true,
         },
       ],
@@ -258,6 +265,7 @@ Vue.use(VueMaterial.default)(
         this.showGetMarkdown = false;
         this.showFamilySite = false;
         this.showRunUrl = false;
+        this.gameland = false;
         // this.showSourceStorage = false;
       },
       showMenu() {
@@ -291,6 +299,10 @@ Vue.use(VueMaterial.default)(
       goFamilySite() {
         this.allClose();
         this.showFamilySite = true;
+      },
+      gameLand() {
+        this.allClose();
+        this.showGameland = true;
       },
       // sourceStorage() {
       //   this.allClose();
@@ -356,6 +368,8 @@ Vue.use(VueMaterial.default)(
           this.getMarkdown();
         } else if (name === 'goFamilySite') {
           this.goFamilySite();
+        } else if (name === 'gameLand') {
+          this.gameLand();
         }
         // else if (name === 'sourceStorage') {
         //   this.sourceStorage();

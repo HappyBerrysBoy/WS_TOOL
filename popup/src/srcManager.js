@@ -16,7 +16,7 @@
       console.log('getLocalItems', result.storageSrcKey);
       resolve(result.storageSrcKey);
     });
-  }).then(items => {
+  }).reitems => {
     if (items) {
       items.forEach(item => {
         srcList.push(new Source(item.name, item.isImage, item.src));

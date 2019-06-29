@@ -236,6 +236,9 @@ const getAccountAllInfo = username => {
 
           // SCOT 정보
           const scotInfo = scotAccount[symbol];
+
+          // AAA는 나누기 10000, SCT는 나누기 1000, SPT는 나누기 100000
+          // 설정값이 어디 있는지 모르겠넹..
           scotListHtml.push(`
             <div class="title">
               <i class="dropdown icon"></i>
