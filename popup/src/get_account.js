@@ -174,72 +174,14 @@ const getAccountAllInfo = username => {
           }
         }
 
-        // SCOT 토큰 리스트 저장
-        // chrome.storage.sync.set({ scotList: Object.keys(scotAccount) }, () =>
-        //   console.log('SCOT token list saved.'),
-        // );
-
-        // console.log('Scot account', scotAccount);
-
-        // SCOT 토큰 모두 Setting에 표시 및 체크
-        // Object.keys(scotAccount).forEach(scot => {
-        //   chrome.storage.sync.get([`${scot}`], function(result) {
-        //     $('.ui.checkbox').each(function() {
-        //       let name = $(this).attr('name');
-        //       if (name != Object.keys(result)[0]) return;
-
-        //       $(this)
-        //         .find('input')
-        //         .prop('checked', result[name]);
-        //     });
-        //   });
-        // });
-
-        // // Scot VP Checkbox Event
-        // $('.ui.checkbox').change(function() {
-        //   let obj = new Object();
-        //   $('.ui.checkbox').each(function() {
-        //     let name = $(this).attr('name');
-        //     let val = $(this)
-        //       .find('input')
-        //       .is(':checked');
-        //     obj[name] = val;
-        //   });
-
-        //   chrome.storage.sync.set(obj, () => console.log('VP value saved.'));
-
-        //   let action = 'displayControl';
-        //   let currName = $(this).attr('name');
-        //   const currVal = $(this)
-        //     .find('input')
-        //     .is(':checked');
-
-        //   chrome.tabs.query({ active: true, currentWindow: true }, function(
-        //     tabs,
-        //   ) {
-        //     chrome.tabs.sendMessage(
-        //       tabs[0].id,
-        //       {
-        //         action,
-        //         data: {
-        //           name: currName,
-        //           val: currVal,
-        //         },
-        //       },
-        //       function(response) {
-        //         console.log(
-        //           `SendMessage to content : ${action}, ${currName}, ${currVal}`,
-        //         );
-        //       },
-        //     );
-        //   });
-        // });
-
         // SCOT 잔액
         const scotListHtml = [];
         const _sccBalances = sccBalances
           .filter(e => {
-            e.totalBalance = parseFloat(e.balance) + parseFloat(e.stake || 0);
+            e.totalBalance =
+              parseFloat(e.balance) +
+              parseFloat(e.stake || 0) +
+              parseFloat(e.delegationsOut || 0);
             return e.totalBalance > 0;
           })
           .sort(
@@ -274,23 +216,41 @@ const getAccountAllInfo = username => {
             scotListHtml.push(`
               <div class="content">
                 <p class="item">
-                  <div class="ui horizontal label">Staked</div> 
-                  <b>${parseFloat(sccBalance.stake).toFixed(3)} ${symbol}</b>
+                  <div class="ui horizontal label">Staked/Unstaked</div> 
+                  <b>${parseFloat(sccBalance.stake).toFixed(3)}/${parseFloat(
+              sccBalance.balance,
+            ).toFixed(3)} ${symbol}</b>
                 <p/>
-                <p class="item">
-                  <div class="ui horizontal label">Unstaked</div> 
-                  <b>${parseFloat(sccBalance.balance).toFixed(3)} ${symbol}</b>
-                <p/>
-                <p class="item">
-                  <div class="ui horizontal label">Pending Unstaked</div> 
-                  <b>${parseFloat(sccBalance.pendingUnstake).toFixed(3)}</b>
-                </p>
                 <p class="item">
                   <div class="ui horizontal label">Pending Claim</div> 
                   <b>${(
                     scotInfo.pending_token /
                     10 ** precisionList[symbol]
                   ).toFixed(3)}</b>
+                </p>
+                <p class="item">
+                  <div class="ui horizontal label">Delegations In/Out</div> 
+                  <b>
+                    ${parseFloat(
+                      sccBalance.delegationsIn ? sccBalance.delegationsIn : 0,
+                    ).toFixed(3)} / ${parseFloat(
+              sccBalance.delegationsOut ? sccBalance.delegationsOut : 0,
+            ).toFixed(3)} ${symbol}
+                  </b>
+                </p>
+                <p class="item">
+                  <div class="ui horizontal label">Pending Unstaked</div> 
+                  <b>${parseFloat(
+                    sccBalance.pendingUnstake ? sccBalance.pendingUnstake : 0,
+                  ).toFixed(3)} ${symbol}</b>
+                </p>
+                <p class="item">
+                  <div class="ui horizontal label">Pending Undelegations</div> 
+                  <b>${parseFloat(
+                    sccBalance.pendingUndelegations
+                      ? sccBalance.pendingUndelegations
+                      : 0,
+                  ).toFixed(3)} ${symbol}</b>
                 </p>
                 <div class='ui divider' />
                 <div id='${symbol}_content'>Loading...</div>

@@ -26,17 +26,21 @@ const vpList = [
   'PAL',
   'SPORTS',
   'ZZAN',
+  'LIV',
+  'LEO',
 ];
 const scotList = [
   'SCT',
   'AAA',
-  'WEED',
-  'SPT',
-  'ACTNEARN',
-  'BLQ',
-  'PAL',
-  'SPORTS',
   'ZZAN',
+  'LIV',
+  'SPT',
+  'PAL',
+  'ACTNEARN',
+  'WEED',
+  'BLQ',
+  'SPORTS',
+  'LEO',
 ];
 
 // Steem Condensor Site List
@@ -87,6 +91,24 @@ const sites = [
     contentArea: '.App__content',
     favicon:
       'https://www.sportstalksocial.com/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'liv.steempeople.com/',
+    scot: true,
+    unit: 'LIV',
+    url: 'https://liv.steempeople.com/',
+    textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
+    contentArea: '.App__content',
+    favicon: 'https://liv.steempeople.com/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'steemleo.com/',
+    scot: true,
+    unit: 'LEO',
+    url: 'https://www.steemleo.com/',
+    textareaSelector: "document.getElementsByClassName('upload-enabled')[0]",
+    contentArea: '.App__content',
+    favicon: 'https://www.steemleo.com/images/favicons/favicon-16x16.png',
   },
   {
     site: 'steemkr.com/',
