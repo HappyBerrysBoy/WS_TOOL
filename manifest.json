@@ -1,7 +1,7 @@
 {
   "name": "Steem Tools",
   "description": "Steem Tools",
-  "version": "2.2.6",
+  "version": "2.2.9",
   "permissions": ["storage", "activeTab", "tabs", "http://*/*", "https://*/*"],
   "content_scripts": [
     {
@@ -22,7 +22,10 @@
         "https://steempeak.com/*",
         "https://steem-engine.com/*",
         "https://liv.steempeople.com/*",
-        "https://*.steemleo.com/*"
+        "https://*.steemleo.com/*",
+        "https://www.sagoda.org/*",
+        "https://www.steeminven.com/*",
+        "https://*.tripsteem.com/*"
       ],
       "run_at": "document_idle",
       "js": [

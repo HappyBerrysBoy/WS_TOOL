@@ -28,6 +28,9 @@ const vpList = [
   'ZZAN',
   'LIV',
   'LEO',
+  'SAGO',
+  'IV',
+  'TMT',
 ];
 const scotList = [
   'SCT',
@@ -41,6 +44,9 @@ const scotList = [
   'BLQ',
   'SPORTS',
   'LEO',
+  'SAGO',
+  'IV',
+  'TMT',
 ];
 
 // Steem Condensor Site List
@@ -193,5 +199,32 @@ const sites = [
     textareaSelector: "document.getElementById('body')",
     contentArea: '.App__content',
     favicon: 'https://www.palnet.io/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'sagoda.org/',
+    scot: true,
+    unit: 'SAGO',
+    url: 'https://www.sagoda.org',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: '.App__content',
+    favicon: 'https://www.sagoda.org/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'steeminven.com/',
+    scot: true,
+    unit: 'IV',
+    url: 'https://www.steeminven.com',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: '.App__content',
+    favicon: 'https://www.steeminven.com/images/favicons/favicon-16x16.png',
+  },
+  {
+    site: 'kr.tripsteem.com/',
+    scot: true,
+    unit: 'TMT',
+    url: 'https://kr.tripsteem.com',
+    textareaSelector: "document.getElementById('body')",
+    contentArea: 'body',
+    favicon: 'https://kr.tripsteem.com/icon-180.png',
   },
 ];

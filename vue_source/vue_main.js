@@ -76,10 +76,6 @@ Vue.use(VueMaterial.default)(
       );
     },
     mounted() {
-      window.document.body.addEventListener('resize', () => {
-        alert('test');
-      });
-
       // Save Account 추후에 Chrome.storage.sync 로 이동
       localStorage.setItem(WSTOOLS_ACCOUNT, this.getAccount());
 
@@ -323,6 +319,10 @@ Vue.use(VueMaterial.default)(
             .text()
             .trim()
             .replace(/@/g, '');
+        } else if (location.href.indexOf('tripsteem.com') > -1) {
+          if (!$('.btn_mypage')[0]) return;
+
+          account = $('.btn_mypage')[0].style.backgroundImage.split('/')[4];
         } else {
           // Steemit/SteemCoinpan/TripleA 인 경우 가져오는 방법임..
           account = $('.Header .Userpic').attr('style');

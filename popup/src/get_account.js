@@ -15,6 +15,9 @@ let precisionList = {
   SPORTS: 3,
   WEED: 8,
   ZZAN: 5,
+  SAGO: 8,
+  IV: 8,
+  TMT: 0,
 };
 
 // 보팅 파워 보이기
@@ -38,9 +41,7 @@ const renderSteemTokens = (tokens = [], filterSymbol = ['SCT']) => {
         <div class="ui horizontal label">Name</div> 
         ${
           metadata.icon
-            ? `<img class="ui avatar image" alt="${
-                metadata.icon
-              } 토큰 아이콘" src="${metadata.icon}">`
+            ? `<img class="ui avatar image" alt="${metadata.icon} 토큰 아이콘" src="${metadata.icon}">`
             : ''
         }
         <b>${token.name}</b>
@@ -53,9 +54,7 @@ const renderSteemTokens = (tokens = [], filterSymbol = ['SCT']) => {
       // 토큰 발행자
       tokenHtml.push(`<p class="item">
         <div class="ui horizontal label">Issuer</div> 
-        <a href='https://steemit.com/@${token.issuer}' target='_blank'>@${
-        token.issuer
-      }</a>
+        <a href='https://steemit.com/@${token.issuer}' target='_blank'>@${token.issuer}</a>
       <p/>`);
       // 토큰 홈페이지
       if (metadata.url) {
